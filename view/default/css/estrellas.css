@@ -1,0 +1,26 @@
+
+#form p label {
+  font-size: 20px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+p label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+p label:hover,
+p label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+}
