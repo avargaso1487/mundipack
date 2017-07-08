@@ -29,7 +29,6 @@ $(function() {
         var p_stock = $('#p_stock').val();
         var p_imagen = $('#p_imagen').val();
         var p_codigo = $('#p_codigo').val();
-
         if ($('#p_porcentaje').is(":checked")) {
             var p_porcentaje = '1';
         } else {
