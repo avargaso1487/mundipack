@@ -19,6 +19,7 @@ $(function() {
         $('#p_fechaFin').val('');
         $('#p_stock').val('');
         $('#p_imagen').val('');
+        $('#p_porcentaje').prop('checked', false).parent().addClass('checked');
     });
 
     $('#guardarOferta').on('click', function () {
@@ -154,7 +155,16 @@ var noti_pre_registro = function () {
         processData: false,
         cache: false,
         success: function (data) {
-            $('#noti_ventas_pre_registradas').html(data);
+
+            if (data == 0) {
+                $('#ventas_pre_registradas').addClass('hidden');
+                console.log(data);
+            } else {
+                $('#ventas_pre_registradas').removeClass('hidden');
+                $('#noti_ventas_pre_registradas').html(data);
+            }
+            //$('#btnMail').addClass('hidden');
+
         },
         error: function (msg) {
             alert(msg);

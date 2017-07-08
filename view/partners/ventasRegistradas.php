@@ -96,7 +96,7 @@ if (!isset($_SESSION['usuario']))
                         <!-- Menús despegables -->
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown notification danger">
+                            <li class="dropdown notification danger hidden" id="ventas_pre_registradas">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <div class="icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></div>
                                     <div class="title">New Orders</div>
@@ -232,8 +232,8 @@ if (!isset($_SESSION['usuario']))
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Documento <span style="color: red">(*)</span></label>
                                     <div class="col-md-9">
-                                        <div class="col-md-2">
-                                            <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Serie"  name="ventaSerie" id="ventaSerie">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Serie"  name="ventaSerie" id="ventaSerie" maxlength="5">
                                         </div>
                                         <div class="col-md-7">
                                             <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Número"  name="ventaNumero" id="ventaNumero" maxlength="7">
@@ -245,7 +245,7 @@ if (!isset($_SESSION['usuario']))
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Importe <span style="color: red">(*)</span></label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control"  placeholder="Importe"  name="ventaImporte" id="ventaImporte" onkeypress="return NumCheck(event, this)"/>
+                                        <input type="text" class="form-control"  placeholder="Importe"  name="ventaImporte" id="ventaImporte" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
                                     </div>
                                     <label class="col-md-2 control-label">Fecha <span style="color: red">(*)</span></label>
                                     <div class="col-md-4">
