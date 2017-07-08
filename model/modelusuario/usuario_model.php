@@ -125,9 +125,9 @@ class Usuario_model{
     	$this->prepararConsultaMenu('opc_obtenerMenuPadres', 0);
     	$datosPadres = $this->getArrayPadres();  
     	//print_r($datosPadres);  	
+    	echo '<ul class="sidebar-nav">';
     	for($i=0; $i<count($datosPadres); $i++)
-    	{    		
-    		echo '<ul class="sidebar-nav">';
+    	{    		    		
     		if($datosPadres[$i]["menuURL"] != '0')
     		{    			
     			if($datosPadres[$i]["menuDesc"] === $this->param['menu'])
@@ -171,8 +171,8 @@ class Usuario_model{
 				        </div>
 				    </li>';
     		}
-    		echo '</ul>';
     	}
+		echo '</ul>';
     }
 
 	function login() 
@@ -221,7 +221,7 @@ class Usuario_model{
     		}
     		else
     		{
-    			if($_SESSION['usuarioIdRol'] == '1')
+    			if($_SESSION['usuarioIdRol'] == '2')
     			{
     				$_SESSION['socioMontoVentas']   = $fila3['socioMontoVentas'];
 					$_SESSION['socioCantidadVentas']   = $fila3['socioCantidadVentas'];

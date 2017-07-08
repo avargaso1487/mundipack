@@ -228,12 +228,13 @@
                       </select>                      
                     </div>
                   </div>
-
+                  
+                  <br>
                   <!-- Dirección -->
                   <div class="form-group">
                     <div class="col-md-3">
                       <label class="control-label">Dirección</label>
-                      <p class="control-label-help">(Calle/Urbanización/Oficina/Distrito)</p>
+                      <p class="control-label-help">(Calle/Urbanización/<br>Oficina/Distrito)</p>
                     </div>
                     <div class="col-md-9">
                       <textarea class="form-control"  name="socioDireccion" id="socioDireccion" ></textarea>
@@ -264,7 +265,7 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label">Nro. Cuenta</label>
                     <div class="col-md-9">
-                      <input class="form-control" placeholder="Número de Cuenta" name="socioNroCuenta" id="socioNroCuenta" >
+                      <input class="form-control" placeholder="Número de Cuenta" name="socioNroCuenta" id="socioNroCuenta" maxlength="5">
                     </div>
                   </div>
 

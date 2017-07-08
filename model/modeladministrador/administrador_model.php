@@ -125,7 +125,8 @@ class Administrador_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioRubro"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioTelefonoContacto"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">';
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">
+							<p class="clasificacion">';
 						for($j=5; $j>0; $j--)
 						{									
 							if($j == $datos[$i]["socioCategoria"])
@@ -137,7 +138,7 @@ class Administrador_model{
 	                        	echo '<input type="radio" value="'.$j.'">
 	                        		<label>★</label>';
 						}
-						echo '																		                       
+						echo '	</p>											                       
 							</td>
 						<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">';
 							/*<a href="#modalSocio" data-toggle="modal" class="red" onclick="editar('.$datos[$i]["socioID"].')">
