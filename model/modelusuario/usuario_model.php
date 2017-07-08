@@ -108,7 +108,6 @@ class Usuario_model{
     }
     function mostrarMenu()
     {
-
         $this->cerrarAbrir();
         $this->prepararConsultaMenu('opc_obtenerMenuPadres', 0);
         $datosPadres = $this->getArrayPadres();
@@ -123,23 +122,6 @@ class Usuario_model{
                 else
                     echo '<li class="">';
                 echo '
-
-    	$this->cerrarAbrir();
-    	$this->prepararConsultaMenu('opc_obtenerMenuPadres', 0);
-    	$datosPadres = $this->getArrayPadres();  
-    	//print_r($datosPadres);  	
-    	echo '<ul class="sidebar-nav">';
-    	for($i=0; $i<count($datosPadres); $i++)
-    	{    		    		
-    		if($datosPadres[$i]["menuURL"] != '0')
-    		{    			
-    			if($datosPadres[$i]["menuDesc"] === $this->param['menu'])
-    				echo '<li class="active">';
-    			else
-    				echo '<li class="">';
-
-    			echo '
-
 				        <a href="'.$datosPadres[$i]["menuURL"].'">
 				          <div class="icon">
 				            <i class="'.$datosPadres[$i]['menuIcono'].'"></i>
@@ -174,15 +156,9 @@ class Usuario_model{
                 echo '		</ul>
 				        </div>
 				    </li>';
-
             }
         }
         echo '</ul>';
-
-    		}
-    	}
-		echo '</ul>';
-
     }
     function login()
     {
@@ -216,7 +192,6 @@ class Usuario_model{
         }
     }
     function cargarDashboard() {
-
         $this->cerrarAbrir();
         $this->prepararConsultaDashboard('opc_cargar_dashboard');
         while($fila3 = mysqli_fetch_array($this->result3))
@@ -249,38 +224,6 @@ class Usuario_model{
     function listarUsuariosSocios() {
         $this->prepararConsultaUsuario('opc_usuarios_socios_listar');
         while($row = mysqli_fetch_row($this->result)){
-
-    	$this->cerrarAbrir();
-    	$this->prepararConsultaDashboard('opc_cargar_dashboard');    	
-    	while($fila3 = mysqli_fetch_array($this->result3))
-    	{      
-    		//echo $_SESSION['usuarioIdRol'];
-    		if($_SESSION['usuarioIdRol'] == '1')
-    		{
-    			$_SESSION['mundipackComisiones'] = $fila3['mundipackComisiones'];
-				$_SESSION['mundipackSocios'] = $fila3['mundipackSocios'];
-				$_SESSION['mundipackTravelers'] = $fila3['mundipackTravelers'];
-    		}
-    		else
-    		{
-    			if($_SESSION['usuarioIdRol'] == '2')
-    			{
-    				$_SESSION['socioMontoVentas']   = $fila3['socioMontoVentas'];
-					$_SESSION['socioCantidadVentas']   = $fila3['socioCantidadVentas'];
-    			}
-    			else
-    			{
-    				$_SESSION['travelerAcumulado'] = $fila3['travelerAcumulado'];
-					$_SESSION['travelerPaquete'] = $fila3['travelerPaquete'];
-					$_SESSION['travelerImportePaquete'] = $fila3['travelerImportePaquete'];
-					$_SESSION['travelerPorcentajePaquete'] = $fila3['travelerPorcentajePaquete'];
-    			}
-    		}
-    		echo '1';
-    	}        	        
-	}
-
-
 
             echo '<tr>					
 					<td style="font-size: 12px; height: 10px; width: 4%;">'.$row[0].'</td>					
