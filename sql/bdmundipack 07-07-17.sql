@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2017 a las 13:00:53
--- Versión del servidor: 5.7.14
--- Versión de PHP: 5.6.25
+-- Tiempo de generación: 08-07-2017 a las 04:56:15
+-- Versión del servidor: 5.7.11
+-- Versión de PHP: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,6 +24,22 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscar_socio` (IN `opcion` VARCHAR(30), IN `p_dni` VARCHAR(8))  NO SQL
+BEGIN
+	IF opcion = 'opc_buscar_socio' THEN
+		SET @EXISTE = (SELECT count(*) FROM se_viajero V INNER JOIN se_persona P ON P.Persona = V.Persona WHERE P.DNI = p_dni);
+        IF @EXISTE > 0 THEN
+			SELECT V.Viajero AS SOCIOID, concat(P.Nombres,' ',P.Apellidos) AS SOCIO FROM se_viajero V INNER JOIN se_persona P ON P.Persona = V.Persona WHERE P.DNI = p_dni;
+        ELSE
+			SELECT '0' AS SOCIOID;
+        END IF;
+	END IF;    
+    
+    IF opcion = 'opc_obtener_venta' THEN
+		select t.Transaccion, t.Serie, t.Numero, t.Importe, t.FechaTransaccion, t.TipoDocumento, p.DNI from se_transaccion t inner join se_viajero v on v.Viajero = t.Viajero inner join se_persona p on p.Persona = v.Persona where t.Transaccion = p_dni;
+	END IF; 
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_administrador` (IN `ve_opcion` VARCHAR(20), IN `ve_socioNombreComercial` VARCHAR(150), IN `ve_socioRubro` VARCHAR(50), IN `ve_socioRUC` CHAR(11), IN `ve_socioDireccion` VARCHAR(200), IN `ve_socioTelefonoContacto` VARCHAR(10), IN `ve_socioTelefonoAtencion` VARCHAR(10), IN `ve_socioEmail` VARCHAR(100), IN `ve_socioRazonSocial` VARCHAR(200), IN `ve_socioNroCuenta` VARCHAR(30), IN `ve_socioContactoResponsable` VARCHAR(200), IN `ve_socioPorcentajeRetorno` INT, IN `ve_socioCategoria` INT, IN `ve_socioID` INT, IN `ve_viajeroID` INT, IN `ve_viajeroNombre` VARCHAR(100), IN `viajeroApellidos` VARCHAR(100), IN `ve_viajeroDNI` CHAR(8), IN `ve_viajeroDireccion` TEXT, IN `ve_viajeroNacimiento` DATE, IN `ve_viajeroTelefonoFijo` VARCHAR(10), IN `ve_viajeroTelefonoCelular` VARCHAR(10), IN `ve_viajeroEmail` VARCHAR(150), IN `ve_viajeroNroPasaporte` VARCHAR(20), IN `ve_viajeroAbierto` BOOLEAN)  NO SQL
 BEGIN
     IF ve_opcion = 'opc_contar_socios' THEN   
@@ -93,6 +109,13 @@ BEGIN
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_combos` (IN `opcion` VARCHAR(30))  NO SQL
+BEGIN
+	IF opcion = 'opc_listar_tipo_documento' THEN
+		SELECT * FROM se_tipodocumento;
+	END IF;    
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_dashboard` (IN `ve_opcion` VARCHAR(30), IN `ve_usuarioIDrol` INT)  NO SQL
 BEGIN
 
@@ -148,6 +171,121 @@ BEGIN
     END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_ofertas` (IN `opcion` VARCHAR(300), IN `p_descripcion` VARCHAR(300), IN `p_fechaInicio` DATE, IN `p_fechaFin` DATE, IN `p_stock` INT, IN `p_ruta` VARCHAR(200), IN `p_usuario` INT, IN `p_codigo` VARCHAR(5), IN `p_porcentaje` VARCHAR(1))  NO SQL
+BEGIN
+	IF opcion = 'opc_add_oferta' THEN
+		SET @SOCIOID = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		INSERT INTO se_promocion (Descripcion, FechaInicio, FechaFin, Stock, FechaIngreso, Socio, Imagen, Estado, Porcentaje) 
+			VALUES (p_descripcion, p_fechaInicio, p_fechaFin, p_stock, curdate(), @SOCIOID, p_ruta, 1, p_porcentaje);            
+    END IF;
+    IF opcion = 'opc_total_ofertas' THEN
+		SET @SOCIOID = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT COUNT(*) AS total FROM se_promocion WHERE Socio = @SOCIOID;
+	END IF; 
+    IF opcion = 'opc_listar_oferta' THEN
+		SET @SOCIOID = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT 
+			Promocion AS PROMO_ID,
+            Descripcion AS DESCRIPCION,
+            FechaInicio AS FECHA_INICIO,
+            FechaFin AS FECHA_FIN,
+            Stock AS STOCK,
+            Imagen AS IMAGEN,
+            Estado AS ESTADO,
+            Porcentaje AS PORCENTAJE
+		FROM se_promocion WHERE Socio = @SOCIOID;
+	END IF;
+    IF opcion = 'opc_eliminar_oferta' THEN		
+		UPDATE se_promocion SET Estado = 0 WHERE Promocion = p_codigo;
+	END IF;
+    IF opcion = 'opc_activar_oferta' THEN		
+		UPDATE se_promocion SET Estado = 1 WHERE Promocion = p_codigo;
+	END IF;
+    IF opcion = 'opc_obtener_oferta' THEN		
+		SELECT 
+			Promocion AS PROMO_ID,
+            Descripcion AS DESCRIPCION,
+            FechaInicio AS FECHA_INICIO,
+            FechaFin AS FECHA_FIN,
+            Stock AS STOCK,
+            Imagen AS IMAGEN,
+            Estado AS ESTADO,
+            Porcentaje AS PORCENTAJE
+		FROM se_promocion WHERE Promocion = p_codigo;
+	END IF;
+    IF opcion = 'opc_update_oferta' THEN		
+		UPDATE se_promocion			
+            SET Descripcion = p_descripcion,
+             FechaInicio = p_fechaInicio,
+             FechaFin = p_fechaFin,
+             Stock = p_stock,  
+             Imagen = p_ruta,
+             Porcentaje = p_porcentaje
+		WHERE Promocion = p_codigo;
+	END IF;
+    
+    
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_porcentaje` (IN `opcion` VARCHAR(30), IN `p_porcentaje` DECIMAL(8,2), IN `p_usuario` INT)  NO SQL
+BEGIN
+	IF opcion = 'opc_verificar_porcentaje' THEN
+		SET @CONTADOR = (SELECT COUNT(*) FROM se_comision WHERE Estado = 1);
+        IF (@CONTADOR > 0) THEN
+			SELECT '1' AS 'respuesta';
+		ELSE
+			SELECT '0' AS 'respuesta';
+        END IF;
+	END IF;
+    IF opcion = 'opc_add_porcentaje' THEN
+		SET @CONTADOR = (SELECT COUNT(*) FROM se_comision WHERE Estado = 1);
+        IF (@CONTADOR > 0) THEN
+			SET @COMISION_ID = (SELECT Comision FROM se_comision WHERE Estado = 1);
+            UPDATE se_comision SET Estado = 0 WHERE Comision = @COMISION_ID;
+            INSERT INTO se_comision (Porcentaje, FechaRegistro, UsuarioRegistro, Estado) VALUES (p_porcentaje, now(), p_usuario, 1);
+            SELECT '1' AS 'respuesta';
+		ELSE
+			INSERT INTO se_comision (Porcentaje, FechaRegistro, UsuarioRegistro, Estado) VALUES (p_porcentaje, now(), p_usuario, 1);
+            SELECT '1' AS 'respuesta';
+        END IF;        
+	END IF;
+    IF opcion = 'opc_valor_porcentaje' THEN
+		SELECT Porcentaje FROM se_comision WHERE Estado = 1;        
+	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_tipo_cambio` (IN `opcion` VARCHAR(30), IN `p_montoCompra` DECIMAL(8,2), IN `p_montoVenta` DECIMAL(8,2))  NO SQL
+BEGIN
+	IF opcion = 'opc_grabar_tipo_cambio' THEN
+		SET @INICIAR = (SELECT COUNT(*) FROM se_tipocambio);
+        IF (@INICIAR = 0) THEN 
+			INSERT INTO se_tipocambio (MontoCompra, MontoVenta, FechaRegistro, Estado) VALUES (p_montoCompra,p_montoVenta,NOW(),1);
+            SELECT '1' AS 'respuesta';
+        ELSE 
+			SET @VALIDAR = (SELECT COUNT(*) FROM se_tipocambio WHERE FechaRegistro = CURDATE());
+			IF(@VALIDAR = 0) THEN
+				SET @TIPO_ID = (SELECT MAX(TipoCambio) FROM se_tipocambio);
+                UPDATE se_tipocambio SET Estado = 0 WHERE TipoCambio = @TIPO_ID;
+				INSERT INTO se_tipocambio (MontoCompra, MontoVenta, FechaRegistro, Estado) VALUES (p_montoCompra,p_montoVenta,NOW(),1);
+				SELECT '1' AS 'respuesta';
+			ELSE
+				SET @TIPO_ID = (SELECT TipoCambio FROM se_tipocambio WHERE FechaRegistro = CURDATE());
+				UPDATE se_tipocambio SET MontoCompra = p_montoCompra, MontoVenta = p_montoVenta WHERE TipoCambio = @TIPO_ID;
+                SELECT '0' AS 'respuesta';
+			END IF;
+        END IF;					
+    END IF;
+    IF opcion = 'opc_ver_tipo_cambio' THEN
+		SET @VERIFICAR = (SELECT COUNT(*) FROM se_tipocambio WHERE FechaRegistro = CURDATE());
+		IF (@VERIFICAR > 0) THEN
+			SELECT MontoCompra, MontoVenta, '1' AS Respuesta FROM se_tipocambio WHERE FechaRegistro = CURDATE() AND  Estado = 1;
+		ELSE
+			SELECT MontoCompra, MontoVenta, '0' AS Respuesta FROM se_tipocambio WHERE FechaRegistro = CURDATE()-1 AND Estado = 0;
+		END IF;
+	END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_usuario` (IN `opcion` VARCHAR(30), IN `usuario` VARCHAR(30), IN `password` CHAR(32))  NO SQL
 BEGIN
 	IF opcion='opc_login_respuesta' THEN
@@ -189,7 +327,226 @@ r.Rol as idRol, r.Nombre as rol, u.Imagen as usuarioImagen
         
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gestion_transaccion` (IN `opcion` VARCHAR(30), IN `p_clienteID` INT, IN `p_tipoDoc` INT, IN `p_serie` VARCHAR(8), IN `p_numero` VARCHAR(8), IN `p_importe` DECIMAL(8,2), IN `p_fecha` DATE, IN `p_usuario` INT, IN `p_codigo` INT)  NO SQL
+BEGIN
+	IF opcion = 'opc_registrar_transaccion' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+        SET @PORCRETORNO = (SELECT PorcentajeRetorno FROM se_socio WHERE Socio = @SOCIO);
+        SET @COMISION = (SELECT Porcentaje FROM se_comision WHERE Estado = 1);
+        SET @VALIDADOC = (SELECT COUNT(*) FROM se_transaccion WHERE Serie = p_serie AND Numero = p_numero AND TipoDocumento = p_tipoDoc);
+        
+        SET @VALIDARCONTADOR = (SELECT COUNT(*) FROM se_contador WHERE Viajero = p_clienteID);
+        
+        IF (@VALIDADOC > 0) THEN 
+			SELECT 'El documento ya ingresado ya existe' AS respuesta;
+        ELSE
+			IF (@VALIDARCONTADOR = 0) THEN
+				INSERT INTO se_transaccion (Serie, Numero, Viajero, Socio, Importe, FechaTransaccion, Estado, TipoDocumento) 
+					VALUES (p_serie, p_numero, p_clienteID, @SOCIO, p_importe, p_fecha, 1, p_tipoDoc);				
+				SET @MONTORETORNO = (cast(p_importe as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100);				
+				SET @RETORNOVIAJERO = (cast(@MONTORETORNO as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100);				
+				SET @MONTOVIAJERO = (@MONTORETORNO - @RETORNOVIAJERO);				
+				INSERT INTO se_contador (Viajero, MontoAcumulado, Estado) VALUES (p_clienteID, @MONTOVIAJERO, 1);				
+				SET @TRANSAC_ID = (SELECT MAX(Transaccion) FROM se_transaccion);
+				SET @CONT_ID = (SELECT MAX(Contador) FROM se_contador);				
+				INSERT INTO se_transaccioncontador (Contador, Transaccion, Comision, Estado) VALUES (@CONT_ID, @TRANSAC_ID, @COMISION, 1);				
+				SELECT 'Registro Correcto' AS respuesta;
+            ELSE
+				INSERT INTO se_transaccion (Serie, Numero, Viajero, Socio, Importe, FechaTransaccion, Estado, TipoDocumento)
+					VALUES (p_serie, p_numero, p_clienteID, @SOCIO, p_importe, p_fecha, 1, p_tipoDoc);
+				SET @MONTORETORNO = (cast(p_importe as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100);				
+				SET @RETORNOVIAJERO = (cast(@MONTORETORNO as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100);				
+				SET @MONTOVIAJERO = (@MONTORETORNO - @RETORNOVIAJERO);	
+                
+                SET @MONTOACUMULADO = (SELECT MontoAcumulado FROM se_contador WHERE Viajero = p_clienteID);
+                SET @TRANSAC_ID = (SELECT MAX(Transaccion) FROM se_transaccion);
+				SET @CONT_ID = (SELECT Contador FROM se_contador WHERE Viajero = p_clienteID);	
+                
+                UPDATE se_contador SET MontoAcumulado = (cast(@MONTOACUMULADO as decimal(8,2)) + @MONTOVIAJERO) WHERE Contador = @CONT_ID;
+                INSERT INTO se_transaccioncontador (Contador, Transaccion, Comision, Estado) VALUES (@CONT_ID, @TRANSAC_ID, @COMISION, 1);				
+				SELECT 'Registro Correcto' AS respuesta;										
+            END IF;                							
+        END IF;
+	END IF; 
+    
+    IF opcion = 'opc_update_transaccion' THEN
+		UPDATE se_transaccion 
+			SET Serie = p_serie,
+            Numero = p_numero,
+            Importe= p_importe,
+            FechaTransaccion = p_fecha,
+            TipoDocumento = p_tipoDoc
+		WHERE Transaccion = p_codigo;
+        SELECT 'Registro Correcto' AS respuesta;	
+    END IF;
+     
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listado_ventas` (IN `p_usuario` INT, IN `opcion` VARCHAR(200), IN `p_codigo` INT)  NO SQL
+BEGIN
+	IF opcion = 'opc_contar_ventas_rgistradas' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT COUNT(*) AS total FROM se_transaccion WHERE Socio = @SOCIO AND Estado = 1;
+	END IF; 
+    
+    IF opcion = 'opc_contar_ventas_pre_rgistradas' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT COUNT(*) AS total FROM se_transaccion WHERE Socio = @SOCIO AND Estado = 0;
+	END IF; 
+    
+    IF opcion = 'opc_contar_ultimas_ventas_rgistradas' THEN		
+		SELECT 10 AS total;
+	END IF; 
+    
+    
+    IF opcion = 'opc_listar_ventas_rgistradas' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT 
+			T.Transaccion AS CODIGO,
+			CONCAT(P.Nombres,' ',P.Apellidos) AS CLIENTE, 
+			TD.Descripcion AS TIPO_DOCUMENTO, 
+			CONCAT(T.Serie,'-',T.Numero) AS DOCUMENTO, 
+			T.Importe AS IMPORTE,
+			T.FechaTransaccion AS FECHA,
+			T.Estado AS ESTADO
+		FROM se_transaccion T
+			INNER JOIN se_viajero V ON V.Viajero = T.Viajero
+			INNER JOIN se_persona P ON P.Persona = V.Persona
+			INNER JOIN se_tipodocumento TD ON TD.TipoDocumento = T.TipoDocumento
+		WHERE T.Socio = @SOCIO AND T.Estado = 1 ORDER BY T.FechaTransaccion DESC;
+	END IF;  
+    
+    IF opcion = 'opc_listar_ultimas_ventas_rgistradas' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT 
+			T.Transaccion AS CODIGO,
+			CONCAT(P.Nombres,' ',P.Apellidos) AS CLIENTE, 
+			TD.Descripcion AS TIPO_DOCUMENTO, 
+			CONCAT(T.Serie,'-',T.Numero) AS DOCUMENTO, 
+			T.Importe AS IMPORTE,
+			T.FechaTransaccion AS FECHA,
+			T.Estado AS ESTADO
+		FROM se_transaccion T
+			INNER JOIN se_viajero V ON V.Viajero = T.Viajero
+			INNER JOIN se_persona P ON P.Persona = V.Persona
+			INNER JOIN se_tipodocumento TD ON TD.TipoDocumento = T.TipoDocumento
+		WHERE T.Socio = @SOCIO AND T.Estado = 1 ORDER BY T.FechaTransaccion DESC limit 10;
+	END IF;  
+    
+    IF opcion = 'opc_listar_ventas_pre_rgistradas' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT 
+			T.Transaccion AS CODIGO,
+			CONCAT(P.Nombres,' ',P.Apellidos) AS CLIENTE, 
+			TD.Descripcion AS TIPO_DOCUMENTO, 
+			CONCAT(T.Serie,'-',T.Numero) AS DOCUMENTO, 
+			T.Importe AS IMPORTE,
+			T.FechaTransaccion AS FECHA,
+			T.Estado AS ESTADO
+		FROM se_transaccion T
+			INNER JOIN se_viajero V ON V.Viajero = T.Viajero
+			INNER JOIN se_persona P ON P.Persona = V.Persona
+			INNER JOIN se_tipodocumento TD ON TD.TipoDocumento = T.TipoDocumento
+		WHERE T.Socio = @SOCIO AND T.Estado = 0 ORDER BY T.FechaTransaccion DESC;
+	END IF;  
+    
+    
+    IF opcion = 'opc_contar_tres_ventas_pre_rgistradas' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT 
+			T.Transaccion AS CODIGO,
+			CONCAT(P.Nombres,' ',P.Apellidos) AS CLIENTE, 
+			TD.Descripcion AS TIPO_DOCUMENTO, 
+			CONCAT(T.Serie,'-',T.Numero) AS DOCUMENTO, 
+			T.Importe AS IMPORTE,
+			T.FechaTransaccion AS FECHA,
+			T.Estado AS ESTADO
+		FROM se_transaccion T
+			INNER JOIN se_viajero V ON V.Viajero = T.Viajero
+			INNER JOIN se_persona P ON P.Persona = V.Persona
+			INNER JOIN se_tipodocumento TD ON TD.TipoDocumento = T.TipoDocumento
+		WHERE T.Socio = @SOCIO AND T.Estado = 0 ORDER BY T.FechaTransaccion DESC limit 3;
+	END IF;  
+    
+    
+    IF opcion = 'opc_aceptar_transaccion' THEN
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		UPDATE se_transaccion SET Estado = 1 WHERE Transaccion = p_codigo;
+	END IF; 
+    
+    IF opcion = 'opc_total_ventas_socio' THEN
+		SET @v_FechaActual = NOW();
+    
+		SET @v_dia_cierre_bd = 2;
+     
+		SET @v_anioActual = YEAR(@v_FechaActual);
+		SET @v_mesActual = MONTH(@v_FechaActual);
+		SET @v_diaActual = DAY(@v_FechaActual);
+
+		SET @v_diaApertura = @v_dia_cierre_bd;
+		SET @v_mesApertura = (CASE WHEN @v_dia_cierre_bd <= @v_diaActual THEN @v_mesActual ELSE @v_mesActual - 1 END);
+		SET @v_anioApertura = (CASE @v_mesApertura WHEN 0 THEN (@v_anioActual - 1) ELSE @v_anioActual END);
+		SET @v_mesApertura = (CASE @v_mesApertura WHEN 0 THEN 12 ELSE @v_mesApertura END);
+         
+		SET @v_FechaApertura = CAST(CONCAT(CAST(@v_anioApertura AS CHAR), '/',CAST(@v_mesApertura AS CHAR), '/',CAST(@v_diaApertura AS CHAR)) AS DATE);
+
+		SET @v_FechaCierre = DATE_ADD(CAST(@v_FechaApertura as datetime), INTERVAL 1 MONTH);
+        
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT COUNT(*) AS respuesta FROM se_transaccion WHERE Socio = @SOCIO AND FechaTransaccion >= @v_FechaApertura AND FechaTransaccion < @v_FechaCierre;
+	END IF; 
+    
+    IF opcion = 'opc_monto_total_ventas_socio' THEN			
+		SET @v_FechaActual = NOW();
+    
+		SET @v_dia_cierre_bd = 2;
+     
+		SET @v_anioActual = YEAR(@v_FechaActual);
+		SET @v_mesActual = MONTH(@v_FechaActual);
+		SET @v_diaActual = DAY(@v_FechaActual);
+
+		SET @v_diaApertura = @v_dia_cierre_bd;
+		SET @v_mesApertura = (CASE WHEN @v_dia_cierre_bd <= @v_diaActual THEN @v_mesActual ELSE @v_mesActual - 1 END);
+		SET @v_anioApertura = (CASE @v_mesApertura WHEN 0 THEN (@v_anioActual - 1) ELSE @v_anioActual END);
+		SET @v_mesApertura = (CASE @v_mesApertura WHEN 0 THEN 12 ELSE @v_mesApertura END);
+         
+		SET @v_FechaApertura = CAST(CONCAT(CAST(@v_anioApertura AS CHAR), '/',CAST(@v_mesApertura AS CHAR), '/',CAST(@v_diaApertura AS CHAR)) AS DATE);
+
+		SET @v_FechaCierre = DATE_ADD(CAST(@v_FechaApertura as datetime), INTERVAL 1 MONTH);
+
+		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
+		SELECT SUM(Importe) AS respuesta FROM se_transaccion WHERE Socio = @SOCIO AND FechaTransaccion >= @v_FechaApertura AND FechaTransaccion < @v_FechaCierre;
+	END IF; 
+    
+    IF opcion = 'opc_total_numro_socios' THEN
+		SELECT COUNT(*) AS respuesta FROM se_viajero;
+	END IF; 
+    
+END$$
+
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `se_comision`
+--
+
+CREATE TABLE `se_comision` (
+  `Comision` int(11) NOT NULL,
+  `Porcentaje` int(11) NOT NULL,
+  `FechaRegistro` date NOT NULL,
+  `UsuarioRegistro` int(11) NOT NULL,
+  `Estado` bit(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_comision`
+--
+
+INSERT INTO `se_comision` (`Comision`, `Porcentaje`, `FechaRegistro`, `UsuarioRegistro`, `Estado`) VALUES
+(2, 25, '2017-07-04', 1, b'0'),
+(3, 30, '2017-07-04', 1, b'1');
 
 -- --------------------------------------------------------
 
@@ -203,6 +560,14 @@ CREATE TABLE `se_contador` (
   `MontoAcumulado` double NOT NULL,
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_contador`
+--
+
+INSERT INTO `se_contador` (`Contador`, `Viajero`, `MontoAcumulado`, `Estado`) VALUES
+(1, 1, 14, 1),
+(2, 5, 85.61, 1);
 
 -- --------------------------------------------------------
 
@@ -255,7 +620,11 @@ INSERT INTO `se_menu` (`Menu`, `MenuPadre`, `Nombre`, `Orden`, `Icono`, `URL`, `
 (4, 2, 'Travelers', 2, 'fa fa-suitcase', '../administrador/viajeros.php', b'1'),
 (5, NULL, 'Gestion Financiera', 3, 'fa fa-money', NULL, b'1'),
 (6, 5, 'Depositos Viajeros', 1, 'fa fa-paper-plane-o', '', b'1'),
-(7, 5, 'Porcentaje Consumos', 2, 'fa fa-percent', '', b'1');
+(7, 5, 'Porcentaje Consumos', 2, 'fa fa-percent', '', b'1'),
+(8, NULL, 'Ofertas', 4, 'fa fa-tasks', '../partners/Ofertas.php', b'1'),
+(9, NULL, 'Ventas', 5, 'fa fa-money', NULL, b'1'),
+(10, 9, 'Ventas Registradas', 1, '', '../partners/ventasRegistradas.php', b'1'),
+(11, 9, 'Pre-Registradas', 2, '', '../partners/ventasPreRegistradas.php', b'1');
 
 -- --------------------------------------------------------
 
@@ -369,7 +738,12 @@ INSERT INTO `se_permiso` (`Permiso`, `Menu`, `Rol`, `Estado`) VALUES
 (4, 4, 1, b'1'),
 (5, 5, 1, b'1'),
 (8, 6, 1, b'1'),
-(9, 7, 1, b'1');
+(9, 7, 1, b'1'),
+(10, 1, 2, b'1'),
+(11, 8, 2, b'1'),
+(12, 9, 2, b'1'),
+(13, 10, 2, b'1'),
+(14, 11, 2, b'1');
 
 -- --------------------------------------------------------
 
@@ -401,6 +775,32 @@ INSERT INTO `se_persona` (`Persona`, `Nombres`, `Apellidos`, `DNI`, `Direccion`,
 (12, 'Maria', 'Salirrosas Haro', '10192831', 'Manco Inca 723', '1954-01-20', '044401421', '987483201', 'rosaflora@gmail.com', b'1'),
 (10, 'Jorge', 'Sandoval Rodrigo', '72937490', 'Jr. Union 1498', '1991-04-02', '044728393', '987203946', 'jsandoval@gmail.com', b'1'),
 (11, 'Rosa Flor', 'Villanueva Zavaleta', '80192837', 'Manco Inca 723', '1954-01-20', '044401421', '987483201', 'rosaflora@gmail.com', b'0');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `se_promocion`
+--
+
+CREATE TABLE `se_promocion` (
+  `Promocion` int(11) NOT NULL,
+  `Descripcion` varchar(500) NOT NULL,
+  `FechaInicio` date NOT NULL,
+  `FechaFin` date NOT NULL,
+  `Stock` int(11) DEFAULT NULL,
+  `FechaIngreso` date NOT NULL,
+  `Socio` int(11) NOT NULL,
+  `Imagen` varchar(500) NOT NULL,
+  `Estado` bit(1) NOT NULL,
+  `Porcentaje` varchar(1) DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_promocion`
+--
+
+INSERT INTO `se_promocion` (`Promocion`, `Descripcion`, `FechaInicio`, `FechaFin`, `Stock`, `FechaIngreso`, `Socio`, `Imagen`, `Estado`, `Porcentaje`) VALUES
+(1, 'Promocion de Prueba ', '2017-07-07', '2017-07-12', 2, '2017-07-07', 13, '', b'1', '1');
 
 -- --------------------------------------------------------
 
@@ -448,7 +848,9 @@ INSERT INTO `se_rolusuario` (`RolUsuario`, `Rol`, `Usuario`, `Estado`) VALUES
 (4, 3, 5, b'1'),
 (5, 2, 6, b'1'),
 (6, 3, 7, b'1'),
-(7, 3, 8, b'1');
+(7, 3, 8, b'1'),
+(8, 2, 13, b'1'),
+(9, 2, 9, b'1');
 
 -- --------------------------------------------------------
 
@@ -500,7 +902,56 @@ CREATE TABLE `se_socio` (
 INSERT INTO `se_socio` (`Socio`, `RazonSocial`, `NombreComercial`, `Rubro`, `RUC`, `Direccion`, `TelefonoContacto`, `TelefonoAtencion`, `Email`, `NroCuenta`, `ContactoResponsable`, `PorcentajeRetorno`, `Categoria`, `FechaPago`, `Estado`) VALUES
 (12, 'Restaurante PEPI S.A.C.', 'Restaurante Pepito', 1, '12345678901', 'DirecciÃ³n del restaurante de Pepito', '044401498', '044401566', 'rpepito@gmail.com', '192843049394940', 'Pepe Aguilar Rodriguez', 12, 4, NULL, b'0'),
 (11, 'kjbkijokj', 'kjhfijnpoihiu', 1, '87988698089', 'kjbkboiuhioh oiuh\r\n iuoh oih13oi oh o1', '044829384', '019283745', 'email@kjbkj.com', '2093840434', 'jsbnd lkdndo\r\n kfukfuhf diubff', 10, 0, NULL, b'0'),
-(13, 'Restaurante DoÃ±a Peta S.A.C.', 'DoÃ±a Peta', 1, '12345678901', 'JosÃ© Olaya 1487', '044782937', '979302647', 'contacto@donapeta.com', '910293848393', 'Peta Rodriguez AlcÃ¡ntara', 10, 5, NULL, b'1');
+(13, 'Restaurante DoÃ±a Peta S.A.C.', 'DoÃ±a Peta', 1, '12345678901', 'JosÃ© Olaya 1487', '044782937', '979302647', 'contacto@donapeta.com', '910293848393', 'Peta Rodriguez AlcÃ¡ntara', 10, 5, NULL, b'1'),
+(14, '', '', 1, '', '', '', '', '', '', '', 0, 0, NULL, b'1'),
+(15, '', '', 1, '', '', '', '', '', '', '', 0, 0, NULL, b'1'),
+(16, '', '', 1, '', '', '', '', '', '', '', 0, 0, NULL, b'1'),
+(17, '', '', 1, '', '', '', '', '', '', '', 0, 0, NULL, b'1'),
+(18, '', '', 1, '', '', '', '', '', '', '', 0, 0, NULL, b'1'),
+(19, '', '', 0, '', '', '', '', '', '', '', 0, 0, NULL, b'1'),
+(20, '', '', 0, '', '', '', '', '', '', '', 0, 0, NULL, b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `se_tipocambio`
+--
+
+CREATE TABLE `se_tipocambio` (
+  `TipoCambio` int(11) NOT NULL,
+  `MontoCompra` decimal(8,2) NOT NULL,
+  `MontoVenta` decimal(8,2) NOT NULL,
+  `FechaRegistro` date NOT NULL,
+  `Estado` bit(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_tipocambio`
+--
+
+INSERT INTO `se_tipocambio` (`TipoCambio`, `MontoCompra`, `MontoVenta`, `FechaRegistro`, `Estado`) VALUES
+(9, '3.50', '3.55', '2017-07-04', b'1'),
+(6, '3.33', '3.45', '2017-07-03', b'0'),
+(5, '3.25', '3.45', '2017-07-02', b'0');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `se_tipodocumento`
+--
+
+CREATE TABLE `se_tipodocumento` (
+  `TipoDocumento` int(11) NOT NULL,
+  `Descripcion` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_tipodocumento`
+--
+
+INSERT INTO `se_tipodocumento` (`TipoDocumento`, `Descripcion`) VALUES
+(1, 'Boleta'),
+(2, 'Factura');
 
 -- --------------------------------------------------------
 
@@ -539,8 +990,49 @@ CREATE TABLE `se_transaccion` (
   `Socio` int(11) DEFAULT NULL,
   `Importe` double NOT NULL,
   `FechaTransaccion` date NOT NULL,
-  `Estado` tinyint(1) NOT NULL
+  `Estado` tinyint(1) NOT NULL,
+  `TipoDocumento` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_transaccion`
+--
+
+INSERT INTO `se_transaccion` (`Transaccion`, `Serie`, `Numero`, `Viajero`, `Socio`, `Importe`, `FechaTransaccion`, `Estado`, `TipoDocumento`) VALUES
+(1, '001', '3435333', 1, 13, 200, '2017-07-05', 1, 1),
+(2, '001', '1234567', 5, 13, 250, '2017-07-06', 1, 2),
+(3, '001', '1234565', 5, 13, 250, '2017-07-07', 1, 2),
+(4, '001', '1234563', 5, 13, 200, '2017-07-07', 1, 2),
+(5, '001', '1234562', 5, 13, 200, '2017-05-05', 1, 2),
+(6, '002', '4567346', 5, 13, 300, '2017-07-06', 1, 1),
+(7, '001', '5346765', 5, 13, 423, '2017-06-06', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `se_transaccioncontador`
+--
+
+CREATE TABLE `se_transaccioncontador` (
+  `TransaccionContador` int(11) NOT NULL,
+  `Contador` int(11) NOT NULL,
+  `Transaccion` int(11) NOT NULL,
+  `Comision` int(11) NOT NULL,
+  `Estado` bit(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `se_transaccioncontador`
+--
+
+INSERT INTO `se_transaccioncontador` (`TransaccionContador`, `Contador`, `Transaccion`, `Comision`, `Estado`) VALUES
+(1, 1, 1, 30, b'1'),
+(2, 2, 2, 30, b'1'),
+(3, 3, 3, 30, b'1'),
+(4, 2, 4, 30, b'1'),
+(5, 2, 5, 30, b'1'),
+(6, 2, 6, 30, b'1'),
+(7, 2, 7, 30, b'1');
 
 -- --------------------------------------------------------
 
@@ -572,7 +1064,8 @@ INSERT INTO `se_usuario` (`Usuario`, `Persona`, `Socio`, `Login`, `Password`, `F
 (5, 10, NULL, '72937490', 'e10adc3949ba59abbe56e057f20f883e', '2017-06-02 00:00:00', NULL, NULL, b'1'),
 (6, NULL, 13, '12345678901', 'e10adc3949ba59abbe56e057f20f883e', '2017-06-11 00:00:00', NULL, NULL, b'1'),
 (7, 11, NULL, '80192837', 'e10adc3949ba59abbe56e057f20f883e', '2017-06-11 00:00:00', NULL, NULL, b'1'),
-(8, 12, NULL, '10192831', 'e10adc3949ba59abbe56e057f20f883e', '2017-06-11 00:00:00', NULL, NULL, b'1');
+(8, 12, NULL, '10192831', 'e10adc3949ba59abbe56e057f20f883e', '2017-06-11 00:00:00', NULL, NULL, b'1'),
+(9, NULL, 14, '', 'e10adc3949ba59abbe56e057f20f883e', '2017-07-05 00:00:00', NULL, NULL, b'1');
 
 -- --------------------------------------------------------
 
@@ -630,6 +1123,13 @@ CREATE TABLE `se_viajeropaquetesposibles` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `se_comision`
+--
+ALTER TABLE `se_comision`
+  ADD PRIMARY KEY (`Comision`),
+  ADD KEY `UsuarioRegistro` (`UsuarioRegistro`);
 
 --
 -- Indices de la tabla `se_contador`
@@ -698,6 +1198,13 @@ ALTER TABLE `se_persona`
   ADD PRIMARY KEY (`Persona`);
 
 --
+-- Indices de la tabla `se_promocion`
+--
+ALTER TABLE `se_promocion`
+  ADD PRIMARY KEY (`Promocion`),
+  ADD KEY `Socio` (`Socio`);
+
+--
 -- Indices de la tabla `se_rol`
 --
 ALTER TABLE `se_rol`
@@ -723,6 +1230,18 @@ ALTER TABLE `se_socio`
   ADD PRIMARY KEY (`Socio`);
 
 --
+-- Indices de la tabla `se_tipocambio`
+--
+ALTER TABLE `se_tipocambio`
+  ADD PRIMARY KEY (`TipoCambio`);
+
+--
+-- Indices de la tabla `se_tipodocumento`
+--
+ALTER TABLE `se_tipodocumento`
+  ADD PRIMARY KEY (`TipoDocumento`);
+
+--
 -- Indices de la tabla `se_tipomovimiento`
 --
 ALTER TABLE `se_tipomovimiento`
@@ -734,7 +1253,17 @@ ALTER TABLE `se_tipomovimiento`
 ALTER TABLE `se_transaccion`
   ADD PRIMARY KEY (`Transaccion`),
   ADD KEY `Socio` (`Socio`),
-  ADD KEY `Viajero` (`Viajero`);
+  ADD KEY `Viajero` (`Viajero`),
+  ADD KEY `TipoDocumento` (`TipoDocumento`);
+
+--
+-- Indices de la tabla `se_transaccioncontador`
+--
+ALTER TABLE `se_transaccioncontador`
+  ADD PRIMARY KEY (`TransaccionContador`),
+  ADD KEY `Contador` (`Contador`),
+  ADD KEY `Transaccion` (`Transaccion`),
+  ADD KEY `Comision` (`Comision`);
 
 --
 -- Indices de la tabla `se_usuario`
@@ -772,10 +1301,15 @@ ALTER TABLE `se_viajeropaquetesposibles`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `se_comision`
+--
+ALTER TABLE `se_comision`
+  MODIFY `Comision` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `se_contador`
 --
 ALTER TABLE `se_contador`
-  MODIFY `Contador` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Contador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `se_dashboard`
 --
@@ -785,7 +1319,7 @@ ALTER TABLE `se_dashboard`
 -- AUTO_INCREMENT de la tabla `se_menu`
 --
 ALTER TABLE `se_menu`
-  MODIFY `Menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `se_movimiento`
 --
@@ -815,12 +1349,17 @@ ALTER TABLE `se_paquetes`
 -- AUTO_INCREMENT de la tabla `se_permiso`
 --
 ALTER TABLE `se_permiso`
-  MODIFY `Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `se_persona`
 --
 ALTER TABLE `se_persona`
   MODIFY `Persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `se_promocion`
+--
+ALTER TABLE `se_promocion`
+  MODIFY `Promocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `se_rol`
 --
@@ -830,7 +1369,7 @@ ALTER TABLE `se_rol`
 -- AUTO_INCREMENT de la tabla `se_rolusuario`
 --
 ALTER TABLE `se_rolusuario`
-  MODIFY `RolUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `RolUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `se_rubro`
 --
@@ -840,7 +1379,17 @@ ALTER TABLE `se_rubro`
 -- AUTO_INCREMENT de la tabla `se_socio`
 --
 ALTER TABLE `se_socio`
-  MODIFY `Socio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Socio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT de la tabla `se_tipocambio`
+--
+ALTER TABLE `se_tipocambio`
+  MODIFY `TipoCambio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `se_tipodocumento`
+--
+ALTER TABLE `se_tipodocumento`
+  MODIFY `TipoDocumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `se_tipomovimiento`
 --
@@ -850,12 +1399,17 @@ ALTER TABLE `se_tipomovimiento`
 -- AUTO_INCREMENT de la tabla `se_transaccion`
 --
 ALTER TABLE `se_transaccion`
-  MODIFY `Transaccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Transaccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `se_transaccioncontador`
+--
+ALTER TABLE `se_transaccioncontador`
+  MODIFY `TransaccionContador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `se_usuario`
 --
 ALTER TABLE `se_usuario`
-  MODIFY `Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `se_viajero`
 --

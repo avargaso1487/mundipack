@@ -45,7 +45,7 @@ class Ofertas_model{
         }
     }
 
-    function prepararConsultaOfertas($opcion = '', $descripcion = '', $fechaInicio = '', $fechaFin = '', $stock = '', $usuario = '', $ruta = '', $codigo = '')
+    function prepararConsultaOfertas($opcion = '', $descripcion = '', $fechaInicio = '', $fechaFin = '', $stock = '', $usuario = '', $ruta = '', $codigo = '', $porcentaje = '')
     {
         $consultaSql = "call sp_control_ofertas(";
         $consultaSql.= "'".$opcion."',";
@@ -55,7 +55,8 @@ class Ofertas_model{
         $consultaSql.= "'".$stock."',";
         $consultaSql.= "'".$ruta."',";
         $consultaSql.= "'".$usuario."',";
-        $consultaSql.= "'".$codigo."')";
+        $consultaSql.= "'".$codigo."',";
+        $consultaSql.= "'".$porcentaje."')";
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
@@ -70,11 +71,11 @@ class Ofertas_model{
 
     function add_oferta() {
         if ($this->param['p_archivo'] == '') {
-            $this->prepararConsultaOfertas('opc_add_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], '', '');
+            $this->prepararConsultaOfertas('opc_add_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], '', '', $this->param['p_porcentaje']);
             $this->cerrarAbrir();
             echo 1;
         } else {
-            $this->prepararConsultaOfertas('opc_add_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], $this->param['p_ruta'], '');
+            $this->prepararConsultaOfertas('opc_add_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], $this->param['p_ruta'], '', $this->param['p_porcentaje']);
             $this->cerrarAbrir();
             $destino = '../../view/partners/ofertas/'.$this->param['p_archivo'];
             $archivo = $this->param['p_fileArchivo'];
@@ -88,11 +89,11 @@ class Ofertas_model{
 
     function update_oferta() {
         if ($this->param['p_archivo'] == '') {
-            $this->prepararConsultaOfertas('opc_update_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], '', $this->param['p_codigo']);
+            $this->prepararConsultaOfertas('opc_update_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], '', $this->param['p_codigo'], $this->param['p_porcentaje']);
             $this->cerrarAbrir();
             echo 1;
         } else {
-            $this->prepararConsultaOfertas('opc_update_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], $this->param['p_ruta'], $this->param['p_codigo']);
+            $this->prepararConsultaOfertas('opc_update_oferta', $this->param['p_descripcion'], $this->param['p_fechaInicio'], $this->param['p_fechaFin'], $this->param['p_stock'], $this->param['p_usuario'], $this->param['p_ruta'], $this->param['p_codigo'], $this->param['p_porcentaje']);
             $this->cerrarAbrir();
             $destino = '../../view/partners/ofertas/'.$this->param['p_archivo'];
             $archivo = $this->param['p_fileArchivo'];
@@ -104,18 +105,18 @@ class Ofertas_model{
     }
 
     function eliminar_ofertas() {
-        $this->prepararConsultaOfertas('opc_eliminar_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', $this->param['p_codigo']);
+        $this->prepararConsultaOfertas('opc_eliminar_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', $this->param['p_codigo'], '0');
         echo 1;
         //echo $this->param['ruta'];
     }
     function activar_ofertas() {
-        $this->prepararConsultaOfertas('opc_activar_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', $this->param['p_codigo']);
+        $this->prepararConsultaOfertas('opc_activar_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', $this->param['p_codigo'], '0');
         echo 1;
         //echo $this->param['ruta'];
     }
 
     function obtener_ofertas() {
-        $this->prepararConsultaOfertas('opc_obtener_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', $this->param['p_codigo']);
+        $this->prepararConsultaOfertas('opc_obtener_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', $this->param['p_codigo'], '0');
         $row = mysqli_fetch_row($this->result);
         echo json_encode($row);
     }
@@ -130,7 +131,8 @@ class Ofertas_model{
                 "FECHA_FIN" => $fila["FECHA_FIN"],
                 "STOCK" => $fila["STOCK"],
                 "IMAGEN" => $fila["IMAGEN"],
-                "ESTADO" => $fila["ESTADO"]
+                "ESTADO" => $fila["ESTADO"],
+                "PORCENTAJE" => $fila["PORCENTAJE"]
             ));
         }
         return $datos;
@@ -146,14 +148,14 @@ class Ofertas_model{
     }
 
     function listar_ofertas() {
-        $this->prepararConsultaOfertas('opc_total_ofertas', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', '');
+        $this->prepararConsultaOfertas('opc_total_ofertas', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', '', '0');
         $this->cerrarAbrir();
         $total = $this->getArrayTotal();
         $datos = array();
         if($total>0)
         {
             $this->cerrarAbrir();
-            $this->prepararConsultaOfertas('opc_listar_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', '');
+            $this->prepararConsultaOfertas('opc_listar_oferta', '', '1999-09-09', '1999-09-09', '0', $this->param['p_usuario'], '', '', '0');
             $datos = $this->getArrayOfertas();
             for($i=0; $i<count($datos); $i++)
             {
@@ -167,7 +169,11 @@ class Ofertas_model{
                 } else {
                     echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">SI</td>';
                 }
-
+                if ( $datos[$i]["PORCENTAJE"] == '1') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">SI</td>';
+                } else {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">NO</td>';
+                }
                 if ($datos[$i]["ESTADO"] == '1') {
                     echo '<td style="font-size: 15px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><span>ACTIVO</span></span></td>
                             <td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">

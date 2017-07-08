@@ -19,7 +19,7 @@ if (!isset($_SESSION['usuario']))
         <link rel="stylesheet" type="text/css" href="../default/css/estrellas.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/flat-admin.css">
         <link rel="stylesheet" type="text/css" href="../default/css/sweetalert.css">
-
+        <link rel="stylesheet" type="text/css" href="../default/css/iziToast.min.css">
         <!-- Theme -->
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue-sky.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue.css">
@@ -169,7 +169,7 @@ if (!isset($_SESSION['usuario']))
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">T. Documento</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Documento</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Importe</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Registro</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Documento</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Estado</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Operaciones</th>
                                 </tr>
@@ -240,7 +240,7 @@ if (!isset($_SESSION['usuario']))
                                         </div>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control"  placeholder="Importe"  name="transaccionID" id="transaccionID" onkeypress="return NumCheck(event, this)"/>
+                                <input type="hidden" class="form-control"  placeholder="Importe"  name="transaccionID" id="transaccionID" onkeypress="return NumCheck(event, this)"/>
                                 <!-- Importe y Fecha -->
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Importe <span style="color: red">(*)</span></label>
@@ -259,7 +259,7 @@ if (!isset($_SESSION['usuario']))
                                 <br>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
-                                    <input  type="button" id="guardarVenta" data-dismiss="modal" class="btn btn-sm btn-primary" value="Guardar"/>
+                                    <input  type="button" id="guardarVenta" class="btn btn-sm btn-primary" value="Guardar"/>
                                 </div>
                             </form>
                         </div>
@@ -284,9 +284,27 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/assets/js/app.js"></script>
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
     <script src="../default/js/ventas.js"></script>
-
+    <script src="../default/js/iziToast.min.js"></script>
 
     <script src="../default/js/validaciones.js"></script>
+
+    <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootbox.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.easypiechart.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-datepicker.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.hotkeys.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="../default/assets_acemaster/js/select2.min.js"></script>
+    <script src="../default/assets_acemaster/js/fuelux.spinner.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-editable.min.js"></script>
+    <script src="../default/assets_acemaster/js/ace-editable.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.maskedinput.min.js"></script>
+
+    <!-- ace scripts -->
+    <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
+    <script src="../default/assets_acemaster/js/ace.min.js"></script>
     </body>
     </html>
 

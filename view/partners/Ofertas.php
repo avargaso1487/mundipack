@@ -19,6 +19,7 @@ if (!isset($_SESSION['usuario'])) {
         <link rel="stylesheet" type="text/css" href="../default/css/estrellas.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/flat-admin.css">
         <link rel="stylesheet" type="text/css" href="../default/css/sweetalert.css">
+        <link rel="stylesheet" type="text/css" href="../default/css/iziToast.min.css">
 
         <!-- Theme -->
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue-sky.css">
@@ -173,6 +174,7 @@ if (!isset($_SESSION['usuario'])) {
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Inicio</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Fin</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Imagen</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Porcentaje</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Estado</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 2%;">Operaciones</th>
                                 </tr>
@@ -232,13 +234,22 @@ if (!isset($_SESSION['usuario'])) {
                                     </div>
                                 </div>
 
-                                <!-- Stock -->
+                                <!-- Stock  y Porcentaje-->
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Stock</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control" onkeypress="return solonumeros(event)"
                                                placeholder="Stock"
                                                name="p_stock" id="p_stock">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="p_porcentaje">
+                                            <label for="p_porcentaje">
+                                                ¿Incluye Porcentaje?
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -258,7 +269,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar
                                     </button>
-                                    <input  type="button" id="guardarOferta" data-dismiss="modal"
+                                    <input  type="button" id="guardarOferta"
                                            class="btn btn-sm btn-primary" value="Guardar"/>
                                 </div>
                             </form>
@@ -318,15 +329,6 @@ if (!isset($_SESSION['usuario'])) {
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
-
-
-
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar
@@ -359,6 +361,7 @@ if (!isset($_SESSION['usuario'])) {
 
     <script src="../default/js/validaciones.js"></script>
 
+    <script src="../default/js/iziToast.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>

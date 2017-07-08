@@ -29,13 +29,26 @@ $(function() {
         var p_imagen = $('#p_imagen').val();
         var p_codigo = $('#p_codigo').val();
 
+        if ($('#p_porcentaje').is(":checked")) {
+            var p_porcentaje = '1';
+        } else {
+            var p_porcentaje = '0';
+        }
+
+        console.log(p_porcentaje);
+
         if (p_codigo != '') {
             //console.log('Modificar datos');
             if (p_descripcion.length == 0 || p_fechaInicio.length == 0 || p_fechaFin.length == 0 ) {
-                alert('Ingrese todos lo datos');
+                iziToast.warning({
+                    position: 'bottomCenter',
+                    title: 'Advertencia',
+                    message: 'Debe ingresar todos los datos obligatorios.',
+                });
             } else {
                 var data = new FormData($("#frm_nuevoOferta")[0]);
                 data.append('p_opcion', 'update_oferta');
+                data.append('p_porcentaje', p_porcentaje);
                 $.ajax({
                     type: "post",
                     url: "../../controller/controlOferta/ofertas_controller.php",
@@ -45,7 +58,8 @@ $(function() {
                     cache: false,
                     success: function (data) {
                         if (data == 1) {
-                            alert('Registro Correcto');
+                            //alert('Registro Correcto');
+                            $('#modalOferta').modal('hide');
                             $('#p_descripcion').val('');
                             $('#p_fechaInicio').val('');
                             $('#p_fechaFin').val('');
@@ -54,6 +68,11 @@ $(function() {
                             noti_pre_registro();
                             noti_item_socio();
                             listarOfertas();
+                            iziToast.success({
+                                position: 'topRight',
+                                title: 'Correcto',
+                                message: 'Registro modificado correctamente',
+                            });
                         }
 
                     },
@@ -64,10 +83,15 @@ $(function() {
             }
         } else {
             if (p_descripcion.length == 0 || p_fechaInicio.length == 0 || p_fechaFin.length == 0 ) {
-                alert('Ingrese todos lo datos');
+                iziToast.warning({
+                    position: 'bottomCenter',
+                    title: 'Advertencia',
+                    message: 'Debe ingresar todos los datos obligatorios.',
+                });
             } else {
                 var data = new FormData($("#frm_nuevoOferta")[0]);
                 data.append('p_opcion', 'add_oferta');
+                data.append('p_porcentaje', p_porcentaje);
                 $.ajax({
                     type: "post",
                     url: "../../controller/controlOferta/ofertas_controller.php",
@@ -77,7 +101,8 @@ $(function() {
                     cache: false,
                     success: function (data) {
                         if (data == 1) {
-                            alert('Registro Correcto');
+                            //alert('Registro Correcto');
+                            $('#modalOferta').modal('hide');
                             $('#p_descripcion').val('');
                             $('#p_fechaInicio').val('');
                             $('#p_fechaFin').val('');
@@ -86,6 +111,11 @@ $(function() {
                             noti_pre_registro();
                             noti_item_socio();
                             listarOfertas();
+                            iziToast.success({
+                                position: 'topRight',
+                                title: 'Correcto',
+                                message: 'Registro Correcto',
+                            });
                         }
 
                     },
@@ -248,7 +278,13 @@ var editar = function (codigo) {
             $('#p_descripcion').val(objeto[1]);
             $('#p_fechaInicio').val(objeto[2]);
             $('#p_fechaFin').val(objeto[3]);
-            $('#p_stock').val(objeto[4]);
+            $('#p_stock').val(objeto[4]);  7
+
+            if (objeto[7] == '1') {
+                $('#p_porcentaje').prop('checked', true).parent().addClass('checked');
+            } else {
+                $('#p_porcentaje').prop('checked', false).parent().addClass('checked');
+            }
 
         },
         error: function (msg) {

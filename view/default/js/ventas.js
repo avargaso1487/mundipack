@@ -52,6 +52,10 @@ $(function() {
     });
 
     $('#new_venta').on('click', function () {
+        $('#ventaDni').val('');
+        $('#ventaDni').attr("disabled",false)
+        $('#ventaCliente').val('');
+
         $('#ventaClienteId').val('');
         $('#tipoDocumento').val('');
         $('#ventaSerie').val('');
@@ -69,42 +73,104 @@ $(function() {
         var p_numero = $('#ventaNumero').val();
         var p_importe = $('#ventaImporte').val();
         var p_fecha = $('#ventaFecha').val();
+        var p_transaccionID = $('#transaccionID').val();
 
-        if (p_socioID.length == 0 || p_tipoDoc.length == 0 || p_serie.length == 0 || p_numero.length == 0 || p_importe.length == 0 || p_fecha.length == 0 ) {
-            alert('Ingrese todos lo datos');
+        if (p_transaccionID != '') {
+            if (p_socioID.length == 0 || p_tipoDoc.length == 0 || p_serie.length == 0 || p_numero.length == 0 || p_importe.length == 0 || p_fecha.length == 0 ) {
+                iziToast.warning({
+                    position: 'bottomCenter',
+                    title: 'Advertencia',
+                    message: 'Debe ingresar todos los datos obligatorios.',
+                });
+
+            } else {
+                var data = new FormData();
+                data.append('p_opcion', 'update_transaccion');
+                data.append('p_socioID', p_socioID);
+                data.append('p_tipoDoc', p_tipoDoc);
+                data.append('p_serie', p_serie);
+                data.append('p_numero', p_numero);
+                data.append('p_importe', p_importe);
+                data.append('p_fecha', p_fecha);
+                data.append('p_codigo', p_transaccionID);
+                $.ajax({
+                    type: "post",
+                    url: "../../controller/controlSocio/ventasRegistradas.php",
+                    contentType: false,
+                    data: data,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        //alert(data);
+                        $('#modalVenta').modal('hide');
+                        $('#ventaClienteId').val('');
+                        $('#tipoDocumento').val('');
+                        $('#ventaSerie').val('');
+                        $('#ventaNumero').val('');
+                        $('#ventaImporte').val('');
+                        $('#ventaFecha').val('');
+                        mostrarVentas();
+                        noti_pre_registro();
+                        noti_item_socio();
+                        iziToast.success({
+                            position: 'topRight',
+                            title: 'Correcto',
+                            message: 'Registro modificado correctamente.',
+                        });
+                    },
+                    error: function (msg) {
+                        alert(msg);
+                    }
+                });
+            }
         } else {
-            var data = new FormData();
-            data.append('p_opcion', 'add_transaccion');
-            data.append('p_socioID', p_socioID);
-            data.append('p_tipoDoc', p_tipoDoc);
-            data.append('p_serie', p_serie);
-            data.append('p_numero', p_numero);
-            data.append('p_importe', p_importe);
-            data.append('p_fecha', p_fecha);
-            $.ajax({
-                type: "post",
-                url: "../../controller/controlSocio/ventasRegistradas.php",
-                contentType: false,
-                data: data,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    alert(data);
-                    $('#ventaClienteId').val('');
-                    $('#tipoDocumento').val('');
-                    $('#ventaSerie').val('');
-                    $('#ventaNumero').val('');
-                    $('#ventaImporte').val('');
-                    $('#ventaFecha').val('');
-                    mostrarVentas();
-                    noti_pre_registro();
-                    noti_item_socio();
-                },
-                error: function (msg) {
-                    alert(msg);
-                }
-            });
+            if (p_socioID.length == 0 || p_tipoDoc.length == 0 || p_serie.length == 0 || p_numero.length == 0 || p_importe.length == 0 || p_fecha.length == 0 ) {
+                iziToast.warning({
+                    position: 'bottomCenter',
+                    title: 'Advertencia',
+                    message: 'Debe ingresar todos los datos obligatorios.',
+                });
+            } else {
+                var data = new FormData();
+                data.append('p_opcion', 'add_transaccion');
+                data.append('p_socioID', p_socioID);
+                data.append('p_tipoDoc', p_tipoDoc);
+                data.append('p_serie', p_serie);
+                data.append('p_numero', p_numero);
+                data.append('p_importe', p_importe);
+                data.append('p_fecha', p_fecha);
+                $.ajax({
+                    type: "post",
+                    url: "../../controller/controlSocio/ventasRegistradas.php",
+                    contentType: false,
+                    data: data,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        $('#modalVenta').modal('hide');
+                        $('#ventaClienteId').val('');
+                        $('#tipoDocumento').val('');
+                        $('#ventaSerie').val('');
+                        $('#ventaNumero').val('');
+                        $('#ventaImporte').val('');
+                        $('#ventaFecha').val('');
+                        mostrarVentas();
+                        noti_pre_registro();
+                        noti_item_socio();
+                        iziToast.success({
+                            position: 'topRight',
+                            title: 'Correcto',
+                            message: data,
+                        });
+                    },
+                    error: function (msg) {
+                        alert(msg);
+                    }
+                });
+            }
         }
+
+
     });
 });
 
@@ -224,12 +290,13 @@ var editar = function (codigo) {
         success: function (data) {
             objeto=JSON.parse(data);
             $('#transaccionID').val(objeto[0]);
-            $('#tipoDocumento').val(objeto[8]);
+            $('#tipoDocumento').val(objeto[5]);
             $('#ventaSerie').val(objeto[1]);
             $('#ventaNumero').val(objeto[2]);
-            $('#ventaImporte').val(objeto[5]);
-            $('#ventaFecha').val(objeto[6]);
-
+            $('#ventaImporte').val(objeto[3]);
+            $('#ventaFecha').val(objeto[4]);
+            $('#ventaDni').val(objeto[6]);
+            $('#searchSocio').click()
         },
         error: function (msg) {
             alert(msg);

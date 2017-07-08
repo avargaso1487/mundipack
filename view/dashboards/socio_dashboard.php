@@ -70,7 +70,7 @@
               <th>T. Documento</th>
               <th>Documento</th>
               <th>Importe</th>
-              <th>F. Transacción</th>
+              <th>F. Documento</th>
               <th>Estado</th>
             </tr>
           </thead>

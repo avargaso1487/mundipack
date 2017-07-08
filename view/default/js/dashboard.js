@@ -178,7 +178,11 @@ var dashboard = function () {
             var p_fecha = $('#ventaFecha').val();
 
             if (p_socioID.length == 0 || p_tipoDoc.length == 0 || p_serie.length == 0 || p_numero.length == 0 || p_importe.length == 0 || p_fecha.length == 0 ) {
-                alert('Ingrese todos lo datos');
+                iziToast.warning({
+                    position: 'bottomCenter',
+                    title: 'Advertencia',
+                    message: 'Debe ingresar todos los datos obligatorios.',
+                });
             } else {
                 var data = new FormData();
                 data.append('p_opcion', 'add_transaccion');
@@ -196,7 +200,7 @@ var dashboard = function () {
                     processData: false,
                     cache: false,
                     success: function (data) {
-                        alert(data);
+                        $('#modalVenta').modal('hide');
                         $('#ventaClienteId').val('');
                         $('#tipoDocumento').val('');
                         $('#ventaSerie').val('');
@@ -204,6 +208,16 @@ var dashboard = function () {
                         $('#ventaImporte').val('');
                         $('#ventaFecha').val('');
                         ultimosMovimientos();
+                        noti_pre_registro();
+                        noti_item_socio();
+                        totalVentasSocio();
+                        montoTotalVentasSocio();
+                        nroSocios();
+                        iziToast.success({
+                            position: 'topRight',
+                            title: 'Correcto',
+                            message: 'Registro Correcto',
+                        });
                     },
                     error: function (msg) {
                         alert(msg);

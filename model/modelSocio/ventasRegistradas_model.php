@@ -32,6 +32,9 @@ class VentaRegistrada_model{
             case "add_transaccion";
                 echo $this->add_transaccion();
                 break;
+            case "update_transaccion";
+                echo $this->update_transaccion();
+                break;
             case "listado_ventas_registradas";
                 echo $this->listado_ventas_registradas();
                 break;
@@ -116,7 +119,7 @@ class VentaRegistrada_model{
 
 
     /* REGISTRO DE TRANSACCION */
-    function prepararConsultaTransaccion($opcion = '', $socioID = '', $tipoDoc = '', $serie = '', $numero = '', $importe = '', $fecha = '', $usuario = '') {
+    function prepararConsultaTransaccion($opcion = '', $socioID = '', $tipoDoc = '', $serie = '', $numero = '', $importe = '', $fecha = '', $usuario = '', $codigo = '') {
         $consultaSql = "call sp_gestion_transaccion(";
         $consultaSql.= "'".$opcion."',";
         $consultaSql.= "'".$socioID."',";
@@ -125,7 +128,8 @@ class VentaRegistrada_model{
         $consultaSql.= "'".$numero."',";
         $consultaSql.= "'".$importe."',";
         $consultaSql.= "'".$fecha."',";
-        $consultaSql.= "'".$usuario."')";
+        $consultaSql.= "'".$usuario."',";
+        $consultaSql.= "'".$codigo."')";
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
@@ -139,7 +143,13 @@ class VentaRegistrada_model{
     }
 
     function add_transaccion() {
-        $this->prepararConsultaTransaccion('opc_registrar_transaccion',  $this->param['p_socioID'], $this->param['p_tipoDoc'], $this->param['p_serie'], $this->param['p_numero'], $this->param['p_importe'], $this->param['p_fecha'], $this->param['p_usuario']);
+        $this->prepararConsultaTransaccion('opc_registrar_transaccion',  $this->param['p_socioID'], $this->param['p_tipoDoc'], $this->param['p_serie'], $this->param['p_numero'], $this->param['p_importe'], $this->param['p_fecha'], $this->param['p_usuario'], '0');
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
+    function update_transaccion() {
+        $this->prepararConsultaTransaccion('opc_update_transaccion',  $this->param['p_socioID'], $this->param['p_tipoDoc'], $this->param['p_serie'], $this->param['p_numero'], $this->param['p_importe'], $this->param['p_fecha'], $this->param['p_usuario'], $this->param['p_codigo']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
@@ -200,7 +210,7 @@ class VentaRegistrada_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA"].'</td>';
 
 						if ($datos[$i]["ESTADO"] == '1') {
-                            echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Completo</span></span></td>';
+                            echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Registrado</span></span></td>';
                         }
                 echo '
                             <td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">								
@@ -233,7 +243,7 @@ class VentaRegistrada_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA"].'</td>';
 
                 if ($datos[$i]["ESTADO"] == '1') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Completo</span></span></td>';
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Registrado</span></span></td>';
                 }
                 echo '</tr>';
             }

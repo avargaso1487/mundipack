@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario'])) {
 
         <link rel="stylesheet" type="text/css" href="../default/assets/css/vendor.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/flat-admin.css">
-
+        <link rel="stylesheet" type="text/css" href="../default/css/iziToast.min.css">
         <!-- Theme -->
 
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue-sky.css">
@@ -430,8 +430,8 @@ if (!isset($_SESSION['usuario'])) {
                                                name="ventaImporte" id="ventaImporte"
                                                onkeypress="return NumCheck(event, this)"/>
                                     </div>
-                                    <label class="col-md-1 control-label">Fecha <span style="color: red">(*)</span></label>
-                                    <div class="col-md-5">
+                                    <label class="col-md-2 control-label">Fecha <span style="color: red">(*)</span></label>
+                                    <div class="col-md-4">
                                         <input type="date" class="form-control" placeholder="F. Transaccion"
                                                name="ventaFecha" id="ventaFecha">
                                     </div>
@@ -445,7 +445,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar
                                     </button>
-                                    <input type="button" id="guardarVenta" data-dismiss="modal"
+                                    <input type="button" id="guardarVenta"
                                            class="btn btn-sm btn-primary" value="Guardar"/>
                                 </div>
                             </form>
@@ -477,6 +477,25 @@ if (!isset($_SESSION['usuario'])) {
     <script>
         dashboard.init();
     </script>
+    <script src="../default/js/iziToast.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootbox.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.easypiechart.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-datepicker.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.hotkeys.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="../default/assets_acemaster/js/select2.min.js"></script>
+    <script src="../default/assets_acemaster/js/fuelux.spinner.min.js"></script>
+
+
+    <script src="../default/assets_acemaster/js/jquery.maskedinput.min.js"></script>
+
+    <!-- ace scripts -->
+    <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
+
+
     </body>
     </html>
 

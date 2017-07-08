@@ -16,7 +16,7 @@ $param['p_fileArchivo'] = '';
 $param['p_ruta'] = '';
 $param['p_codigo'] = '';
 
-
+$param['p_porcentaje'] = '';
 
 if(isset($_POST['p_opcion']))
     $param['p_opcion'] = $_POST['p_opcion'];
@@ -36,6 +36,8 @@ if(isset($_POST['p_fechaFin']))
 if(isset($_POST['p_stock']))
     $param['p_stock'] = $_POST['p_stock'];
 
+if(isset($_POST['p_porcentaje']))
+    $param['p_porcentaje'] = $_POST['p_porcentaje'];
 
 if(isset($_FILES['p_imagen']['name'])){
     $param['p_archivo'] = $_FILES['p_imagen']['name'];
