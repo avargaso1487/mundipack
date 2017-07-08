@@ -112,18 +112,30 @@ class Administrador_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">
 							<p class="clasificacion">';
+
                 for($j=5; $j>0; $j--)
                 {
                     if($j == $datos[$i]["socioCategoria"])
                     {
                         echo '<input type="radio" value="'.$j.'" checked>
+
+						for($j=5; $j>0; $j--)
+						{									
+							if($j == $datos[$i]["socioCategoria"])
+							{								
+								echo '<input type="radio" value="'.$j.'" checked>
+
 	                        		<label>★</label>';
                     }
                     else
                         echo '<input type="radio" value="'.$j.'">
 	                        		<label>★</label>';
+
                 }
-                echo '	</p>											                       
+                echo '	</p>
+
+						}
+						echo '	</p>											                       
 							</td>
 						<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">';
                 /*<a href="#modalSocio" data-toggle="modal" class="red" onclick="editar('.$datos[$i]["socioID"].')">
