@@ -19,6 +19,7 @@ $(function() {
         $('#p_fechaFin').val('');
         $('#p_stock').val('');
         $('#p_imagen').val('');
+        $('#p_porcentaje').prop('checked', false).parent().addClass('checked');
     });
 
     $('#guardarOferta').on('click', function () {
@@ -28,7 +29,6 @@ $(function() {
         var p_stock = $('#p_stock').val();
         var p_imagen = $('#p_imagen').val();
         var p_codigo = $('#p_codigo').val();
-
         if ($('#p_porcentaje').is(":checked")) {
             var p_porcentaje = '1';
         } else {
@@ -154,7 +154,16 @@ var noti_pre_registro = function () {
         processData: false,
         cache: false,
         success: function (data) {
-            $('#noti_ventas_pre_registradas').html(data);
+
+            if (data == 0) {
+                $('#ventas_pre_registradas').addClass('hidden');
+                console.log(data);
+            } else {
+                $('#ventas_pre_registradas').removeClass('hidden');
+                $('#noti_ventas_pre_registradas').html(data);
+            }
+            //$('#btnMail').addClass('hidden');
+
         },
         error: function (msg) {
             alert(msg);

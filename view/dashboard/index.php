@@ -43,7 +43,6 @@ if (!isset($_SESSION['usuario'])) {
 
 
             <div class="sidebar-menu" id="permisos">
-                               
 
             </div>
 
@@ -95,11 +94,6 @@ if (!isset($_SESSION['usuario'])) {
                         </ul>
                         <ul class="nav navbar-nav navbar-left">
                             <li class="navbar-title">Dashboard <?php echo $_SESSION['usuarioDashboard']; ?></li>
-                            <!-- Search
-                            <li class="navbar-search hidden-sm">
-                              <input id="search" type="text" placeholder="Search..">
-                              <button class="btn-search"><i class="fa fa-search"></i></button>
-                            </li> -->
                         </ul>
 
 
@@ -108,20 +102,34 @@ if (!isset($_SESSION['usuario'])) {
                         <ul class="nav navbar-nav navbar-right">
 
 
-                            <li class="dropdown notification danger">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div class="icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></div>
-                                    <div class="title">New Orders</div>
-                                    <div class="count" id="noti_ventas_pre_registradas"></div>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul id="item_noti">
 
+                                <?php
+                                        if ($_SESSION['usuarioDashboardURL'] == 'administrador_dashboard.php') { ?>
 
+                                <?php
+                                        } else {
+                                            if ($_SESSION['usuarioDashboardURL'] == 'socio_dashboard.php') { ?>
+                                             <li class="dropdown notification danger hidden" id="ventas_pre_registradas">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <div class="icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></div>
+                                                    <div class="title">New Orders</div>
+                                                    <div class="count" id="noti_ventas_pre_registradas"></div>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <ul id="item_noti">
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                <?php
+                                            } else {
 
-                                    </ul>
-                                </div>
-                            </li>
+                                            }
+                                ?>
+
+                                <?php
+                                        }
+                                ?>
+
                             <li class="dropdown profile">
                                 <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown">
                                     <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen']; ?>">
@@ -153,31 +161,6 @@ if (!isset($_SESSION['usuario'])) {
             <input type="hidden" dissabled="true" value="Dashboard" id="Menu">
 
 
-            <!-- Gráfico
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="card card-banner card-chart card-green no-br">
-                  <div class="card-header">
-                    <div class="card-title">
-                      <div class="title">Top Sale Today</div>
-                    </div>
-                    <ul class="card-action">
-                      <li>
-                        <a href="/">
-                          <i class="fa fa-refresh"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <div class="ct-chart-sale"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            -->
-
             <?php
             include("../dashboards/" . $_SESSION['usuarioDashboardURL']);
             ?>
@@ -199,7 +182,7 @@ if (!isset($_SESSION['usuario'])) {
                                     <label class="col-md-3 control-label">Precio Compra</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="Precio Compra"
-                                               name="txtxPrecioCompra" id="txtxPrecioCompra">
+                                               name="txtxPrecioCompra" id="txtxPrecioCompra" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);">
                                     </div>
                                 </div>
 
@@ -208,7 +191,7 @@ if (!isset($_SESSION['usuario'])) {
                                     <label class="col-md-3 control-label">Precio Venta</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="Precio Venta"
-                                               name="txtxPrecioVenta" id="txtxPrecioVenta">
+                                               name="txtxPrecioVenta" id="txtxPrecioVenta" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);">
                                     </div>
                                 </div>
 
@@ -338,15 +321,15 @@ if (!isset($_SESSION['usuario'])) {
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Documento <span style="color: red">(*)</span></label>
                                     <div class="col-md-9">
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control"
                                                    onkeypress="return solonumeros(event)" placeholder="Serie"
-                                                   name="ventaSerie" id="ventaSerie">
+                                                   name="ventaSerie" id="ventaSerie" maxlength="5">
                                         </div>
                                         <div class="col-md-7">
                                             <input type="text" class="form-control"
                                                    onkeypress="return solonumeros(event)" placeholder="Número"
-                                                   name="ventaNumero" id="ventaNumero">
+                                                   name="ventaNumero" id="ventaNumero" maxlength="7">
                                         </div>
                                     </div>
                                 </div>
@@ -357,7 +340,7 @@ if (!isset($_SESSION['usuario'])) {
                                     <div class="col-md-3">
                                         <input type="text" class="form-control" placeholder="Importe"
                                                name="ventaImporte" id="ventaImporte"
-                                               onkeypress="return NumCheck(event, this)"/>
+                                               onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);" />
                                     </div>
                                     <label class="col-md-2 control-label">Fecha <span style="color: red">(*)</span></label>
                                     <div class="col-md-4">
@@ -398,15 +381,12 @@ if (!isset($_SESSION['usuario'])) {
 
     <script type="text/javascript" src="../default/assets/js/vendor.js"></script>
     <script type="text/javascript" src="../default/assets/js/app.js"></script>
-
-    <script src="../default/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script src="../default/assets/js/jquery.gritter.min.js"></script>
+    <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
     <script src="../default/js/dashboard.js"></script>
-    <script src="../default/js/validaciones.js"></script>
-    <script>
-        dashboard.init();
-    </script>
     <script src="../default/js/iziToast.min.js"></script>
+
+    <script src="../default/js/validaciones.js"></script>
+
     <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
@@ -417,12 +397,13 @@ if (!isset($_SESSION['usuario'])) {
     <script src="../default/assets_acemaster/js/bootstrap-wysiwyg.min.js"></script>
     <script src="../default/assets_acemaster/js/select2.min.js"></script>
     <script src="../default/assets_acemaster/js/fuelux.spinner.min.js"></script>
-
-
+    <script src="../default/assets_acemaster/js/bootstrap-editable.min.js"></script>
+    <script src="../default/assets_acemaster/js/ace-editable.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.maskedinput.min.js"></script>
 
     <!-- ace scripts -->
     <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
+    <script src="../default/assets_acemaster/js/ace.min.js"></script>
 
 
     </body>
