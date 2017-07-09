@@ -105,7 +105,29 @@ if (!isset($_SESSION['usuario'])) {
 
                                 <?php
                                         if ($_SESSION['usuarioDashboardURL'] == 'administrador_dashboard.php') { ?>
-
+                                            <li class="dropdown profile">
+                                                <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen']; ?>">
+                                                    <div class="title">Profile</div>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <div class="profile-info">
+                                                        <h4 class="username"><?php echo $_SESSION['usuarioNombres']; ?></h4>
+                                                    </div>
+                                                    <ul class="action">
+                                                        <li>
+                                                            <a href="../cuenta/cuenta_admin.php">
+                                                                Cuenta
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="../../view/controlusuario/logout.php">
+                                                                Salir
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
                                 <?php
                                         } else {
                                             if ($_SESSION['usuarioDashboardURL'] == 'socio_dashboard.php') { ?>
@@ -120,6 +142,29 @@ if (!isset($_SESSION['usuario'])) {
                                                     </ul>
                                                 </div>
                                             </li>
+                                            <li class="dropdown profile">
+                                                    <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen']; ?>">
+                                                        <div class="title">Profile</div>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <div class="profile-info">
+                                                            <h4 class="username"><?php echo $_SESSION['usuarioNombres']; ?></h4>
+                                                        </div>
+                                                        <ul class="action">
+                                                            <li>
+                                                                <a href="../partners/perfil.php">
+                                                                    Cuenta
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="../../view/controlusuario/logout.php">
+                                                                    Salir
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
                                 <?php
                                             } else {
 
@@ -130,29 +175,7 @@ if (!isset($_SESSION['usuario'])) {
                                         }
                                 ?>
 
-                            <li class="dropdown profile">
-                                <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen']; ?>">
-                                    <div class="title">Profile</div>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <div class="profile-info">
-                                        <h4 class="username"><?php echo $_SESSION['usuarioNombres']; ?></h4>
-                                    </div>
-                                    <ul class="action">
-                                        <li>
-                                            <a href="../cuenta/cuenta_admin.php">
-                                                Cuenta
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="../../view/controlusuario/logout.php">
-                                                Salir
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>

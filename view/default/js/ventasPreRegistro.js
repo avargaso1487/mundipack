@@ -1,7 +1,7 @@
 /**
  * Created by Jorge Luis on 07/07/2017.
  */
-window.onload = function(){
+window.onload = function () {
     $('#tblVentasPreReg').DataTable();
     mostrarMenu();
     mostrarPreVentas();
@@ -9,17 +9,19 @@ window.onload = function(){
     noti_item_socio();
 }
 
-$(function() {
-
+$(function () {
+    $('#aceptarVenta').on('click', function () {
+        confirmarTransaccion()
+    });
 });
 
 var mostrarMenu = function () {
     var menu = document.getElementById('Menu').value;
     $.ajax({
-        type:'POST',
-        data: 'opcion=mostrarMenu&menu='+menu,
+        type: 'POST',
+        data: 'opcion=mostrarMenu&menu=' + menu,
         url: "../../controller/controlusuario/usuario.php",
-        success:function(data){
+        success: function (data) {
             $('#permisos').html(data);
         }
     });
@@ -105,8 +107,11 @@ var noti_item_socio = function () {
 }
 
 var aceptarTransaccion = function (codigo) {
+    $('#modalAprobacion').modal('show');
+    $('#transaccionID').val(codigo);
+
     var data = new FormData();
-    data.append('p_opcion', 'aceptar_transacion');
+    data.append('p_opcion', 'obtener_venta_registrada');
     data.append('p_codigo', codigo);
     $.ajax({
         type: "post",
@@ -116,6 +121,37 @@ var aceptarTransaccion = function (codigo) {
         processData: false,
         cache: false,
         success: function (data) {
+            objeto=JSON.parse(data);
+            $('#spanDni').html(objeto[6]);
+            $('#spanCliente').html(objeto[7]);
+            $('#spanDoc').html(objeto[1]+'-'+objeto[2]);
+            $('#spanMonto').html(objeto[3]);
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+
+}
+
+var confirmarTransaccion = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'aceptar_transacion');
+    data.append('p_codigo', $('#transaccionID').val());
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlSocio/ventasRegistradas.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $('#modalAprobacion').modal('hide');
+            iziToast.success({
+                position: 'topRight',
+                title: 'Correcto',
+                message: 'Aprobación Correcta',
+            });
             $('#tblVentasPreReg').DataTable().destroy();
             $('#cuerpoTablaVentasPreReg').html(data);
             $('#tblVentasPreReg').DataTable({

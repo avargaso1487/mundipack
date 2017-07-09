@@ -269,7 +269,7 @@ class VentaRegistrada_model{
             {
                 echo '
 					<tr>							
-						<td style="font-size: 12px; text-align: left; height: 10px; width: 15%;">'.$datos[$i]["CLIENTE"].'</td>
+						<td style="font-size: 12px; text-align: left; height: 10px; width: 20%;">'.$datos[$i]["CLIENTE"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["TIPO_DOCUMENTO"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["DOCUMENTO"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["IMPORTE"].'</td>

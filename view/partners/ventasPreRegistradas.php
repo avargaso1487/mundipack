@@ -121,7 +121,7 @@ if (!isset($_SESSION['usuario']))
                                     </div>
                                     <ul class="action">
                                         <li>
-                                            <a href="../cuenta/cuenta_admin.php">
+                                            <a href="perfil.php">
                                                 Cuenta
                                             </a>
                                         </li>
@@ -166,6 +166,40 @@ if (!isset($_SESSION['usuario']))
                                 </tbody>
                             </table>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL -->
+            <div class="modal fade" id="modalAprobacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width: 35% !important;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" style="text-align: center; font-size: 18px; color: red">¡Mensaje de Confirmación!</h4>
+
+                        </div>
+
+                        <div class="modal-body">
+                            <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
+
+                                <div class="form-group">
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;">Esta seguro en confirmar la venta registrada por el cliente: </label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente: </strong> <span id="spanCliente"></span></label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dni: </strong> <span id="spanDni"></span></label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Documento: </strong> <span id="spanDoc"></span></label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monto: </strong> <span id="spanMonto"></span></label>
+                                </div>
+
+                                <input type="hidden" class="form-control"  name="transaccionID" id="transaccionID" onkeypress="return NumCheck(event, this)"/>
+
+                                <br>
+                                <div class="modal-footer">
+                                    <input  type="button" id="aceptarVenta" class="btn btn-sm btn-primary" value="Si"/>
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
