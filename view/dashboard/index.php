@@ -310,7 +310,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">DNI <span style="color: red">(*)</span></label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Dni" name="ventaDni"
+                                        <input type="text" class="form-control" placeholder="DNI" name="ventaDni"
                                                maxlength="8" id="ventaDni" onkeypress="return solonumeros(event)">
                                     </div>
                                     <div class="col-md-3">

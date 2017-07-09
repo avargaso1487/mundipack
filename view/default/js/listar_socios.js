@@ -107,7 +107,7 @@ function guardar()
   				mostrarDatos();
   				swal({
   				  title: "Éxito!",
-  				  text: "Se registraron los datos del nuevo Socio",
+  				  text: "Se registraron los datos del nuevo Net Partner",
   				  type: "success",
   				  confirmButtonText: "OK"
   				});  						
@@ -120,7 +120,7 @@ function eliminar(socioID)
 {
   swal({
     title: "Confirmar",
-    text: "¿Desea eliminar este socio?",
+    text: "¿Desea eliminar este Net Partner?",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
@@ -141,7 +141,7 @@ function eliminar(socioID)
           mostrarDatos();
           swal({
             title: "Éxito!",
-            text: "Se eliminaron los datos del nuevo Socio",
+            text: "Se eliminaron los datos del Net Partner",
             type: "success",
             confirmButtonText: "OK"
           });             
