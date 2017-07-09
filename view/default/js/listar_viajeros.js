@@ -101,7 +101,7 @@ function guardar()
   				mostrarDatos();
   				swal({
   				  title: "Éxito!",
-  				  text: "Se registraron los datos del nuevo Viajero",
+  				  text: "Se registraron los datos del nuevo Traveler",
   				  type: "success",
   				  confirmButtonText: "OK"
   				});  						
@@ -114,7 +114,7 @@ function eliminar(viajeroID)
 {
   swal({
     title: "Confirmar",
-    text: "¿Desea eliminar este viajero?",
+    text: "¿Desea eliminar este Traveler?",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
@@ -135,7 +135,7 @@ function eliminar(viajeroID)
           mostrarDatos();
           swal({
             title: "Éxito!",
-            text: "Se eliminaron los datos del nuevo Socio",
+            text: "Se eliminaron los datos del Traveler",
             type: "success",
             confirmButtonText: "OK"
           });             

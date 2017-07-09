@@ -49,7 +49,7 @@
 
 
       <div class="app-block">
-      <img src="view/default/assets/images/logo.jpg">
+      <img src="view/default/assets/images/logo.png">
       <div class="app-form">
         <div class="form-header">
           <div class="app-brand"><span class="highlight">INICIAR</span> SESIÓN</div>

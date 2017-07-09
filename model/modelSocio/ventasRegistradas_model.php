@@ -203,17 +203,17 @@ class VentaRegistrada_model{
             {
                 echo '
 					<tr>							
-						<td style="font-size: 12px; text-align: left; height: 10px; width: 10%;">'.$datos[$i]["CLIENTE"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["TIPO_DOCUMENTO"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["DOCUMENTO"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["IMPORTE"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA"].'</td>';
+						<td style="font-size: 12px; text-align: left; height: 10px; width: 50%;">'.$datos[$i]["CLIENTE"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["TIPO_DOCUMENTO"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["DOCUMENTO"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width:  1%;">'.$datos[$i]["IMPORTE"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["FECHA"].'</td>';
 
 						if ($datos[$i]["ESTADO"] == '1') {
-                            echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Registrado</span></span></td>';
+                            echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Confirmado</span></span></td>';
                         }
                 echo '
-                            <td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">								
+                            <td style="font-size: 15px; text-align: center; height: 10px; width: 1%;">								
 	                            <a href="#" class="red" onclick="editar('.$datos[$i]["CODIGO"].')" data-toggle="modal" data-target="#modalVenta">
 	                                <i class= "ace-icon fa fa-pencil bigger-200"></i>
 	                            </a>	                           
@@ -236,14 +236,14 @@ class VentaRegistrada_model{
             {
                 echo '
 					<tr>							
-						<td style="font-size: 12px; text-align: left; height: 10px; width: 10%;">'.$datos[$i]["CLIENTE"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["TIPO_DOCUMENTO"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["DOCUMENTO"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["IMPORTE"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA"].'</td>';
+						<td style="font-size: 12px; text-align: left; height: 10px; width: 50%;">'.$datos[$i]["CLIENTE"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["TIPO_DOCUMENTO"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["DOCUMENTO"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["IMPORTE"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["FECHA"].'</td>';
 
                 if ($datos[$i]["ESTADO"] == '1') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Registrado</span></span></td>';
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Confirmado</span></span></td>';
                 }
                 echo '</tr>';
             }

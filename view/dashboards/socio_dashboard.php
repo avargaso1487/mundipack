@@ -18,7 +18,7 @@
         <i class="icon fa fa-shopping-basket fa-4x"></i>
         <div class="content">
           <div class="title">Total de Ventas</div>
-          <div class="value" id="totalVentasSocio"><span class="sign"></span></div>
+          <div class="value" id="totalVentasSocio" style="font-size: 30pt;"><span class="sign"></span></div>
         </div>
       </div>
     </a>
@@ -30,7 +30,7 @@
         <i class="icon fa fa-usd fa-4x"></i>
         <div class="content">
           <div class="title">Monto de Ventas</div>
-          <div class="value" id="montoTotalVentasSocio"><span class="sign"></span></div>
+          <div class="value" id="montoTotalVentasSocio" style="font-size: 30pt;"><span class="sign"></span></div>
         </div>
       </div>
     </a>
@@ -42,7 +42,7 @@
         <i class="icon fa fa-user fa-4x"></i>
         <div class="content">
           <div class="title">Travelers</div>
-          <div class="value" id="nroSocios"><span class="sign"></span></div>
+          <div class="value" id="nroSocios"><span class="sign" style="font-size: 30pt;"></span></div>
         </div>
       </div>
     </a>
@@ -73,10 +73,10 @@
           <thead>
             <tr>
               <th>Cliente</th>
-              <th>T. Documento</th>
+              <th>Tipo Documento</th>
               <th>Documento</th>
               <th>Importe</th>
-              <th>F. Documento</th>
+              <th>Fecha Documento</th>
               <th>Estado</th>
             </tr>
           </thead>

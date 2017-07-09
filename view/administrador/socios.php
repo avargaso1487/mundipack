@@ -134,12 +134,12 @@ if (!isset($_SESSION['usuario']))
                             <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="socios">
                                 <thead>
                                 <tr>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Nombre</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 12%;">Nombre</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">RUC</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Rubro</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Telefono</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">% Retorno</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Categoría</th>
+                                    
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 2%;">Operaciones</th>
                                 </tr>
                                 </thead>
@@ -232,7 +232,7 @@ if (!isset($_SESSION['usuario']))
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Nro. Cuenta</label>
                                     <div class="col-md-9">
-                                        <input class="form-control" placeholder="Número de Cuenta" name="socioNroCuenta" id="socioNroCuenta" maxlength="5">
+                                        <input class="form-control" placeholder="Número de Cuenta" name="socioNroCuenta" id="socioNroCuenta" >
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -244,24 +244,13 @@ if (!isset($_SESSION['usuario']))
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">% de Retorno</label>
                                     <div class="col-md-9">
-                                        <input class="form-control" placeholder="% de Retorno" name="socioPrctjRetorno" id="socioPrctjRetorno" >
+                                        <input class="form-control" placeholder="% de Retorno" name="socioPrctjRetorno" id="socioPrctjRetorno" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Categoría</label>
-                                    <div class="col-md-2">
-                                        <p class="clasificacion">
-                                            <input type="radio" name="socioCategoria" id="socioCategoria1" value="5"><!--
-                        --><label for="socioCategoria1">★</label><!--
-                        --><input id="socioCategoria2" type="radio" name="socioCategoria"  value="4"><!--
-                        --><label for="socioCategoria2">★</label><!--
-                        --><input id="socioCategoria3" type="radio" name="socioCategoria" value="3"><!--
-                        --><label for="socioCategoria3">★</label><!--
-                        --><input id="socioCategoria4" type="radio" name="socioCategoria" value="2"><!--
-                        --><label for="socioCategoria4">★</label><!--
-                        --><input id="socioCategoria5" type="radio" name="socioCategoria" value="1"><!--
-                        --><label for="socioCategoria5">★</label>
-                                        </p>
+                                    <label class="col-md-3 control-label">Precios Desde</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control"  placeholder="Precio"  name="socioPrecioDesde" id="socioPrecioDesde" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

@@ -20,7 +20,7 @@
 	$param['socioNroCuenta'] = '';
 	$param['socioContactoResponsable'] = '';
 	$param['socioPrctjRetorno'] = 0;
-	$param['socioCategoria'] = 0;
+	$param['socioPrecioDesde'] = 0;
 
 	$param['viajeroID'] = 0;
 	$param['viajeroNombre'] = '';
@@ -50,7 +50,7 @@
 	if(isset($_POST['socioNroCuenta']))		$param['socioNroCuenta'] = $_POST['socioNroCuenta'];
 	if(isset($_POST['socioContactoResponsable']))		$param['socioContactoResponsable'] = $_POST['socioContactoResponsable'];
 	if(isset($_POST['socioPrctjRetorno']))		$param['socioPrctjRetorno'] = $_POST['socioPrctjRetorno'];
-	if(isset($_POST['socioCategoria']))		$param['socioCategoria'] = $_POST['socioCategoria'];
+	if(isset($_POST['socioPrecioDesde']))		$param['socioPrecioDesde'] = $_POST['socioPrecioDesde'];
 
 	//Viajeros
 	if(isset($_POST['viajeroID']))		$param['viajeroID'] = $_POST['viajeroID'];

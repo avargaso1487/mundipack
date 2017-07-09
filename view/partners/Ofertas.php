@@ -26,7 +26,6 @@ if (!isset($_SESSION['usuario'])) {
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/red.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/yellow.css">
-
     </head>
     <body>
     <div class="app app-default">
@@ -331,7 +330,7 @@ if (!isset($_SESSION['usuario'])) {
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar
+                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cerrar
                                 </button>
                             </div>
 

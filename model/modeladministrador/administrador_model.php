@@ -53,7 +53,7 @@ class Administrador_model{
         $consultaSql.= "'".$this->param['socioNroCuenta']."',";
         $consultaSql.= "'".$this->param['socioContactoResponsable']."',";
         $consultaSql.= "".$this->param['socioPrctjRetorno'].",";
-        $consultaSql.= "".$this->param['socioCategoria'].",";
+        $consultaSql.= "".$this->param['socioPrecioDesde'].",";
         $consultaSql.= "".$this->param['socioID'].",";
         $consultaSql.= "".$this->param['viajeroID'].",";
         $consultaSql.= "'".$this->param['viajeroNombre']."',";
@@ -84,7 +84,7 @@ class Administrador_model{
                 "socioNombre" => $fila["socioNombre"],
                 "socioRubro" => $fila["socioRubro"],
                 "socioPorcentajeRetorno" => $fila["socioPorcentajeRetorno"],
-                "socioCategoria" => $fila["socioCategoria"],
+                "socioPrecioDesde" => $fila["socioPrecioDesde"],
                 "socioTelefonoContacto" => $fila["socioTelefonoContacto"],
                 "socioRUC" => $fila["socioRUC"]
             ));
@@ -105,26 +105,11 @@ class Administrador_model{
             {
                 echo '
 					<tr>							
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;">'.$datos[$i]["socioNombre"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 12%;">'.$datos[$i]["socioNombre"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioRUC"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioRubro"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioTelefonoContacto"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">
-							<p class="clasificacion">';
-                for($j=5; $j>0; $j--)
-                {
-                    if($j == $datos[$i]["socioCategoria"])
-                    {
-                        echo '<input type="radio" value="'.$j.'" checked>
-	                        		<label>★</label>';
-                    }
-                    else
-                        echo '<input type="radio" value="'.$j.'">
-	                        		<label>★</label>';
-                }
-                echo '	</p>											                       
-							</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>						
 						<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">';
                 /*<a href="#modalSocio" data-toggle="modal" class="red" onclick="editar('.$datos[$i]["socioID"].')">
                     <i class= "ace-icon fa fa-pencil bigger-200"></i>
@@ -158,7 +143,7 @@ class Administrador_model{
                 "viajeroPaqueteObjetivo" => $fila["viajeroPaqueteObjetivo"],
                 "viajeroAcumulado" => $fila["viajeroAcumulado"],
                 "viajeroEstadoPago" => $fila["viajeroEstadoPago"],
-                "viajeroAbierto" => utf8_encode($fila["viajeroAbierto"])
+                "viajeroAbierto" => ($fila["viajeroAbierto"])
             ));
         }
         return $datos;

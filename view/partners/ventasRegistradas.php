@@ -165,13 +165,13 @@ if (!isset($_SESSION['usuario']))
                             <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="tblVentasReg">
                                 <thead>
                                 <tr>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Cliente</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">T. Documento</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Documento</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Importe</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Documento</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Estado</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Operaciones</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Cliente</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 1%;">Tipo Documento</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 1%;">Documento</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 1%;">Importe</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 1%;">Fecha Documento</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 1%;">Estado</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 1%;">Operaciones</th>
                                 </tr>
                                 </thead>
 
@@ -202,7 +202,7 @@ if (!isset($_SESSION['usuario']))
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">DNI <span style="color: red">(*)</span></label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Dni" name="ventaDni" maxlength="8" id="ventaDni" onkeypress="return solonumeros(event)">
+                                        <input type="text" class="form-control" placeholder="DNI" name="ventaDni" maxlength="8" id="ventaDni" onkeypress="return solonumeros(event)">
                                     </div>
                                     <div class="col-md-3">
                                         <butotn id="searchSocio" class="btn btn-success btn-xs"><i class="fa fa-search"></i></butotn>

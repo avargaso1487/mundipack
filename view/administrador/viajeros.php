@@ -226,7 +226,7 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label">Fecha Nacimiento</label>
                     <div class="col-md-9">
-                      <input type="text" class="form-control" placeholder="Añu-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
+                      <input type="text" class="form-control" placeholder="Año-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
                     </div>
                   </div>
                 
