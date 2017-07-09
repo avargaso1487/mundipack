@@ -300,7 +300,7 @@ var montoTotalVentasSocio = function () {
         processData: false,
         cache: false,
         success: function (data) {
-            $('#montoTotalVentasSocio').html(data);
+            $('#montoTotalVentasSocio').html(parseFloat(data).toFixed(2));
         },
         error: function (msg) {
             alert(msg);
