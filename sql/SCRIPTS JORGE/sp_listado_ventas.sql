@@ -1,5 +1,5 @@
 use bdmundipack;
-drop procedure IF EXISTS sp_listado_ventas
+drop procedure IF EXISTS sp_listado_ventas;
 DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listado_ventas`(IN `p_usuario` INT, IN `opcion` VARCHAR(200), IN `p_codigo` INT)
