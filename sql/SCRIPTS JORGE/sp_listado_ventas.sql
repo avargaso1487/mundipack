@@ -1,6 +1,7 @@
 use bdmundipack;
-drop procedure IF EXISTS sp_listado_ventas;
+drop procedure IF EXISTS sp_listado_ventas
 DELIMITER $$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listado_ventas`(IN `p_usuario` INT, IN `opcion` VARCHAR(200), IN `p_codigo` INT)
     NO SQL
 BEGIN
@@ -11,7 +12,7 @@ BEGIN
     
     IF opcion = 'opc_contar_ventas_pre_rgistradas' THEN
 		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
-		SELECT COUNT(*) AS total FROM se_transaccion WHERE Socio = @SOCIO AND Estado = 0;
+		SELECT COUNT(*) AS total FROM se_transaccion WHERE Socio = @SOCIO AND (Estado = 0 OR Estado = 2);
 	END IF; 
     
     IF opcion = 'opc_contar_ultimas_ventas_rgistradas' THEN		
@@ -67,7 +68,7 @@ BEGIN
 			INNER JOIN se_viajero V ON V.Viajero = T.Viajero
 			INNER JOIN se_persona P ON P.Persona = V.Persona
 			INNER JOIN se_tipodocumento TD ON TD.TipoDocumento = T.TipoDocumento
-		WHERE T.Socio = @SOCIO AND T.Estado = 0 ORDER BY T.FechaTransaccion DESC;
+		WHERE T.Socio = @SOCIO AND (T.Estado = 0 OR T.Estado = 2) ORDER BY T.FechaTransaccion DESC;
 	END IF;  
     
     
@@ -85,18 +86,17 @@ BEGIN
 			INNER JOIN se_viajero V ON V.Viajero = T.Viajero
 			INNER JOIN se_persona P ON P.Persona = V.Persona
 			INNER JOIN se_tipodocumento TD ON TD.TipoDocumento = T.TipoDocumento
-		WHERE T.Socio = @SOCIO AND T.Estado = 0 ORDER BY T.FechaTransaccion DESC limit 3;
+		WHERE T.Socio = @SOCIO AND (T.Estado = 0 OR T.Estado = 2) ORDER BY T.FechaTransaccion DESC limit 3;
 	END IF;  
     
     
     IF opcion = 'opc_aceptar_transaccion' THEN
-		SET @CLIENTE = (SELECT Viajero FROM se_transaccion WHERE Transaccion = p_codigo AND Estado = 0);
-        SET @SOCIO = (SELECT Socio FROM se_transaccion WHERE Transaccion = p_codigo AND Estado = 0);
+		SET @CLIENTE = (SELECT Viajero FROM se_transaccion WHERE Transaccion = p_codigo AND (Estado = 0 OR Estado = 2));
+        SET @SOCIO = (SELECT Socio FROM se_transaccion WHERE Transaccion = p_codigo AND (Estado = 0 OR Estado = 2));
 		SET @VALIDARCONTADOR = (SELECT COUNT(*) FROM se_contador WHERE Viajero = @CLIENTE);
-		SET @IMPORTE = (SELECT Importe FROM se_transaccion WHERE Transaccion = p_codigo AND Estado = 0);
+		SET @IMPORTE = (SELECT Importe FROM se_transaccion WHERE Transaccion = p_codigo AND (Estado = 0 OR Estado = 2));
         SET @PORCRETORNO = (SELECT PorcentajeRetorno FROM se_socio WHERE Socio = @SOCIO);
-        SET @COMISION = (SELECT Porcentaje FROM se_comision WHERE Estado = 1);
-        
+        SET @COMISION = (SELECT Porcentaje FROM se_comision WHERE Estado = 1);       
         IF (@VALIDARCONTADOR = 0) THEN
 				SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
 				UPDATE se_transaccion SET Estado = 1 WHERE Transaccion = p_codigo;		                    
@@ -125,14 +125,12 @@ BEGIN
                 INSERT INTO se_transaccioncontador (Contador, Transaccion, Comision, Estado) VALUES (@CONT_ID, p_codigo, @COMISION, 1);				
                 INSERT INTO se_movimiento (TipoMovimiento, Socio, FechaMovimiento, Estado) VALUES ('10', @SOCIO, now(), 1);
 				SELECT 'Registro Correcto' AS respuesta;										
-            END IF;       
-        
-        
-        
-        
-        
-        
+            END IF;                       					
 	END IF; 
+    
+    IF opcion = 'opc_rechazar_transaccion' THEN
+		UPDATE se_transaccion SET Estado = 2 WHERE Transaccion = p_codigo;
+    END IF;
     
     IF opcion = 'opc_total_ventas_socio' THEN
 		SET @v_FechaActual = NOW();
