@@ -13,6 +13,10 @@ $(function () {
     $('#aceptarVenta').on('click', function () {
         confirmarTransaccion()
     });
+
+    $('#rechazarVenta').on('click', function () {
+        eliminarTransaccion()
+    });
 });
 
 var mostrarMenu = function () {
@@ -107,6 +111,8 @@ var noti_item_socio = function () {
 }
 
 var aceptarTransaccion = function (codigo) {
+    $("#aceptarVenta").css("display", "inline");
+    $("#rechazarVenta").css("display", "none");
     $('#modalAprobacion').modal('show');
     $('#transaccionID').val(codigo);
 
@@ -125,12 +131,19 @@ var aceptarTransaccion = function (codigo) {
             $('#spanDni').html(objeto[6]);
             $('#spanCliente').html(objeto[7]);
             $('#spanDoc').html(objeto[1]+'-'+objeto[2]);
-            $('#spanMonto').html(objeto[3]);
+            $('#spanMonto').html('S/. ' +objeto[3]);
         },
         error: function (msg) {
             alert(msg);
         }
     });
+
+}
+
+var rechazarTransaccion = function (codigo) {
+    aceptarTransaccion(codigo);
+    $("#aceptarVenta").css("display", "none");
+    $("#rechazarVenta").css("display", "inline");
 
 }
 
@@ -151,6 +164,49 @@ var confirmarTransaccion = function () {
                 position: 'topRight',
                 title: 'Correcto',
                 message: 'Aprobación Correcta',
+            });
+            $('#tblVentasPreReg').DataTable().destroy();
+            $('#cuerpoTablaVentasPreReg').html(data);
+            $('#tblVentasPreReg').DataTable({
+                "dom": '<"top"fl<"clear">>rt<"bottom"ip<"clear">>',
+                "oLanguage": {
+                    "sSearch": "",
+                    "sLengthMenu": "_MENU_"
+                },
+                "initComplete": function initComplete(settings, json) {
+                    $('div.dataTables_filter input').attr('placeholder', 'Buscar...');
+                    // $(".dataTables_wrapper select").select2({
+                    //   minimumResultsForSearch: Infinity
+                    // });
+                }
+            });
+            noti_pre_registro();
+            noti_item_socio();
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+
+var eliminarTransaccion = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'rechazar_transacion');
+    data.append('p_codigo', $('#transaccionID').val());
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlSocio/ventasRegistradas.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $('#modalAprobacion').modal('hide');
+            iziToast.success({
+                position: 'topRight',
+                title: 'Correcto',
+                message: 'Se rechazo la venta Registrada.',
             });
             $('#tblVentasPreReg').DataTable().destroy();
             $('#cuerpoTablaVentasPreReg').html(data);

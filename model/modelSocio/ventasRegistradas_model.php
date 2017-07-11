@@ -44,6 +44,9 @@ class VentaRegistrada_model{
             case "aceptar_transacion";
                 echo $this->aceptar_transacion();
                 break;
+            case "rechazar_transacion";
+                echo $this->rechazar_transacion();
+                break;
             case "listado_ultimas_ventas_registradas";
                 echo $this->listado_ultimas_ventas_registradas();
                 break;
@@ -256,6 +259,12 @@ class VentaRegistrada_model{
         $this->listado_ventas_pre_registradas();
     }
 
+    function rechazar_transacion() {
+        $this->prepararConsultaListadoVentas('opc_rechazar_transaccion', $this->param['p_usuario'],$this->param['p_codigo']);
+        $this->cerrarAbrir();
+        $this->listado_ventas_pre_registradas();
+    }
+
     function listado_ventas_pre_registradas() {
         $this->prepararConsultaListadoVentas('opc_contar_ventas_pre_rgistradas', $this->param['p_usuario'],'0');
         $total = $this->getArrayTotal();
@@ -276,14 +285,26 @@ class VentaRegistrada_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA"].'</td>';
 
                 if ($datos[$i]["ESTADO"] == '0') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>';
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>
+                        <td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">                            
+                                                    <a href="#" class="red" onclick="aceptarTransaccion('.$datos[$i]["CODIGO"].')">
+                                                        <i class= "ace-icon fa fa-check bigger-400"></i>
+                                                    </a>
+                                                    <a href="#" class="red" onclick="rechazarTransaccion('.$datos[$i]["CODIGO"].')">
+                                                        <i class= "ace-icon fa fa-times-circle bigger-400"></i>
+                                                    </a>
+                                                </td>
+                                        </tr>';
                 }
-                echo '<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">                            
-                            <a href="#" class="red" onclick="aceptarTransaccion('.$datos[$i]["CODIGO"].')">
-                                <i class= "ace-icon fa fa-check bigger-400"></i>
-                            </a>
-                        </td>
-				</tr>';
+                if ($datos[$i]["ESTADO"] == '2') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-danger badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Rechazado</span></span></td>
+                        <td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">                            
+                                                    <a href="#" class="red" onclick="aceptarTransaccion('.$datos[$i]["CODIGO"].')">
+                                                        <i class= "ace-icon fa fa-check bigger-400"></i>
+                                                    </a>                                                    
+                                                </td>
+                                        </tr>';
+                }
             }
         }
     }
@@ -327,10 +348,24 @@ class VentaRegistrada_model{
             echo '<li class="dropdown-header">Ventas Pre Registradas</li>';
             for($i=0; $i<count($datos); $i++)
             {
-                echo '
+                if ($datos[$i]["ESTADO"] == '2') {
+                    echo '
+                        <li>
+                            <a href="#">
+                                <span class="badge badge-danger pull-right">R</span>
+                                <div class="message">
+                                    <div class="content">
+                                        <div class="title">'.$datos[$i]["CLIENTE"].'</div>
+                                        <div class="description">S/. '.$datos[$i]["IMPORTE"].'</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>';
+                } else {
+                    echo '
 					<li>
                         <a href="#">
-                            <span class="badge badge-danger pull-right">8</span>
+                            <span class="badge badge-warning pull-right">P</span>
                             <div class="message">
                                 <div class="content">
                                     <div class="title">'.$datos[$i]["CLIENTE"].'</div>
@@ -339,6 +374,8 @@ class VentaRegistrada_model{
                             </div>
                         </a>
                     </li>';
+                }
+
             }
             echo '<li class="dropdown-footer">
                                             <a href="../partners/ventasPreRegistradas.php">Ver Todos <i class="fa fa-angle-right"

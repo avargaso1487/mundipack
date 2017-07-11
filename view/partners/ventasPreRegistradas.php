@@ -196,6 +196,7 @@ if (!isset($_SESSION['usuario']))
 
                                 <br>
                                 <div class="modal-footer">
+                                    <input  type="button" id="rechazarVenta" class="btn btn-sm btn-primary" value="Si"/>
                                     <input  type="button" id="aceptarVenta" class="btn btn-sm btn-primary" value="Si"/>
                                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
                                 </div>

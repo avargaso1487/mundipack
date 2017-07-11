@@ -35,8 +35,6 @@ $(function() {
             var p_porcentaje = '0';
         }
 
-        console.log(p_porcentaje);
-
         if (p_codigo != '') {
             //console.log('Modificar datos');
             if (p_descripcion.length == 0 || p_fechaInicio.length == 0 || p_fechaFin.length == 0 ) {

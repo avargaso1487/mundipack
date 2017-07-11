@@ -1,0 +1,1 @@
+ALTER TABLE se_socio add CartaPresentacion text default null;

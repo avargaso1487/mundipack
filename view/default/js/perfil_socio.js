@@ -10,8 +10,48 @@ window.onload = function(){
 }
 
 $(function() {
+    $('#editarPerfil').on('click', function () {
+        $('#modalPerfilModificar').modal('show');
+    });
 
+    $('#modificarPerfil').on('click', function () {
+        var data = new FormData($("#frm_updatePerfil")[0]);
+        data.append('p_opcion', 'update_perfil_socio');
+        $.ajax({
+            type: "post",
+            url: "../../controller/controlPerfiles/perfil_socio_controller.php",
+            contentType: false,
+            data: data,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                if ($('#p_paswword').val() == "") {
+                    $('#modalPerfilModificar').modal('hide');
+                    $('#p_imagenPerfil').val('');
+                    $('#p_imagenCarta').val('');
+                    ver();
+                    iziToast.success({
+                        position: 'topRight',
+                        title: 'Correcto',
+                        message: 'Registro modificado correctamente',
+                    });
+                } else {
+                    $('#modalPerfilModificar').modal('hide');
+                    $('#modalPerfilConfirmacion').modal('show');
+                }
 
+            },
+            error: function (msg) {
+                alert(msg);
+            }
+        });
+    });
+
+    $('#confirmarCambios').on('click', function () {
+        $('#modalPerfilConfirmacion').modal('hide');
+        location.href = "../../view/controlusuario/logout.php";
+
+    });
 
 });
 
@@ -94,10 +134,10 @@ var ver = function (codigo) {
             $('#netpartner_Direccion').html(objeto[4]);
             $('#netpartner_Email').html(objeto[5]);
             $('#netpartner_Contacto').html(objeto[6]);
+            $('#p_contacto').val(objeto[6]);
             $('#netpartner_Atencion').html(objeto[7]);
-            //$('#imagen').html('<img class="img-responsive" alt="Imagen de Perfil Socio" src="'+objeto[8]+'" />');
-
-
+            $('#p_atencion').val(objeto[7]);
+            $('#imagen').html('<img class="img-responsive" alt="Imagen de Perfil Socio" src="../../'+objeto[8]+'" />');
         },
         error: function (msg) {
             alert(msg);
