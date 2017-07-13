@@ -104,9 +104,6 @@ if (!isset($_SESSION['usuario'])) {
                                 </a>
                                 <div class="dropdown-menu">
                                     <ul id="item_noti">
-
-
-
                                     </ul>
                                 </div>
                             </li>
@@ -121,7 +118,7 @@ if (!isset($_SESSION['usuario'])) {
                                     </div>
                                     <ul class="action">
                                         <li>
-                                            <a href="../cuenta/cuenta_admin.php">
+                                            <a href="perfil.php">
                                                 Cuenta
                                             </a>
                                         </li>

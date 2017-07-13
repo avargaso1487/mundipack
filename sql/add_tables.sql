@@ -1,4 +1,4 @@
-use bdmundipack;
+use bdmundipack2;
 
 -- CREACION DE TABLA TIPO_DOCUENTO
 CREATE TABLE se_tipoDocumento (
@@ -46,7 +46,7 @@ CREATE TABLE se_transaccioncontador (
     Estado				BIT NOT NULL,
     FOREIGN KEY (Contador) REFERENCES se_contador(Contador),
     FOREIGN KEY (Transaccion) REFERENCES se_transaccion(Transaccion),
-    FOREIGN KEY (Comision) REFERENse_comisionse_comisionse_comisionse_comisionse_comisionse_comisionCES se_comision(Comision)
+    FOREIGN KEY (Comision) REFERENCES se_comision(Comision)
 );
 
 -- CREACION DE TABLA PROMOCION
