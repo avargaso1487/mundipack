@@ -1,3 +1,9 @@
+
+use bdmundipack;
+drop procedure IF EXISTS sp_listado_ventas;
+DELIMITER $$
+
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listado_ventas`(IN `p_usuario` INT, IN `opcion` VARCHAR(200), IN `p_codigo` INT)
     NO SQL
 BEGIN
@@ -225,9 +231,13 @@ BEGIN
 		SELECT COUNT(*) AS respuesta FROM se_viajero;
 	END IF;
     
+
     IF opcion = 'opc_venta_neta_socio' THEN
 		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
         SELECT PorcentajeRetorno as respuesta FROM se_socio WHERE Socio = @SOCIO;
 	END IF;
-    
-END
+
+END$$
+
+DELIMITER ;
+
