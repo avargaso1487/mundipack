@@ -24,7 +24,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscar_socio` (IN `opcion` VARCHAR(30), IN `p_dni` VARCHAR(8))  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_buscar_socio` (IN `opcion` VARCHAR(30), IN `p_dni` VARCHAR(8))  NO SQL
 BEGIN
 	IF opcion = 'opc_buscar_socio' THEN
 		SET @EXISTE = (SELECT count(*) FROM se_viajero V INNER JOIN se_persona P ON P.Persona = V.Persona WHERE P.DNI = p_dni);
@@ -40,7 +40,7 @@ BEGIN
 	END IF; 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_administrador` (IN `ve_opcion` VARCHAR(20), IN `ve_socioNombreComercial` VARCHAR(150), IN `ve_socioRubro` VARCHAR(50), IN `ve_socioRUC` CHAR(11), IN `ve_socioDireccion` VARCHAR(200), IN `ve_socioTelefonoContacto` VARCHAR(10), IN `ve_socioTelefonoAtencion` VARCHAR(10), IN `ve_socioEmail` VARCHAR(100), IN `ve_socioRazonSocial` VARCHAR(200), IN `ve_socioNroCuenta` VARCHAR(30), IN `ve_socioContactoResponsable` VARCHAR(200), IN `ve_socioPorcentajeRetorno` INT, IN `ve_socioPrecioDesde` DOUBLE, IN `ve_socioID` INT, IN `ve_viajeroID` INT, IN `ve_viajeroNombre` VARCHAR(100), IN `viajeroApellidos` VARCHAR(100), IN `ve_viajeroDNI` CHAR(8), IN `ve_viajeroDireccion` TEXT, IN `ve_viajeroNacimiento` DATE, IN `ve_viajeroTelefonoFijo` VARCHAR(10), IN `ve_viajeroTelefonoCelular` VARCHAR(10), IN `ve_viajeroEmail` VARCHAR(150), IN `ve_viajeroNroPasaporte` VARCHAR(20), IN `ve_viajeroAbierto` BOOLEAN)  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_administrador` (IN `ve_opcion` VARCHAR(20), IN `ve_socioNombreComercial` VARCHAR(150), IN `ve_socioRubro` VARCHAR(50), IN `ve_socioRUC` CHAR(11), IN `ve_socioDireccion` VARCHAR(200), IN `ve_socioTelefonoContacto` VARCHAR(10), IN `ve_socioTelefonoAtencion` VARCHAR(10), IN `ve_socioEmail` VARCHAR(100), IN `ve_socioRazonSocial` VARCHAR(200), IN `ve_socioNroCuenta` VARCHAR(30), IN `ve_socioContactoResponsable` VARCHAR(200), IN `ve_socioPorcentajeRetorno` INT, IN `ve_socioPrecioDesde` DOUBLE, IN `ve_socioID` INT, IN `ve_viajeroID` INT, IN `ve_viajeroNombre` VARCHAR(100), IN `viajeroApellidos` VARCHAR(100), IN `ve_viajeroDNI` CHAR(8), IN `ve_viajeroDireccion` TEXT, IN `ve_viajeroNacimiento` DATE, IN `ve_viajeroTelefonoFijo` VARCHAR(10), IN `ve_viajeroTelefonoCelular` VARCHAR(10), IN `ve_viajeroEmail` VARCHAR(150), IN `ve_viajeroNroPasaporte` VARCHAR(20), IN `ve_viajeroAbierto` BOOLEAN)  NO SQL
 BEGIN
     IF ve_opcion = 'opc_contar_socios' THEN   
        SELECT count(s.Socio) AS "total" FROM se_socio s WHERE Estado = 1;
@@ -114,14 +114,14 @@ BEGIN
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_combos` (IN `opcion` VARCHAR(30))  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_combos` (IN `opcion` VARCHAR(30))  NO SQL
 BEGIN
 	IF opcion = 'opc_listar_tipo_documento' THEN
 		SELECT * FROM se_tipodocumento;
 	END IF;    
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_dashboard` (IN `ve_opcion` VARCHAR(30), IN `ve_usuarioIDrol` INT)  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_dashboard` (IN `ve_opcion` VARCHAR(30), IN `ve_usuarioIDrol` INT)  NO SQL
 BEGIN
 
 	IF ve_opcion = 'opc_cargar_dashboard' THEN
@@ -149,7 +149,7 @@ BEGIN
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_menu` (IN `opcion` VARCHAR(30), IN `usuarioId` INT, IN `menuId` INT)  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_menu` (IN `opcion` VARCHAR(30), IN `usuarioId` INT, IN `menuId` INT)  NO SQL
 BEGIN
 	IF opcion = 'opc_obtenerMenuPadres' THEN
     	SELECT M.Menu, M.Nombre, 
@@ -176,7 +176,7 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_ofertas` (IN `opcion` VARCHAR(300), IN `p_descripcion` VARCHAR(300), IN `p_fechaInicio` DATE, IN `p_fechaFin` DATE, IN `p_stock` INT, IN `p_ruta` VARCHAR(200), IN `p_usuario` INT, IN `p_codigo` VARCHAR(5), IN `p_porcentaje` VARCHAR(1))  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_ofertas` (IN `opcion` VARCHAR(300), IN `p_descripcion` VARCHAR(300), IN `p_fechaInicio` DATE, IN `p_fechaFin` DATE, IN `p_stock` INT, IN `p_ruta` VARCHAR(200), IN `p_usuario` INT, IN `p_codigo` VARCHAR(5), IN `p_porcentaje` VARCHAR(1))  NO SQL
 BEGIN
 	IF opcion = 'opc_add_oferta' THEN
 		SET @SOCIOID = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
@@ -233,7 +233,7 @@ BEGIN
     
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_porcentaje` (IN `opcion` VARCHAR(30), IN `p_porcentaje` DECIMAL(8,2), IN `p_usuario` INT)  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_porcentaje` (IN `opcion` VARCHAR(30), IN `p_porcentaje` DECIMAL(8,2), IN `p_usuario` INT)  NO SQL
 BEGIN
 	IF opcion = 'opc_verificar_porcentaje' THEN
 		SET @CONTADOR = (SELECT COUNT(*) FROM se_comision WHERE Estado = 1);
@@ -260,7 +260,7 @@ BEGIN
 	END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_tipo_cambio` (IN `opcion` VARCHAR(30), IN `p_montoCompra` DECIMAL(8,2), IN `p_montoVenta` DECIMAL(8,2))  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_tipo_cambio` (IN `opcion` VARCHAR(30), IN `p_montoCompra` DECIMAL(8,2), IN `p_montoVenta` DECIMAL(8,2))  NO SQL
 BEGIN
 	IF opcion = 'opc_grabar_tipo_cambio' THEN
 		SET @INICIAR = (SELECT COUNT(*) FROM se_tipocambio);
@@ -291,7 +291,7 @@ BEGIN
 	END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_usuario` (IN `opcion` VARCHAR(30), IN `usuario` VARCHAR(30), IN `password` CHAR(32))  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_control_usuario` (IN `opcion` VARCHAR(30), IN `usuario` VARCHAR(30), IN `password` CHAR(32))  NO SQL
 BEGIN
 	IF opcion='opc_login_respuesta' THEN
       SET @CORRECTO = (SELECT COUNT(*) 
@@ -332,7 +332,7 @@ r.Rol as idRol, r.Nombre as rol, u.Imagen as usuarioImagen
         
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gestion_transaccion` (IN `opcion` VARCHAR(30), IN `p_clienteID` INT, IN `p_tipoDoc` INT, IN `p_serie` VARCHAR(8), IN `p_numero` VARCHAR(8), IN `p_importe` DECIMAL(8,2), IN `p_fecha` DATE, IN `p_usuario` INT, IN `p_codigo` INT)  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_gestion_transaccion` (IN `opcion` VARCHAR(30), IN `p_clienteID` INT, IN `p_tipoDoc` INT, IN `p_serie` VARCHAR(8), IN `p_numero` VARCHAR(8), IN `p_importe` DECIMAL(8,2), IN `p_fecha` DATE, IN `p_usuario` INT, IN `p_codigo` INT)  NO SQL
 BEGIN
 	IF opcion = 'opc_registrar_transaccion' THEN
 		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
@@ -387,7 +387,7 @@ BEGIN
      
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listado_ventas` (IN `p_usuario` INT, IN `opcion` VARCHAR(200), IN `p_codigo` INT)  NO SQL
+CREATE DEFINER=`cpses_jeWR6r6Oy4`@`localhost` PROCEDURE `sp_listado_ventas` (IN `p_usuario` INT, IN `opcion` VARCHAR(200), IN `p_codigo` INT)  NO SQL
 BEGIN
 	IF opcion = 'opc_contar_ventas_rgistradas' THEN
 		SET @SOCIO = (SELECT Socio FROM se_usuario WHERE Usuario = p_usuario);
