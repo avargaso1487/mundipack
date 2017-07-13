@@ -48,10 +48,13 @@
     </a>
   </div>  
 </div>
-
+<input type="hidden" class="form-control" placeholder="% Comisión"
+       name="txtxPorcentaje" id="txtMontoTotal">
+<input type="hidden" class="form-control" placeholder="% Comisión"
+       name="txtxPorcentaje" id="txtPorcentaje">
 <div class="row">	
-	<div style="text-align: right;" >
-	    <p>Venta Neta:&nbsp;&nbsp;&nbsp;&nbsp;</p>
+	<div style="text-align: right; font-size: 20px" >
+	    <p><strong>Venta Neta:&nbsp;&nbsp;&nbsp</strong><label id="ventaNeta"></label></p>
 	</div>	
 </div>
 

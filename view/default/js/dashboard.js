@@ -267,6 +267,7 @@ var cargarDashboard = function () {
     totalVentasSocio();
     montoTotalVentasSocio();
     nroSocios();
+    ventaNeta();
 }
 
 
@@ -289,6 +290,28 @@ var totalVentasSocio = function () {
     });
 }
 
+var ventaNeta = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'venta_neta_socio');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlSocio/ventasRegistradas.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            var montoTotal =$('#txtMontoTotal').val();
+            var monto_neto = parseFloat(montoTotal).toFixed(2) - (parseFloat(montoTotal).toFixed(2)*(parseFloat(data).toFixed(2)/100));
+            console.log(monto_neto);
+            $('#ventaNeta').html(parseFloat(monto_neto).toFixed(2));
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
 var montoTotalVentasSocio = function () {
     var data = new FormData();
     data.append('p_opcion', 'monto_total_ventas_socio');
@@ -301,6 +324,7 @@ var montoTotalVentasSocio = function () {
         cache: false,
         success: function (data) {
             $('#montoTotalVentasSocio').html(parseFloat(data).toFixed(2));
+            $('#txtMontoTotal').val(data);
         },
         error: function (msg) {
             alert(msg);

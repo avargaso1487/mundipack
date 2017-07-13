@@ -74,6 +74,10 @@ class VentaRegistrada_model{
                 echo $this->obtener_venta_registrada();
                 break;
 
+            case "venta_neta_socio";
+                echo $this->venta_neta_socio();
+                break;
+
 
         }
     }
@@ -312,6 +316,12 @@ class VentaRegistrada_model{
     /* DASHBOARD SOCIO */
     function total_ventas_socio() {
         $this->prepararConsultaListadoVentas('opc_total_ventas_socio',  $this->param['p_usuario'],'0');
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
+    function venta_neta_socio() {
+        $this->prepararConsultaListadoVentas('opc_venta_neta_socio',  $this->param['p_usuario'],'0');
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }

@@ -178,7 +178,7 @@ if (!isset($_SESSION['usuario'])) {
                                                         </div>
                                                         <ul class="action">
                                                             <li>
-                                                                <a href="../cuenta/cuenta_admin.php">
+                                                                <a href="../travelers/perfil.php">
                                                                     Cuenta
                                                                 </a>
                                                             </li>
