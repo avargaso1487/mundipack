@@ -5,31 +5,31 @@
         <i class="icon fa fa-shopping-basket fa-4x"></i>
         <div class="content">
           <div class="title">Comisiones</div>
-          <div class="value"><span class="sign">S/</span>20</div>
+          <div class="value"><span class="sign">S/</span><label id="comisiones"></label></div>
         </div>
       </div>
     </a>
   </div>
   
   <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-    <a class="card card-banner card-blue-light">
+    <a class="card card-banner card-blue-light" href="../../view/travelers/netPartners.php">
       <div class="card-body">
         <i class="icon fa fa-thumbs-o-up fa-4x"></i>
         <div class="content">
           <div class="title">Total de socios</div>
-          <div class="value"><span class="sign"></span>53</div>
+          <div class="value"><span class="sign"></span><labe id="total_socio"></labe></div>
         </div>
       </div>
     </a>
   </div>
 
   <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-    <a class="card card-banner card-yellow-light">
+    <a class="card card-banner card-yellow-light" href="../../view/travelers/traveler_abiertos.php">
       <div class="card-body">
         <i class="icon fa fa-user-plus fa-4x"></i>
         <div class="content">
           <div class="title">Total de viajeros</div>
-          <div class="value"><span class="sign"></span>50</div>
+          <div class="value"><span class="sign"></span><label id="total_viajeros"></label></div>
         </div>
       </div>
     </a>
@@ -53,42 +53,15 @@
         <table class="table card-table">
           <thead>
             <tr>
-              <th>Usuario</th>
-              <th class="right">Tipo</th>
-              <th>Movimiento</th>
+              <th style="text-align: left">MOVIMIENTO</th>
+              <th style="text-align: center">TIPO MOVIMIENTO</th>
+              <th style="text-align: center">MONTO</th>
+              <th style="text-align: center">FECHA MOVIMIENTO</th>
+              <th style="text-align: center">ESTADO</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Juan Carlos</td>
-              <td class="right">Socio</td>
-              <td><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>DEPOSITO</span></span></td>
-            </tr>
-            <tr>
-              <td>MiniPC i5</td>
-              <td class="right">5</td>
-              <td><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pending</span></span></td>
-            </tr>
-            <tr>
-              <td>Mountain Bike</td>
-              <td class="right">1</td>
-              <td><span class="badge badge-info badge-icon"><i class="fa fa-credit-card" aria-hidden="true"></i><span>Confirm Payment</span></span></td>
-            </tr>
-            <tr>
-              <td>Notebook</td>
-              <td class="right">10</td>
-              <td><span class="badge badge-danger badge-icon"><i class="fa fa-times" aria-hidden="true"></i><span>Cancelled</span></span></td>
-            </tr>
-            <tr>
-              <td>Raspberry Pi2</td>
-              <td class="right">6</td>
-              <td><span class="badge badge-primary badge-icon"><i class="fa fa-truck" aria-hidden="true"></i><span>Shipped</span></span></td>
-            </tr>
-            <tr>
-              <td>Flashdrive 128Mb</td>
-              <td class="right">40</td>
-              <td><span class="badge badge-info badge-icon"><i class="fa fa-credit-card" aria-hidden="true"></i><span>Confirm Payment</span></span></td>
-            </tr>
+          <tbody id="tblMovimientos">
+
           </tbody>
         </table>
       </div>

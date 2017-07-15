@@ -6,7 +6,10 @@ include_once "../../model/modelPerfiles/travelers_perfil_model.php";
 
 $param = array();
 $param['p_opcion'] = '';
-$param['p_usuario'] = '';
+$param['p_fijo'] = '';
+$param['p_movil'] = '';
+$param['p_password'] = '';
+
 
 $param['p_archivoPerfil'] = '';
 $param['p_fileArchivoPerfil'] = '';
@@ -17,8 +20,14 @@ $param['p_rutaPerfil'] = '';
 if(isset($_POST['p_opcion']))
     $param['p_opcion'] = $_POST['p_opcion'];
 
-if (isset($_SESSION['idusuario']))
-    $param['p_usuario'] = $_SESSION['idusuario'];
+if(isset($_POST['p_fijo']))
+    $param['p_fijo'] = $_POST['p_fijo'];
+
+if(isset($_POST['p_movil']))
+    $param['p_movil'] = $_POST['p_movil'];
+
+if(isset($_POST['p_password']))
+    $param['p_password'] = md5($_POST['p_password']);
 
 
 // IMAGEN DE PERFIL

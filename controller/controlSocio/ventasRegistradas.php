@@ -16,6 +16,7 @@ $param['p_fecha'] = '';
 $param['p_usuario'] = '';
 
 $param['p_codigo'] = '';
+$param['p_socio'] = '';
 
 if(isset($_POST['p_opcion']))
     $param['p_opcion'] = $_POST['p_opcion'];
@@ -25,6 +26,9 @@ if(isset($_POST['p_dni']))
 
 if(isset($_POST['p_socioID']))
     $param['p_socioID'] = $_POST['p_socioID'];
+
+if(isset($_POST['p_socio']))
+    $param['p_socio'] = $_POST['p_socio'];
 
 if(isset($_POST['p_tipoDoc']))
     $param['p_tipoDoc'] = $_POST['p_tipoDoc'];
@@ -44,8 +48,6 @@ if(isset($_POST['p_fecha']))
 if(isset($_POST['p_codigo']))
     $param['p_codigo'] = $_POST['p_codigo'];
 
-if (isset($_SESSION['idusuario']))
-    $param['p_usuario'] = $_SESSION['idusuario'];
 
 
 $VentaRegistrada = new VentaRegistrada_model();

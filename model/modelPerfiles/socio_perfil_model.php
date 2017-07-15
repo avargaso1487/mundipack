@@ -48,7 +48,7 @@ class Perfiles_model{
     }
 
     function obtener_perfil_socio() {
-        $this->prepararConsultaObtenerPerfil('opc_obtener_perfil_socio',  $this->param['p_usuario'], '','','','', '');
+        $this->prepararConsultaObtenerPerfil('opc_obtener_perfil_socio',  $_SESSION['idusuario'], '','','','', '');
         $row = mysqli_fetch_row($this->result);
         echo json_encode($row);
     }
@@ -56,7 +56,7 @@ class Perfiles_model{
     function update_perfil_socio() {
         if ($this->param['p_archivoPerfil'] == '' || $this->param['p_archivoCarta'] == '') {
             if ($this->param['p_archivoPerfil'] == '' && $this->param['p_archivoCarta'] != '') {
-                $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $this->param['p_usuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], '', $this->param['p_rutaCarta']);
+                $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $_SESSION['idusuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], '', $this->param['p_rutaCarta']);
                 $this->cerrarAbrir();
                 $destino = '../../view/partners/carta/' . $this->param['p_archivoCarta'];
                 $archivo = $this->param['p_fileArchivoCarta'];
@@ -64,7 +64,7 @@ class Perfiles_model{
                 echo 1;
             } else {
                 if ($this->param['p_archivoCarta'] == '' && $this->param['p_archivoPerfil'] != '') {
-                    $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $this->param['p_usuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], $this->param['p_rutaPerfil'], '');
+                    $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $_SESSION['idusuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], $this->param['p_rutaPerfil'], '');
                     $this->cerrarAbrir();
                     $destino = '../../view/default/assets/images/users/' . $this->param['p_archivoPerfil'];
                     $archivo = $this->param['p_fileArchivoPerfil'];
@@ -72,13 +72,13 @@ class Perfiles_model{
                     echo 1;
                 } else {
                     if ($this->param['p_archivoPerfil'] == '' && $this->param['p_archivoCarta'] == '') {
-                        $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio',  $this->param['p_usuario'], $this->param['p_contacto'],$this->param['p_atencion'],$this->param['p_paswword'],'', '');
+                        $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio',  $_SESSION['idusuario'], $this->param['p_contacto'],$this->param['p_atencion'],$this->param['p_paswword'],'', '');
                         echo 1;
                     }
                 }
             }
         } else {
-            $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $this->param['p_usuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], $this->param['p_rutaPerfil'], $this->param['p_rutaCarta']);
+            $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $_SESSION['idusuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], $this->param['p_rutaPerfil'], $this->param['p_rutaCarta']);
             $this->cerrarAbrir();
 
             $destino = '../../view/default/assets/images/users/' . $this->param['p_archivoPerfil'];

@@ -49,8 +49,6 @@ if(isset($_FILES['p_imagen']['tmp_name'])){
 
 $param['p_ruta'] = '../../view/partners/ofertas/'.$param['p_archivo'];
 
-if (isset($_SESSION['idusuario']))
-    $param['p_usuario'] = $_SESSION['idusuario'];
 
 
 $Oferta = new Ofertas_model();

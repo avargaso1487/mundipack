@@ -4,8 +4,6 @@
 
 window.onload = function(){
     mostrarMenu();
-    noti_pre_registro();
-    noti_item_socio();
     ver();
 }
 
@@ -16,19 +14,18 @@ $(function() {
 
     $('#modificarPerfil').on('click', function () {
         var data = new FormData($("#frm_updatePerfil")[0]);
-        data.append('p_opcion', 'update_perfil_socio');
+        data.append('p_opcion', 'update_perfil_travelers');
         $.ajax({
             type: "post",
-            url: "../../controller/controlPerfiles/perfil_socio_controller.php",
+            url: "../../controller/controlPerfiles/perfil_travelers_controller.php",
             contentType: false,
             data: data,
             processData: false,
             cache: false,
             success: function (data) {
-                if ($('#p_paswword').val() == "") {
+                if ($('#p_password').val() == "") {
                     $('#modalPerfilModificar').modal('hide');
                     $('#p_imagenPerfil').val('');
-                    $('#p_imagenCarta').val('');
                     ver();
                     iziToast.success({
                         position: 'topRight',
@@ -89,6 +86,9 @@ var ver = function (codigo) {
             $('#traveler_movil').html(objeto[7]);
             $('#traveler_pasaporte').html(objeto[8]);
             $('#imagen').html('<img class="img-responsive" alt="Imagen de Perfil Socio" src="../../'+objeto[9]+'" />');
+
+            $('#p_fijo').val(objeto[6]);
+            $('#p_movil').val(objeto[7]);
         },
         error: function (msg) {
             alert(msg);

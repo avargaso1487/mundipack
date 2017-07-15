@@ -32,9 +32,6 @@ if(isset($_POST['p_atencion']))
 if(isset($_POST['p_paswword']))
     $param['p_paswword'] = md5($_POST['p_paswword']);
 
-if (isset($_SESSION['idusuario']))
-    $param['p_usuario'] = $_SESSION['idusuario'];
-
 
 // IMAGEN DE PERFIL
 if(isset($_FILES['p_imagenPerfil']['name'])){

@@ -427,7 +427,25 @@ if (!isset($_SESSION['usuario'])) {
     <script type="text/javascript" src="../default/assets/js/vendor.js"></script>
     <script type="text/javascript" src="../default/assets/js/app.js"></script>
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
-    <script src="../default/js/dashboard.js"></script>
+
+    <?php
+    if ($_SESSION['usuarioDashboardURL'] == 'administrador_dashboard.php') { ?>
+        <script src="../default/js/dashboard.js"></script>
+        <?php
+    } else {
+        if ($_SESSION['usuarioDashboardURL'] == 'socio_dashboard.php') { ?>
+            <script src="../default/js/dashboard.js"></script>
+            <?php
+        } else { ?>
+            <script src="../default/js/dashboard_viajero.js"></script>
+        <?php   }
+        ?>
+
+        <?php
+    }
+    ?>
+
+
     <script src="../default/js/iziToast.min.js"></script>
 
     <script src="../default/js/validaciones.js"></script>

@@ -269,32 +269,34 @@ if (!isset($_SESSION['usuario'])) {
 
                                     <!-- Telefono -->
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Teléfono</label>
-                                        <div class="col-md-9">
-                                            <div class="col-md-6">
+
+                                        <div class="col-md-12">
+                                            <label class="col-md-2 control-label">T. FIjo</label>
+                                            <div class="col-md-4">
                                                 <input type="text" class="form-control"
-                                                       onkeypress="return solonumeros(event)" placeholder="Contacto"
-                                                       name="p_contacto" id="p_contacto">
+                                                       onkeypress="return solonumeros(event)" placeholder="T. Fijo"
+                                                       name="p_fijo" id="p_fijo">
                                             </div>
-                                            <div class="col-md-6">
+                                            <label class="col-md-2 control-label">T. Movil</label>
+                                            <div class="col-md-4">
                                                 <input type="text" class="form-control"
-                                                       onkeypress="return solonumeros(event)" placeholder="Atención"
-                                                       name="p_atencion" id="p_atencion">
+                                                       onkeypress="return solonumeros(event)" placeholder="T. Movil"
+                                                       name="p_movil" id="p_movil">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Password</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-2 control-label">Password</label>
+                                        <div class="col-md-10">
                                             <div class="col-md-12">
                                                 <input type="password" class="form-control" placeholder="Password"
-                                                       name="p_paswword" id="p_paswword">
+                                                       name="p_password" id="p_password">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Foto Perfil</label>
+                                        <label class="col-md-2 control-label">Foto Perfil</label>
                                         <div class="col-md-9">
                                             <div class="col-md-12">
                                                 <input type="file" name="p_imagenPerfil" id="p_imagenPerfil">
@@ -302,15 +304,6 @@ if (!isset($_SESSION['usuario'])) {
                                         </div>
                                     </div>
                                     <br>
-
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Carta Presentacion</label>
-                                        <div class="col-md-9">
-                                            <div class="col-md-12">
-                                                <input type="file" name="p_imagenCarta" id="p_imagenCarta">
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar
