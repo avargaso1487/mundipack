@@ -158,7 +158,7 @@
                     <th style="font-size: 12px; height: 10px; width: 3%;">DNI</th>
                     <th style="font-size: 12px; height: 10px; width: 3%;">Pasaporte</th>
                     <th style="font-size: 12px; height: 10px; width: 3%;">Celular</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">Objetivo</th>
+                    <th style="font-size: 12px; height: 10px; width: 3%;">Destino</th>
                     <th style="font-size: 12px; height: 10px; width: 3%;">Acumulado</th>
                     <th style="font-size: 12px; height: 10px; width: 3%;">Libre</th>
                     <th style="font-size: 12px; height: 10px; width: 2%;">Operaciones</th>

@@ -1,7 +1,8 @@
+/*EN LOCAL*/
 USE bdmundipack;
 
 
-INSERT INTO se_menu (MenuPadre, Nombre, Orden, Icono, URL, Estado) VALUES ('5', 'Consumos', '1', 'fa fa-money', '../travelers/consumos.php', 1);
+INSERT INTO se_menu (MenuPadre, Nombre, Orden, Icono, URL, Estado) VALUES ('5', 'Consumos', '1', 'fa fa-money', '../travelers/consumos.php', 0);
 INSERT INTO se_menu (MenuPadre, Nombre, Orden, Icono, URL, Estado) VALUES ('5', 'Pagos Realizados', '2', 'fa fa-money', '../travelers/pagos.php', 1);
 INSERT INTO se_menu (Nombre, Orden, Icono, URL, Estado) VALUES ('Travelers Abiertos', '4', 'fa fa-user', '../travelers/traveler_abiertos.php', 1);
 INSERT INTO se_menu (Nombre, Orden, Icono, Estado) VALUES ('Paquetes de Viajes', '4', 'fa fa-plane', 1);

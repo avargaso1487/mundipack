@@ -1,3 +1,4 @@
+/*EN LOCAL*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_control_combos`(IN `opcion` VARCHAR(30))
     NO SQL
 BEGIN

@@ -175,8 +175,8 @@ if (!isset($_SESSION['usuario']))
                                 </tr>
                                 </thead>
 
-                                <tbody id="cuerpoTablaVentasReg">
-
+                                <!--<tbody id="cuerpoTablaVentasReg">-->
+                                <tbody id="">
 
                                 </tbody>
                             </table>
