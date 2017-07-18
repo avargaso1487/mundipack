@@ -7,5 +7,12 @@ BEGIN
     IF opcion = 'opc_listar_socios' THEN
 		SELECT * FROM se_socio;
 	END IF;
+    IF opcion = 'opc_listar_traveler' THEN		
+		SELECT V.Viajero, CONCAT(P.Nombres,' ', P.Apellidos)
+		FROM se_viajero V 
+		INNER JOIN se_persona P ON P.Persona = V.Persona;
+	END IF;
+    
+    
     
 END

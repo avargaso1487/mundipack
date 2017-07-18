@@ -26,11 +26,14 @@ var mostrarMenu = function () {
 }
 
 var mostrarTraveler = function () {
+    //var data = new FormData();
+    //data.append('p_opcion', 'listado_travelers_abiertos');
+
     var data = new FormData();
-    data.append('p_opcion', 'listado_travelers_abiertos');
+    data.append('p_opcion', 'listado_four_travelers_abiertos');
     $.ajax({
         type: "post",
-        url: "../../controller/controlSocio/ventasRegistradas.php",
+        url: "../../controller/controlTraveler/traveler_controller.php",
         contentType: false,
         data: data,
         processData: false,
@@ -43,27 +46,44 @@ var mostrarTraveler = function () {
                     message: 'No se encontraron registros',
                 });
             } else {
-                $('#tblVentasReg').DataTable().destroy();
-                $('#cuerpoTablaVentasReg').html(data);
-                $('#tblVentasReg').DataTable({
-                    "dom": '<"top"fl<"clear">>rt<"bottom"ip<"clear">>',
-                    "oLanguage": {
-                        "sSearch": "",
-                        "sLengthMenu": "_MENU_"
-                    },
-                    "initComplete": function initComplete(settings, json) {
-                        $('div.dataTables_filter input').attr('placeholder', 'Buscar...');
-                        // $(".dataTables_wrapper select").select2({
-                        //   minimumResultsForSearch: Infinity
-                        // });
-                    }
-                });
+                $('#listTravelers').html(data);
             }
 
         },
         error: function (msg) {
             alert(msg);
         }
-    });
+    })
 }
+
+var all_traveler_abierto = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'listado_travelers_abiertos');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlTraveler/traveler_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            if (data == 0) {
+                iziToast.warning({
+                    position: 'topRight',
+                    title: 'Advertencia',
+                    message: 'No se encontraron registros',
+                });
+            } else {
+                $('#listTravelers').html(data);
+            }
+
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    })
+}
+
+
+
 
