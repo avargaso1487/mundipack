@@ -143,12 +143,13 @@ if (!isset($_SESSION['usuario']))
                 <div class="col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Pagos Realizados
+                            Pagos Realizados por Travelers
                         </div>
                         <div class="card-body padding">
                             <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="tblVentasReg">
                                 <thead>
                                 <tr>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Traveler</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Nª de Orperación</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Monto Couta</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Fecha Pago</th>
@@ -174,12 +175,21 @@ if (!isset($_SESSION['usuario']))
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Registrar Nueva Venta</h4>
+                            <h4 class="modal-title">Registrar Nuevo Pago</h4>
 
                         </div>
 
                         <div class="modal-body">
                             <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
+
+                                <!-- SOCIO -->
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Net Partners <span style="color: red">(*)</span></label>
+                                    <div class="col-md-5" id="divSocio">
+
+                                    </div>
+                                </div>
+                                <br>
 
                                 <!-- Nro de Operación -->
                                 <div class="form-group">
@@ -217,6 +227,41 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </div>
 
+            <!-- MODAL -->
+            <div class="modal fade" id="modalAprobacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width: 35% !important;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" style="text-align: center; font-size: 18px; color: red">¡Mensaje de Confirmación!</h4>
+
+                        </div>
+
+                        <div class="modal-body">
+                            <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
+
+                                <div class="form-group">
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;">Esta seguro en confirmar la venta registrada por el cliente: </label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente: </strong> <span id="spanCliente"></span></label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nª Operación: </strong> <span id="spanOperacion"></span></label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monto: </strong> <span id="spanMonto"></span></label>
+                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha: </strong> <span id="spanFecha"></span></label>
+                                </div>
+
+                                <input type="text" class="form-control"  name="p_pagoID" id="p_pagoID" onkeypress="return NumCheck(event, this)"/>
+
+                                <br>
+                                <div class="modal-footer">
+                                    <!--input  type="button" id="rechazarVenta" class="btn btn-sm btn-primary" value="Si"/-->
+                                    <input  type="button" id="aceptarPago" class="btn btn-sm btn-primary" value="Si"/>
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <footer class="app-footer">
                 <div class="row">
@@ -236,7 +281,7 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
 
 
-    <script src="../default/js/pagos_traveler.js"></script>
+    <script src="../default/js/admin_pagos_traveler.js"></script>
     <script src="../default/js/iziToast.min.js"></script>
 
     <script src="../default/js/validaciones.js"></script>

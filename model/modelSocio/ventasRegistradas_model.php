@@ -30,6 +30,11 @@ class VentaRegistrada_model{
                 echo $this->cargarSocios();
                 break;
 
+            case "cbo_traveler";
+                echo $this->cbo_traveler();
+                break;
+
+
             case "buscar_socio";
                 echo $this->buscar_socio();
                 break;
@@ -37,6 +42,19 @@ class VentaRegistrada_model{
             case "listado_pagos_traveler";
                 echo $this->listado_pagos_traveler();
                 break;
+
+            case "listado_pagos_partner";
+                echo $this->listado_pagos_partner();
+                break;
+
+            case "listado_pagos_pendientes_partner";
+                echo $this->listado_pagos_pendientes_partner();
+                break;
+
+            case "listado_pagos_pendientes_traveler";
+                echo $this->listado_pagos_pendientes_traveler();
+                break;
+
 
             case "add_transaccion";
                 echo $this->add_transaccion();
@@ -154,6 +172,18 @@ class VentaRegistrada_model{
         }
         echo '</select>';
     }
+
+    function cbo_traveler() {
+        $this->prepararConsultaCombo('opc_listar_traveler');
+        $this->cerrarAbrir();
+        echo '<select class="form-control" id="cbotraveler" name="cbotraveler">
+                    <option value="" disabled selected style="display: none;">Seleccione Traveler</option>';
+        while ($fila = mysqli_fetch_row($this->result)) {
+            echo'<option value="'.$fila[0].'">'.utf8_encode($fila[1]).'</option>';
+        }
+        echo '</select>';
+    }
+
 
     /* VERIFICAR Y OBTENER AL SOCIO INGRESADO */
     function prepararConsultaBuscarSocio($opcion = '', $dni = '') {
@@ -527,6 +557,7 @@ class VentaRegistrada_model{
         $datos = array();
         while($fila = mysqli_fetch_array($this->result)){
             array_push($datos, array(
+                "PagoCuotaViajero" => $fila["PagoCuotaViajero"],
                 "NroOperacion" => $fila["NroOperacion"],
                 "MontoCuota" => $fila["MontoCuota"],
                 "FechaPago" => $fila["FechaPago"],
@@ -535,6 +566,51 @@ class VentaRegistrada_model{
         }
         return $datos;
     }
+
+    function getArrayPagosPartner(){
+        $datos = array();
+        while($fila = mysqli_fetch_array($this->result)){
+            array_push($datos, array(
+                "PagoCuotaSocio" => $fila["PagoCuotaSocio"],
+                "NroOperacion" => $fila["NroOperacion"],
+                "Monto" => $fila["Monto"],
+                "FechaPago" => $fila["FechaPago"],
+                "Estado" => $fila["Estado"]
+            ));
+        }
+        return $datos;
+    }
+
+    function getArrayPagosPartnerAdmin(){
+        $datos = array();
+        while($fila = mysqli_fetch_array($this->result)){
+            array_push($datos, array(
+                "RazonSocial" => $fila["RazonSocial"],
+                "PagoCuotaSocio" => $fila["PagoCuotaSocio"],
+                "NroOperacion" => $fila["NroOperacion"],
+                "Monto" => $fila["Monto"],
+                "FechaPago" => $fila["FechaPago"],
+                "Estado" => $fila["Estado"]
+            ));
+        }
+        return $datos;
+    }
+
+    function getArrayPagosTravelerAdmin(){
+        $datos = array();
+        while($fila = mysqli_fetch_array($this->result)){
+            array_push($datos, array(
+                "Traveler" => $fila["Traveler"],
+                "PagoCuotaViajero" => $fila["PagoCuotaViajero"],
+                "NroOperacion" => $fila["NroOperacion"],
+                "MontoCuota" => $fila["MontoCuota"],
+                "FechaPago" => $fila["FechaPago"],
+                "Estado" => $fila["Estado"]
+            ));
+        }
+        return $datos;
+    }
+
 
 
     function listado_pagos_traveler() {
@@ -550,16 +626,22 @@ class VentaRegistrada_model{
             {
                 echo '
 					<tr>							
-						<td style="font-size: 12px; text-align: left; height: 10px; width: 20%;">'.$datos[$i]["NroOperacion"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"> S/.'.$datos[$i]["MontoCuota"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FechaPago"].'</td>';
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["NroOperacion"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"> S/.'.$datos[$i]["MontoCuota"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["FechaPago"].'</td>';
 
-                if ($datos[$i]["ESTADO"] == '0') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>                        
+                if ($datos[$i]["Estado"] == '0') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>                        
+                           <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">
+                                <a href="#" class="red" onclick="editarPago('.$datos[$i]["PagoCuotaViajero"].')">
+                                    <i class= "ace-icon fa fa-pencil bigger-400"></i>
+                                </a>                                
+                           </td>
                           </tr>';
                 }
-                if ($datos[$i]["ESTADO"] == '1') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;"><span class="badge badge-success badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Realizado</span></span></td>
+                if ($datos[$i]["Estado"] == '1') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-success badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Confirmado</span></span></td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"></td>
                         </tr>';
                 }
             }
@@ -567,6 +649,121 @@ class VentaRegistrada_model{
             echo '0';
         }
     }
+
+    function listado_pagos_partner() {
+        $this->prepararConsultaBuscarSocio('opc_contar_pagos_partner', $_SESSION['idusuario']);
+        $total = $this->getArrayTotal();
+        $datos = array();
+        if($total>0)
+        {
+            $this->cerrarAbrir();
+            $this->prepararConsultaBuscarSocio('opc_listar_pagos_partner', $_SESSION['idusuario']);
+            $datos = $this->getArrayPagosPartner();
+            for($i=0; $i<count($datos); $i++)
+            {
+                echo '
+					<tr>							
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["NroOperacion"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"> S/.'.$datos[$i]["Monto"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["FechaPago"].'</td>';
+
+                if ($datos[$i]["Estado"] == '0') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>                        
+                           <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">
+                                <a href="#" class="red" onclick="editarPago('.$datos[$i]["PagoCuotaSocio"].')">
+                                    <i class= "ace-icon fa fa-pencil bigger-400"></i>
+                                </a>                                
+                           </td>
+                          </tr>';
+                }
+                if ($datos[$i]["Estado"] == '1') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-success badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Confirmado</span></span></td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"></td>
+                        </tr>';
+                }
+            }
+        } else {
+            echo '0';
+        }
+    }
+
+    function listado_pagos_pendientes_partner() {
+        $this->prepararConsultaBuscarSocio('opc_contar_pagos_partner_pendientes', $_SESSION['idusuario']);
+        $total = $this->getArrayTotal();
+        $datos = array();
+        if($total>0)
+        {
+            $this->cerrarAbrir();
+            $this->prepararConsultaBuscarSocio('opc_listar_pagos_partner_pendientes', $_SESSION['idusuario']);
+            $datos = $this->getArrayPagosPartnerAdmin();
+            for($i=0; $i<count($datos); $i++)
+            {
+                echo '
+					<tr>							
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["RazonSocial"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["NroOperacion"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"> S/.'.$datos[$i]["Monto"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["FechaPago"].'</td>';
+
+                if ($datos[$i]["Estado"] == '0') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>                        
+                           <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">
+                                <a href="#" class="red" onclick="aceptar('.$datos[$i]["PagoCuotaSocio"].')">
+                                    <i class= "ace-icon fa fa-check bigger-400"></i>
+                                </a>                                
+                           </td>
+                          </tr>';
+                }
+                if ($datos[$i]["Estado"] == '1') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-success badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Confirmado</span></span></td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"></td>
+                        </tr>';
+                }
+            }
+        } else {
+            echo '0';
+        }
+    }
+
+
+    function listado_pagos_pendientes_traveler() {
+        $this->prepararConsultaBuscarSocio('opc_contar_pagos_traveler_pendientes', $_SESSION['idusuario']);
+        $total = $this->getArrayTotal();
+        $datos = array();
+        if($total>0)
+        {
+            $this->cerrarAbrir();
+            $this->prepararConsultaBuscarSocio('opc_listar_pagos_traveler_pendientes', $_SESSION['idusuario']);
+            $datos = $this->getArrayPagosTravelerAdmin();
+            for($i=0; $i<count($datos); $i++)
+            {
+                echo '
+					<tr>							
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["Traveler"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["NroOperacion"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"> S/.'.$datos[$i]["MontoCuota"].'</td>
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["FechaPago"].'</td>';
+
+                if ($datos[$i]["Estado"] == '0') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Pendiente</span></span></td>                        
+                           <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">
+                                <a href="#" class="red" onclick="aceptar('.$datos[$i]["PagoCuotaViajero"].')">
+                                    <i class= "ace-icon fa fa-check bigger-400"></i>
+                                </a>                                
+                           </td>
+                          </tr>';
+                }
+                if ($datos[$i]["Estado"] == '1') {
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-success badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Confirmado</span></span></td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"></td>
+                        </tr>';
+                }
+            }
+        } else {
+            echo '0';
+        }
+    }
+
 
     function getArrayTraveler(){
         $datos = array();

@@ -1,7 +1,3 @@
-/**
- * Created by Jorge Luis on 05/07/2017.
- */
-
 window.onload = function(){
     $('#tblVentasReg').DataTable();
     mostrarMenu();
@@ -26,7 +22,7 @@ $(function() {
 
             } else {
                 var data = new FormData();
-                data.append('p_opcion', 'update_pago');
+                data.append('p_opcion', 'update_pago_partners');
                 data.append('p_operacion', p_operacion);
                 data.append('p_monto', p_monto);
                 data.append('p_fecha', p_fecha);
@@ -39,13 +35,12 @@ $(function() {
                     processData: false,
                     cache: false,
                     success: function (data) {
-                        if (data == 0){
+                        if (data == 0) {
                             iziToast.warning({
                                 position: 'topRight',
                                 title: 'Advertencia',
-                                message: 'El número de operación ya ha sido registrdo',
+                                message: 'No se encontraron registros',
                             });
-                            $('#modalVenta').modal('hide');
                         } else {
                             //alert(data);
                             $('#modalVenta').modal('hide');
@@ -76,7 +71,7 @@ $(function() {
                 });
             } else {
                 var data = new FormData();
-                data.append('p_opcion', 'add_pago');
+                data.append('p_opcion', 'add_pago_partners');
                 data.append('p_operacion', p_operacion);
                 data.append('p_monto', p_monto);
                 data.append('p_fecha', p_fecha);
@@ -88,13 +83,12 @@ $(function() {
                     processData: false,
                     cache: false,
                     success: function (data) {
-                        if (data == 0){
+                        if (data == 0) {
                             iziToast.warning({
                                 position: 'topRight',
                                 title: 'Advertencia',
-                                message: 'El número de operación ya ha sido registrdo',
+                                message: 'No se encontraron registros',
                             });
-                            $('#modalVenta').modal('hide');
                         } else {
                             $('#modalVenta').modal('hide');
                             $('#nroOperacion').val('');
@@ -108,6 +102,7 @@ $(function() {
                                 message: data,
                             });
                         }
+
                     },
                     error: function (msg) {
                         alert(msg);
@@ -135,7 +130,7 @@ var mostrarMenu = function () {
 
 var mostrarPagos = function () {
     var data = new FormData();
-    data.append('p_opcion', 'listado_pagos_traveler');
+    data.append('p_opcion', 'listado_pagos_partner');
     $.ajax({
         type: "post",
         url: "../../controller/controlSocio/ventasRegistradas.php",
@@ -178,7 +173,7 @@ var mostrarPagos = function () {
 
 var editarPago = function (p_pagoID) {
     var data = new FormData();
-    data.append('p_opcion', 'obtener_pago');
+    data.append('p_opcion', 'obtener_pago_partners');
     data.append('p_pagoID', p_pagoID);
     $.ajax({
         type: "post",

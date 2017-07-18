@@ -236,7 +236,7 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
 
 
-    <script src="../default/js/pagos_traveler.js"></script>
+    <script src="../default/js/pagos_partners.js"></script>
     <script src="../default/js/iziToast.min.js"></script>
 
     <script src="../default/js/validaciones.js"></script>
