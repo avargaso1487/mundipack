@@ -165,7 +165,7 @@ class Traveler_model{
                 echo '<div id="user-profile-1" class="user-profile row col-xs-6">
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div class="ace-thumbnails clearfix">
-                                            <a class="profile-img" href="../../'.$datos[$i]["FOTO_PERFIL"].'" data-lightbox="image-1" data-title='.$datos[$i]["NOMBRE"].'>
+                                            <a class="profile-img" href="../../'.$datos[$i]["FOTO_PERFIL"].'" data-lightbox="image-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
 												<img width="140" height="98" alt="100x100" src="../../'.$datos[$i]["FOTO_PERFIL"].'" />												
 											</a>                                      
                                             <div class="space-4"></div>
@@ -198,7 +198,7 @@ class Traveler_model{
                                                 </div>
                                             </div>                                             
                                         </div><br>
-                                        <a class="profile-img btn btn-xs btn-primary" href="../../'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="image-1" data-title='.$datos[$i]["NOMBRE"].'>
+                                        <a class="profile-img btn btn-xs btn-primary" href="../../'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="presentacion-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
                                             Ver Carta de Presentacion											
                                         </a>
                                     </div>
@@ -234,7 +234,7 @@ class Traveler_model{
                 echo '<div id="user-profile-1" class="user-profile row col-xs-6">
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div class="ace-thumbnails clearfix">
-                                            <a class="profile-img" href="../../'.$datos[$i]["FOTO_PERFIL"].'" data-lightbox="image-1" data-title='.$datos[$i]["NOMBRE"].'>
+                                            <a class="profile-img" href="../../'.$datos[$i]["FOTO_PERFIL"].'" data-lightbox="image-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
 												<img width="140" height="99" alt="100x100" src="../../'.$datos[$i]["FOTO_PERFIL"].'" />												
 											</a>                                      
                                             <div class="space-4"></div>
@@ -266,10 +266,11 @@ class Traveler_model{
                                                     <span id="socio_telefono">'.$datos[$i]["TELEFONO"].'</span>
                                                 </div>
                                             </div>
+                                            </div>
 
                                         </div>
                                         <br>
-                                        <a class="profile-img btn btn-xs btn-primary" href="../../'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="image-1" data-title='.$datos[$i]["NOMBRE"].'>
+                                        <a class="profile-img btn btn-xs btn-primary" href="../../'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="presentacion-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
                                             Ver Carta de Presentacion											
                                         </a>
                                         
@@ -301,7 +302,7 @@ class Traveler_model{
                 echo '<div id="user-profile-1" class="user-profile row col-xs-6">
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div class="ace-thumbnails clearfix">
-                                            <a class="profile-img" href="'.$datos[$i]["IMAGEN"].'" data-lightbox="image-1" data-title='.$datos[$i]["DESCRIPCION"].'>
+                                            <a class="profile-img" href="'.$datos[$i]["IMAGEN"].'" data-lightbox="oferta-'.$i.'" data-title='.$datos[$i]["DESCRIPCION"].'>
 												<img width="140" height="225" alt="100x100" src="'.$datos[$i]["IMAGEN"].'" />												
 											</a>                                      
                                             <div class="space-4"></div>
@@ -400,7 +401,7 @@ class Traveler_model{
                 echo '<div id="user-profile-1" class="user-profile row col-xs-6">
                         <div class="col-xs-12 col-sm-3 center">
                             <div class="ace-thumbnails clearfix">
-                                <a class="profile-img" href="'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="image-1" data-title='.$datos[$i]["NOMBRE"].'>
+                                <a class="profile-img" href="'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="oferta-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
                                     <img width="140" height="225" alt="100x100" src="'.$datos[$i]["CARTA_PRESENTACION"].'" />												
                                 </a>                                      
                                 <div class="space-4"></div>
@@ -481,7 +482,7 @@ class Traveler_model{
                 echo '<div id="user-profile-1" class="user-profile row col-xs-6">
                     <div class="col-xs-12 col-sm-2 center">
                         <div class="ace-thumbnails clearfix">
-                            <a class="profile-img" href="../../'.$datos[$i]["IMAGEN"].'" data-lightbox="image-1" data-title='.$datos[$i]["TRAVELER"].'>
+                            <a class="profile-img" href="../../'.$datos[$i]["IMAGEN"].'" data-lightbox="traveler-'.$i.'" data-title='.$datos[$i]["TRAVELER"].'>
                                 <img width="97" height="128" alt="100x100" src="../../'.$datos[$i]["IMAGEN"].'" />												
                             </a>                                      
                             <div class="space-4"></div>
@@ -551,7 +552,7 @@ class Traveler_model{
                 echo '<div id="user-profile-1" class="user-profile row col-xs-6">
                     <div class="col-xs-12 col-sm-2 center">
                         <div class="ace-thumbnails clearfix">
-                            <a class="profile-img" href="../../'.$datos[$i]["IMAGEN"].'" data-lightbox="image-1" data-title='.$datos[$i]["TRAVELER"].'>
+                            <a class="profile-img" href="../../'.$datos[$i]["IMAGEN"].'" data-lightbox="traveler-'.$i.'" data-title='.$datos[$i]["TRAVELER"].'>
                                 <img width="97" height="128" alt="100x100" src="../../'.$datos[$i]["IMAGEN"].'" />												
                             </a>                                      
                             <div class="space-4"></div>
