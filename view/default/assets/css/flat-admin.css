@@ -4155,8 +4155,8 @@ ui-view > .app-messaging-container {
     background-color: transparent;
     border-bottom-width: 0px; }
   .btn.btn-primary {
-    border-color: #095077;
-    border-bottom-color: #043D5D;
+
+
     background-color: #095077;
     box-shadow: 0 2px 3px rgba(9, 80, 119, 0.3); }
     .btn.btn-primary:hover {

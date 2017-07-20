@@ -531,20 +531,26 @@ class VentaRegistrada_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;">'.$datos[$i]["FECHA"].'</td>';
 
                 if ($datos[$i]["ESTADO"] == '1') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Confirmado</span></span></td>';
+                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Confirmado</span></span></td>
+                        <td></td>';
                 } else {
                     if ($datos[$i]["ESTADO"] == '0') {
-                        echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;"><span class="badge badge-warning badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Pendiente</span></span></td>';
+                        echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;"><span class="badge badge-warning badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Pendiente</span></span></td>
+                        <td style="font-size: 15px; text-align: center; height: 10px; width: 5%;">								
+	                            <a href="#" class="red" onclick="editar('.$datos[$i]["CODIGO"].')" data-toggle="modal" data-target="#modalVenta">
+	                                <i class= "ace-icon fa fa-pencil bigger-200"></i>
+	                            </a>	                           
+							</td>';
                     } else {
-                        echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 8%;"><span class="badge badge-danger badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Rechazado</span></span></td>';
-                    }
-                }
-                echo '
+                        echo '<td style="font:                        ;-size: 12px; text-align: center; height: 10px; width: 8%;"><span class="badge badge-danger badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Rechazado</span></span></td>
                             <td style="font-size: 15px; text-align: center; height: 10px; width: 5%;">								
 	                            <a href="#" class="red" onclick="editar('.$datos[$i]["CODIGO"].')" data-toggle="modal" data-target="#modalVenta">
 	                                <i class= "ace-icon fa fa-pencil bigger-200"></i>
 	                            </a>	                           
 							</td>';
+                    }
+                }
+
                 echo '</tr>';
             }
         } else {
