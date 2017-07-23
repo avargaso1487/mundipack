@@ -10,12 +10,14 @@ $(function() {
     $('#guardarPaquete').on('click', function () {
         var p_nombre = $('#p_nombre').val();
         var p_descripcion = $('#p_descripcion').val();
-        var p_precio = $('#p_precio').val();
+        var p_preciomin = $('#p_preciominimo').val();
+        var p_preciomax = $('#p_preciomaximo').val();
+        var p_precioprom = $('#p_preciopromedio').val();
         var paqueteID = $('#paqueteID').val();
 
 
         if (paqueteID != '') {
-            if (p_nombre.length == 0 || p_descripcion.length == 0 || p_precio.length == 0 ) {
+            if (p_nombre.length == 0 || p_descripcion.length == 0 || p_preciomin.length == 0 || p_preciomax.length == 0 || p_precioprom.length == 0 ) {
                 iziToast.warning({
                     position: 'bottomCenter',
                     title: 'Advertencia',
@@ -26,7 +28,9 @@ $(function() {
                 data.append('p_opcion', 'update_paquete_admin');
                 data.append('p_nombre', p_nombre);
                 data.append('p_descripcion', p_descripcion);
-                data.append('p_precio', p_precio);
+                data.append('p_preciominimo', p_preciomin);
+                data.append('p_preciomaximo', p_preciomax);
+                data.append('p_preciopromedio', p_precioprom);
                 data.append('paqueteID', paqueteID);
                 $.ajax({
                     type: "post",
@@ -38,8 +42,10 @@ $(function() {
                     success: function (data) {
                         $('#modalVenta').modal('hide');
                         $('#p_nombre').val('');
-                        $('#p_descripcion').val('');
-                        $('#p_precio').val('');
+                        $('#p_descripcion').val('Incluye Ticket aéreo + Traslado aeropuerto + Hotel + 3 Noches de alojamiento con sistema todo incluído + Impuestos Hoteleros');
+                        $('#p_preciominimo').val('');
+                        $('#p_preciomaximo').val('');
+                        $('#p_preciopromedio').val('');
                         $('#paqueteID').val('');
                         mostrarPaquetes();
                         iziToast.success({
@@ -54,7 +60,7 @@ $(function() {
                 });
             }
         } else {
-            if (p_nombre.length == 0 || p_descripcion.length == 0 || p_precio.length == 0 ) {
+            if (p_nombre.length == 0 || p_descripcion.length == 0 || p_preciomin.length == 0 || p_preciomax.length == 0 || p_precioprom.length == 0 ) {
                 iziToast.warning({
                     position: 'bottomCenter',
                     title: 'Advertencia',
@@ -65,7 +71,9 @@ $(function() {
                 data.append('p_opcion', 'add_paquete_admin');
                 data.append('p_nombre', p_nombre);
                 data.append('p_descripcion', p_descripcion);
-                data.append('p_precio', p_precio);
+                data.append('p_preciominimo', p_preciomin);
+                data.append('p_preciomaximo', p_preciomax);
+                data.append('p_preciopromedio', p_precioprom);
                 $.ajax({
                     type: "post",
                     url: "../../controller/controlAdministrador/paquetes_controller.php",
@@ -76,8 +84,10 @@ $(function() {
                     success: function (data) {
                         $('#modalVenta').modal('hide');
                         $('#p_nombre').val('');
-                        $('#p_descripcion').val('');
-                        $('#p_precio').val('');
+                        $('#p_descripcion').val('Incluye Ticket aéreo + Traslado aeropuerto + Hotel + 3 Noches de alojamiento con sistema todo incluído + Impuestos Hoteleros');
+                        $('#p_preciominimo').val('');
+                        $('#p_preciomaximo').val('');
+                        $('#p_preciopromedio').val('');
 
                         mostrarPaquetes();
                         iziToast.success({
@@ -276,7 +286,9 @@ var editarPaquete = function (p_paqueteID) {
             $('#paqueteID').val(objeto[0]);
             $('#p_nombre').val(objeto[1]);
             $('#p_descripcion').val(objeto[2]);
-            $('#p_precio').val(objeto[3]);
+            $('#p_preciominimo').val(objeto[3]);
+            $('#p_preciomaximo').val(objeto[4]);
+            $('#p_preciopromedio').val(objeto[5]);
 
 
         },

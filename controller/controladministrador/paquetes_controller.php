@@ -8,7 +8,9 @@ $param = array();
 $param['p_opcion'] = '';
 $param['p_nombre'] = '';
 $param['p_descripcion'] = '';
-$param['p_precio'] = '';
+$param['p_preciominimo'] = '';
+$param['p_preciomaximo'] = '';
+$param['p_preciopromedio'] = '';
 $param['paqueteID'] = '';
 
 
@@ -22,8 +24,14 @@ if(isset($_POST['p_nombre']))
 if(isset($_POST['p_descripcion']))
     $param['p_descripcion'] = $_POST['p_descripcion'];
 
-if(isset($_POST['p_precio']))
-    $param['p_precio'] = $_POST['p_precio'];
+if(isset($_POST['p_preciominimo']))
+    $param['p_preciominimo'] = $_POST['p_preciominimo'];
+
+if(isset($_POST['p_preciomaximo']))
+    $param['p_preciomaximo'] = $_POST['p_preciomaximo'];
+
+if(isset($_POST['p_preciopromedio']))
+    $param['p_preciopromedio'] = $_POST['p_preciopromedio'];
 
 if(isset($_POST['paqueteID']))
     $param['paqueteID'] = $_POST['paqueteID'];

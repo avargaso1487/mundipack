@@ -134,7 +134,7 @@ if (!isset($_SESSION['usuario']))
                 <div class="toggle-content">
                     <ul class="actions">
                         <li>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVenta" id="new_venta">Nueva Pago</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVenta" id="new_venta">Nuevo Destino</button>
                         </li>
                     </ul>
                 </div>
@@ -150,8 +150,9 @@ if (!isset($_SESSION['usuario']))
                                 <thead>
                                 <tr>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Nombre</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Descripción</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Precio</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">R. Mínimo</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">R. Máximo</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">R. Promedio</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Estado</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Operaciones</th>
                                 </tr>
@@ -174,7 +175,7 @@ if (!isset($_SESSION['usuario']))
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Mantenimiento de Paquetes</h4>
+                            <h4 class="modal-title">Mantenimiento de Destinos</h4>
 
                         </div>
 
@@ -197,23 +198,35 @@ if (!isset($_SESSION['usuario']))
                                     <label class="col-md-2 control-label">Descripción <span style="color: red">(*)</span></label>
                                     <div class="col-md-9">
                                         <div class="col-md-12">
-                                            <textarea class="form-control" rows="3" id="p_descripcion" placeholder="Descripción"></textarea>
+                                            <textarea class="form-control" rows="3" id="p_descripcion">Incluye Ticket aéreo + Traslado aeropuerto + Hotel + 3 Noches de alojamiento con sistema todo incluído + Impuestos Hoteleros</textarea>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Descripcion -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Precio <span style="color: red">(*)</span></label>
-                                    <div class="col-md-9">
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control"  placeholder="Precio"  name="p_precio" id="p_precio" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
-                                        </div>
+                                <!-- Precio Mínimo -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-5 control-label">Precio Mín.<span style="color: red">(*)</span></label>
+                                    <div class="col-md-7" style="padding-left: 1%">                                        
+                                        <input type="text" class="form-control"  placeholder="Rango Mínimo"  name="p_preciominimo" id="p_preciominimo" onblur="calcularPromedio()" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-5 control-label">Precio Máx.<span style="color: red">(*)</span></label>
+                                    <div class="col-md-7">                                        
+                                        <input type="text" class="form-control"  placeholder="Rango Máximo"  name="p_preciomaximo" id="p_preciomaximo" onblur="calcularPromedio()" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-5 control-label">Precio Prom.<span style="color: red">(*)</span></label>
+                                    <div class="col-md-7" style="padding-left: 0.5%;">
+                                        <input type="text" class="form-control"  placeholder="Rango promedio"  name="p_preciopromedio" id="p_preciopromedio" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12 control-label" style="color: red">(*) Los campos son obligatorios.</label>
+                                    <label class="col-md-12 control-label" style="color: red;">(*) Los campos son obligatorios.</label>
                                 </div>
                                 <br>
                                 <div class="modal-footer">
@@ -297,6 +310,20 @@ if (!isset($_SESSION['usuario']))
     <!-- ace scripts -->
     <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
     <script src="../default/assets_acemaster/js/ace.min.js"></script>
+
+    <script type="text/javascript">
+        function calcularPromedio(){
+            var minimo = parseFloat($('#p_preciominimo').val());
+            var maximo = parseFloat($('#p_preciomaximo').val());
+
+            if(minimo && maximo)
+            {                
+                $('#p_preciopromedio').val((minimo + maximo) / 2);
+            }            
+        }
+        
+    </script>
+
     </body>
     </html>
 

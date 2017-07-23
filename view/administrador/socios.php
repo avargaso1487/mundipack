@@ -153,7 +153,7 @@ if (!isset($_SESSION['usuario']))
             </div>
             <!-- MODAL -->
             <div class="modal fade" id="modalSocio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width: 70% !important;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -165,28 +165,28 @@ if (!isset($_SESSION['usuario']))
                             <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
 
                                 <!-- Razón Social -->
-                                <div class="form-group">
+                                <div class="form-group col-md-8">
                                     <label class="col-md-3 control-label">Razón Social</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="Razón Social" name="socioRazonSocial" id="socioRazonSocial" >
                                     </div>
                                 </div>
                                 <!-- RUC -->
-                                <div class="form-group">
+                                <div class="form-group col-md-4">
                                     <label class="col-md-3 control-label">RUC</label>
                                     <div class="col-md-9">
                                         <input type="text" maxlength="11" class="form-control" placeholder="RUC" onkeypress="return solonumeros(event)" name="socioRUC" id="socioRUC" >
                                     </div>
                                 </div>
                                 <!-- Nombre Comercial -->
-                                <div class="form-group">
+                                <div class="form-group col-md-8">
                                     <label class="col-md-3 control-label">Nombre Comercial</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="Nombre Comercial" name="socioNombreComercial" id="socioNombreComercial" >
                                     </div>
                                 </div>
                                 <!-- Rubro Empresarial -->
-                                <div class="form-group">
+                                <div class="form-group col-md-4">
                                     <label class="col-md-3 control-label">Rubro</label>
                                     <div class="col-md-9">
                                         <select class="form-control" id="socioRubro" name="socioRubro">
@@ -202,57 +202,57 @@ if (!isset($_SESSION['usuario']))
                                     </div>
                                 </div>
 
-                                <br>
+                                
                                 <!-- Dirección -->
-                                <div class="form-group">
-                                    <div class="col-md-3">
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-2">
                                         <label class="control-label">Dirección</label>
                                         <p class="control-label-help">(Calle/Urbanización/<br>Oficina/Distrito)</p>
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-6">
                                         <textarea class="form-control"  name="socioDireccion" id="socioDireccion" ></textarea>
                                     </div>
                                 </div>
                                 <!-- Telefono -->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Teléfono</label>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-label">Teléfono</label>
                                     <div class="col-md-9">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4" style="padding-left: 0px;">
                                             <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Contacto"  name="socioTelefonoContacto" id="socioTelefonoContacto">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Atención"  name="socioTelefonoAtencion" id="socioTelefonoAtencion">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Email -->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Email</label>
-                                    <div class="col-md-9">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-4 control-label">Email</label>
+                                    <div class="col-md-8"  style="padding-left: 4.5%">
                                         <input type="email" class="form-control" placeholder="email@example.com" name="socioEmail" id="socioEmail" >
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label class="col-md-3 control-label">Nro. Cuenta</label>
                                     <div class="col-md-9">
-                                        <input class="form-control" placeholder="Número de Cuenta" name="socioNroCuenta" id="socioNroCuenta" >
+                                        <input class="form-control" placeholder="Número de Cuenta" onkeypress="return solonumeros(event)" name="socioNroCuenta" id="socioNroCuenta" >
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-8">
                                     <label class="col-md-3 control-label">Contacto Responsable</label>
                                     <div class="col-md-9">
                                         <input class="form-control" placeholder="Nombre del Contacto" name="socioContactoResponsable" id="socioContactoResponsable" >
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-4">
                                     <label class="col-md-3 control-label">% de Retorno</label>
                                     <div class="col-md-9">
                                         <input class="form-control" placeholder="% de Retorno" name="socioPrctjRetorno" id="socioPrctjRetorno" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Precios Desde</label>
-                                    <div class="col-md-4">
+                                    <label class="col-md-2 control-label" style="padding-left: 3%;">Precios Desde</label>
+                                    <div class="col-md-2" style="padding-left: 2%; padding-right: %">
                                         <input class="form-control"  placeholder="Precio"  name="socioPrecioDesde" id="socioPrecioDesde" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
                                     </div>
                                 </div>

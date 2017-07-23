@@ -28,7 +28,6 @@
 </head>
 <body>
   <div class="app app-default">
-
 <aside class="app-sidebar" id="sidebar">
   <div class="sidebar-header">
     <a class="sidebar-brand" href="../dashboard/"><span class="highlight">MUNDI</span>PACK</a>
@@ -175,19 +174,18 @@
 <!-- MODAL -->
 
     <div class="modal fade" id="modalViajero" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog">
+      <div class="modal-dialog" style="width: 70% !important;">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Nuevo TRAVELER</h4>            
+            <h4 class="modal-title">Nuevo TRAVELER</h4>
           </div>      
 
           <div class="modal-body">
-
-          <div id="mensaje" class="col-md-12"></div>
+            <div id="mensaje" class="col-md-12"></div>
             <form class="form form-horizontal" method="post" id="frm_nuevoViajero" style="font-size: 12px;">                  
                   <!-- Nombres -->
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="col-md-3 control-label">Nombres</label>
                     <div class="col-md-9">
                       <input type="text" class="form-control" placeholder="Nombres" name="viajeroNombre" id="viajeroNombre" >
@@ -195,7 +193,7 @@
                   </div>
 
                   <!-- Apellidos -->
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="col-md-3 control-label">Apellidos</label>
                     <div class="col-md-9">
                       <input type="text" class="form-control" placeholder="Apellidos" name="viajeroApellidos" id="viajeroApellidos" >
@@ -203,36 +201,37 @@
                   </div>
 
                   <!-- Nombre Comercial -->
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="col-md-3 control-label">DNI</label>
-                    <div class="col-md-9">
+                    <div class="col-md-9" >
                       <input type="text" maxlength="8"  class="form-control" placeholder="N° Documento de Identidad" name="viajeroDNI" id="viajeroNombre" onkeypress="return solonumeros(event)">
                     </div>
                   </div>                
 
-                  <!-- Dirección -->
-                  <div class="form-group">
-                    <div class="col-md-3">
-                      <label class="control-label">Dirección</label>
-                      <p class="control-label-help">(Calle/Urbanización/Oficina/Distrito)</p>
-                    </div>
-                    <div class="col-md-9">
-                      <textarea class="form-control"  name="viajeroDireccion" id="viajeroDireccion" ></textarea>
-                    </div>
-                  </div>
-
                   <!-- Fecha Nacimiento -->
-                  <div class="form-group">
+                  <div class="form-group col-md-6">
                     <label class="col-md-3 control-label">Fecha Nacimiento</label>
                     <div class="col-md-9">
                       <input type="text" class="form-control" placeholder="Año-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
                     </div>
                   </div>
+
+                  <!-- Dirección -->
+                  <div class="form-group col-md-8">
+                    <div class="col-md-2">
+                      <label class="control-label">Dirección</label>                      
+                    </div>
+                    <div class="col-md-8" style="padding-left: 4.5%;">
+                      <textarea class="form-control"  name="viajeroDireccion" id="viajeroDireccion" placeholder="(Calle/Urbanización/Oficina/Distrito)"></textarea>
+                    </div>
+                  </div>                
                 
                   <!-- Telefono -->
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Teléfono</label>
-                    <div class="col-md-9">
+                  <div class="form-group col-md-12">
+                    <div class="col-md-1">
+                      <label class="control-label">Teléfono</label>
+                    </div>                    
+                    <div class="col-md-10" style="padding-left: 3.7%;">
                       <div class="col-md-6">
                         <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Fijo"  name="viajeroTelefonoFijo" id="viajeroTelefonoFijo">
                       </div>
@@ -243,25 +242,29 @@
                   </div>                                
 
                   <!-- Email -->
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">Email</label>
-                    <div class="col-md-9">
+                  <div class="form-group col-md-12">
+                    <div class="col-md-1">
+                      <label class="control-label">Email</label>
+                    </div>                                 
+                    <div class="col-md-8" style="padding-left: 5.5%;">
                       <input type="email" class="form-control" placeholder="email@example.com" name="viajeroEmail" id="viajeroEmail" >
                     </div>
                   </div>
 
                   <!-- Número de Pasaporte -->
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">N° Pasaporte</label>
-                    <div class="col-md-9">
-                      <input type="email" class="form-control" placeholder="N° Pasaporte (Opcional)" name="viajeroNroPasaporte" id="viajeroNroPasaporte">
+                  <div class="form-group col-md-12">
+                    <div class="col-md-1">
+                      <label class="control-label">N° Pasaporte</label>
+                    </div>                               
+                    <div class="col-md-8" style="padding-left: 5.5%;">
+                      <input class="form-control" placeholder="N° Pasaporte (Opcional)" onkeypress="return solonumeros(event)"  name="viajeroNroPasaporte" id="viajeroNroPasaporte">
                     </div>
                   </div>
 
                   <!-- Viajero Abierto -->
                   <div class="form-group">
-                    <label class="col-md-3 control-label">Viajero Expansivo</label>
-                    <div class="col-md-3">
+                    <label class="col-md-2 control-label" style="padding-left: 3.5%;">Viajero Expansivo</label>
+                    <div class="col-md-1">
                       <input type="checkbox" value="1" class="form-control" name="viajeroAbierto" id="viajeroAbierto" >
                     </div>
                   </div>

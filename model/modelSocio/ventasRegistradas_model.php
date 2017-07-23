@@ -218,8 +218,8 @@ class VentaRegistrada_model{
         $consultaSql.= "'".$fecha."',";
         $consultaSql.= "'".$usuario."',";
         $consultaSql.= "'".$codigo."')";
-        echo $consultaSql;
-        //$this->result = mysqli_query($this->conexion, $consultaSql);
+        //echo $consultaSql;
+        $this->result = mysqli_query($this->conexion, $consultaSql);
     }
 
     private function getArrayResultado() {
