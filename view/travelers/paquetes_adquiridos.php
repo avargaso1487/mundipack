@@ -25,6 +25,13 @@ if (!isset($_SESSION['usuario']))
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/red.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/yellow.css">
+        <link rel="stylesheet" href="../default/assets_acemaster/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../default/assets_acemaster/font-awesome/4.2.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="../default/assets_acemaster/fonts/fonts.googleapis.com.css" />
+        <link rel="stylesheet" href="../default/assets_acemaster/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+        <link rel="stylesheet" href="../default/assets_acemaster/css/ace-part2.min.css" class="ace-main-stylesheet" />
+        <link rel="stylesheet" href="../default/assets_acemaster/css/ace-ie.min.css" />
+        <script src="../default/assets_acemaster/js/ace-extra.min.js"></script>
 
     </head>
     <body>
@@ -124,7 +131,7 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Paquetes de Viajes" id="Menu">
 
             <div class="row">
                 <div class="col-xs-12">
@@ -132,25 +139,12 @@ if (!isset($_SESSION['usuario']))
                         <div class="card-header">
                             Paquetes Adquiridos
                         </div>
-                        <!--div class="card-body padding">
-                            <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="tblVentasReg">
-                                <thead>
-                                <tr>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Nª de Orperación</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Monto Couta</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Fecha Pago</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Estado</th>
-                                </tr>
-                                </thead>
+                        <br><br>
+                        <div class="col-xs-12">
+                            <div class="row" id="paquetes">
 
-                                <tbody id="cuerpoTablaVentasReg">
-
-
-                                </tbody>
-                            </table>
-
-                        </div-->
-                        <br><br><br><br><br><br><br><br>
+                            </div>
+                        </div>
                         <br><br><br><br><br><br><br><br>
                         <br><br><br><br><br><br><br><br>
                     </div>
@@ -173,7 +167,7 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/assets/js/vendor.js"></script>
     <script type="text/javascript" src="../default/assets/js/app.js"></script>
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
-    <script src="../default/js/pagos_traveler.js"></script>
+    <script src="../default/js/paquetes_adquiridos.js"></script>
     <script src="../default/js/iziToast.min.js"></script>
 
     <script src="../default/js/validaciones.js"></script>
@@ -181,16 +175,7 @@ if (!isset($_SESSION['usuario']))
     <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
-    <script src="../default/assets_acemaster/js/bootbox.min.js"></script>
-    <script src="../default/assets_acemaster/js/jquery.easypiechart.min.js"></script>
-    <script src="../default/assets_acemaster/js/bootstrap-datepicker.min.js"></script>
-    <script src="../default/assets_acemaster/js/jquery.hotkeys.min.js"></script>
-    <script src="../default/assets_acemaster/js/bootstrap-wysiwyg.min.js"></script>
-    <script src="../default/assets_acemaster/js/select2.min.js"></script>
-    <script src="../default/assets_acemaster/js/fuelux.spinner.min.js"></script>
-    <script src="../default/assets_acemaster/js/bootstrap-editable.min.js"></script>
-    <script src="../default/assets_acemaster/js/ace-editable.min.js"></script>
-    <script src="../default/assets_acemaster/js/jquery.maskedinput.min.js"></script>
+
 
     <!-- ace scripts -->
     <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>

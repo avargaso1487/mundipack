@@ -229,5 +229,25 @@ BEGIN
 	END IF;
     
     
+    IF opcion = 'opc_contar_paquetes_traveler' THEN		
+		SELECT COUNT(*) AS total FROM se_paquetes WHERE Estado = 1;
+	END IF; 
+    
+    IF opcion = 'opc_listar_paquetes_traveler' THEN		
+		SELECT * FROM se_paquetes WHERE Estado = 1;
+	END IF;
+    
+    
+    IF opcion = 'opc_listar_paquetes_adquiridos' THEN
+		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+        SET @PAQUETE = (SELECT Paquete FROM se_viajeropaquetecomprado WHERE Viajero = @VIAJERO);
+		SELECT P.Paquete, P.Nombre AS Nombre, P.Descripcion as Descripcion , P.Precio AS Precio, 'C' AS Estado FROM se_viajeropaquetecomprado PC 
+			INNER JOIN se_paquetes P ON P.Paquete = PC.Paquete WHERE PC.Viajero = @VIAJERO AND P.Estado = 1;
+		-- UNION
+		/* SELECT  P.Nombre AS NOMBRE, P.Precio AS PRECIO, 'P' AS ESTADO FROM se_viajeropaquetesposibles VP 
+			INNER JOIN se_paquetes P ON P.Paquete = VP.Paquete
+			WHERE VP.Paquete <> @PAQUETE AND VP.Viajero = @VIAJERO AND P.Estado = 1; */
+	END IF;  
+    
     
 END

@@ -158,7 +158,7 @@ if (!isset($_SESSION['usuario']))
                 <div class="col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Paquetes Adquiridos
+                            Paquetes Ofertados
                         </div>
                         <br><br>
                         <div class="col-xs-12">

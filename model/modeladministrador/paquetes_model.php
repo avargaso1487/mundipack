@@ -51,6 +51,10 @@ class Paquetes_model{
                 echo $this->listado_paquetes_traveler();
                 break;
 
+            case "listado_paquetes_adquiridos";
+                echo $this->listado_paquetes_adquiridos();
+                break;
+
 
         }
     }
@@ -177,17 +181,44 @@ class Paquetes_model{
                                         <div class="price">
                                             S/. '.$datos[$i]["Precio"].'
                                         </div>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="btn btn-block btn-primary" id="comprarPaquete">
-                                            <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
-                                            <span>Comprar</span>
-                                        </a>
-                                        <a href="#" class="btn btn-block btn-primary" id="paqueteInteresado">
-                                            <i class="ace-icon fa fa-tag bigger-110"></i>
-                                            <span>Interesado</span>
-                                        </a>
-                                    </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>';
+
+            }
+        } else {
+            echo '0';
+        }
+    }
+
+    function listado_paquetes_adquiridos() {
+        $this->prepararConsultaBuscarSocio('opc_contar_paquetes_traveler', $_SESSION['idusuario']);
+        $total = $this->getArrayTotal();
+        $datos = array();
+        if($total>0)
+        {
+            $this->cerrarAbrir();
+            $this->prepararConsultaBuscarSocio('opc_listar_paquetes_adquiridos', $_SESSION['idusuario']);
+            $datos = $this->getArrayPaquetes();
+            for($i=0; $i<count($datos); $i++)
+            {
+                echo '<div class="col-xs-6 col-sm-3 pricing-box">
+                            <div class="widget-box widget-color-blue">
+                                <div class="widget-header">
+                                    <h5 class="widget-title bigger lighter">'.$datos[$i]["Nombre"].'</h5>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <ul class="list-unstyled spaced2">
+                                            <label for="">'.$datos[$i]["Descripcion"].'</label>
+                                        </ul>
+                                        <hr />
+                                        <div class="price">
+                                            S/. '.$datos[$i]["Precio"].'
+                                        </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>';
