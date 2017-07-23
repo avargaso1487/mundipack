@@ -30,6 +30,13 @@ $(function() {
                         $('#mensaje').html('(*) Los datos son referenciales del dia de ayer.');
                         $("#guardarTipoCambio").css("display", "inline");
                         $("#editarTipoCambio").css("display", "none");
+                    } else {
+                        if (objeto[0] == 2) {
+                            $('#txtxPrecioCompra').val('');
+                            $('#txtxPrecioVenta').val('');
+                            $("#guardarTipoCambio").css("display", "inline");
+                            $("#editarTipoCambio").css("display", "none");
+                        }
                     }
                 }
             }
