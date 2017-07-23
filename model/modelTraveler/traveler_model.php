@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 include_once '../../model/conexion_model.php';
 
 class Traveler_model{
@@ -10,7 +10,7 @@ class Traveler_model{
     function __construct()
     {
         $this->conexion = Conexion_model::getConexion();
-    }
+    }   
 
     function cerrarAbrir()
     {

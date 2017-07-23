@@ -67,12 +67,14 @@ class Paquetes_model{
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
 
-    function prepararConsultaPaquete($opcion = '', $nombre = '', $descripcion = '', $precio = '', $paqueteID = '') {
+    function prepararConsultaPaquete($opcion = '', $nombre = '', $descripcion = '', $preciomin = '', $preciomax = '', $precioprom = '', $paqueteID = '') {
         $consultaSql = "call sp_gestionar_paquetes(";
         $consultaSql.= "'".$opcion."',";
         $consultaSql.= "'".$nombre."',";
         $consultaSql.= "'".$descripcion."',";
-        $consultaSql.= "'".$precio."',";
+        $consultaSql.= "'".$preciomin."',";
+        $consultaSql.= "'".$preciomax."',";
+        $consultaSql.= "'".$precioprom."',";
         $consultaSql.= "'".$paqueteID."')";
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
@@ -93,7 +95,9 @@ class Paquetes_model{
                 "Paquete" => $fila["Paquete"],
                 "Nombre" => $fila["Nombre"],
                 "Descripcion" => $fila["Descripcion"],
-                "Precio" => $fila["Precio"],
+                "PrecioMinimo" => $fila["PrecioMinimo"],
+                "PrecioMaximo" => $fila["PrecioMaximo"],
+                "PrecioPromedio" => $fila["PrecioPromedio"],
                 "Estado" => $fila["Estado"]
             ));
         }
@@ -121,9 +125,11 @@ class Paquetes_model{
             {
                 echo '
 					<tr>							
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["Nombre"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"> '.$datos[$i]["Descripcion"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">S/.'.$datos[$i]["Precio"].'</td>';
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["Nombre"].'</td>						
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">S/.'.$datos[$i]["PrecioMinimo"].'</td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">S/.'.$datos[$i]["PrecioMaximo"].'</td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">S/.'.$datos[$i]["PrecioPromedio"].'</td>';
+
 
                 if ($datos[$i]["Estado"] == '0') {
                     echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;"><span class="badge badge-warning badge-icon"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Inactivo</span></span></td>                        
@@ -179,7 +185,7 @@ class Paquetes_model{
                                         </ul>
                                         <hr />
                                         <div class="price">
-                                            S/. '.$datos[$i]["Precio"].'
+                                            S/. '.$datos[$i]["PrecioMinimo"].'
                                         </div>
                                     </div>                                    
                                 </div>
@@ -234,26 +240,26 @@ class Paquetes_model{
 
 
     function add_paquete_admin() {
-        $this->prepararConsultaPaquete('opc_registrar_paquete',  $this->param['p_nombre'], $this->param['p_descripcion'], $this->param['p_precio'], '0');
+        $this->prepararConsultaPaquete('opc_registrar_paquete',  $this->param['p_nombre'], $this->param['p_descripcion'], $this->param['p_preciominimo'], $this->param['p_preciomaximo'], $this->param['p_preciopromedio'], '0');
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function update_paquete_admin() {
-        $this->prepararConsultaPaquete('opc_update_paquete',  $this->param['p_nombre'], $this->param['p_descripcion'], $this->param['p_precio'], $this->param['paqueteID']);
+        $this->prepararConsultaPaquete('opc_update_paquete',  $this->param['p_nombre'], $this->param['p_descripcion'], $this->param['p_preciominimo'], $this->param['p_preciomaximo'], $this->param['p_preciopromedio'], $this->param['paqueteID']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
 
     function eliminar_paquete_admin() {
-        $this->prepararConsultaPaquete('opc_eliminar_paquete',  '', '', '0.00', $this->param['paqueteID']);
+        $this->prepararConsultaPaquete('opc_eliminar_paquete',  '', '', '0.00', '0.00', '0.00', $this->param['paqueteID']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function activar_paquete_admin() {
-        $this->prepararConsultaPaquete('opc_activar_paquete',  '', '', '0.00', $this->param['paqueteID']);
+        $this->prepararConsultaPaquete('opc_activar_paquete',  '', '', '0.00', '0.00', '0.00', $this->param['paqueteID']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }

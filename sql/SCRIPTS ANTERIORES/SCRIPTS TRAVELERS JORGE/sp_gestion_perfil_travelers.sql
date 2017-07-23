@@ -1,3 +1,4 @@
+/*EN LOCAL*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gestion_perfil_travelers`(
 	IN `opcion` VARCHAR(300),
     IN `p_usuario` VARCHAR(5),

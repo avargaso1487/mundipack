@@ -124,7 +124,7 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Gestion Financiera" id="Menu">
             <div class="btn-floating" id="help-actions">
                 <div class="btn-bg"></div>
                 <button type="button" class="btn btn-default btn-toggle" data-toggle="toggle" data-target="#help-actions">
@@ -150,7 +150,7 @@ if (!isset($_SESSION['usuario']))
                                 <thead>
                                 <tr>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Nª de Orperación</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Monto Couta</th>
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Monto Cuota</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Fecha Pago</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Estado</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Operaciones</th>
@@ -174,7 +174,7 @@ if (!isset($_SESSION['usuario']))
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Registrar Nueva Venta</h4>
+                            <h4 class="modal-title">Registrar Nuevo Pago</h4>
 
                         </div>
 

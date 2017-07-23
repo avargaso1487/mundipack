@@ -14,21 +14,16 @@ function nuevo()
 function limpiar()
 {		
 	document.getElementById('socioRazonSocial').value = "";
-  	document.getElementById('socioRUC').value = "";
-  	document.getElementById('socioNombreComercial').value = "";  
-  	document.getElementById('socioRubro').value = "";  
-  	document.getElementById('socioDireccion').value = "";  
-  	document.getElementById('socioTelefonoContacto').value = "";    	
-  	document.getElementById('socioTelefonoAtencion').value = "";  
-  	document.getElementById('socioEmail').value = "";
-  	document.getElementById('socioNroCuenta').value = "";
-  	document.getElementById('socioContactoResponsable').value = "";
-  	document.getElementById('socioPrctjRetorno').value = "";
-  	document.getElementById('socioCategoria1').checked = false;
-  	document.getElementById('socioCategoria2').checked = false;
-  	document.getElementById('socioCategoria3').checked = false;
-  	document.getElementById('socioCategoria4').checked = false;
-  	document.getElementById('socioCategoria5').checked = false;
+	document.getElementById('socioRUC').value = "";
+	document.getElementById('socioNombreComercial').value = "";  
+	document.getElementById('socioRubro').value = "";  
+	document.getElementById('socioDireccion').value = "";  
+	document.getElementById('socioTelefonoContacto').value = "";    	
+	document.getElementById('socioTelefonoAtencion').value = "";  
+	document.getElementById('socioEmail').value = "";
+	document.getElementById('socioNroCuenta').value = "";
+	document.getElementById('socioContactoResponsable').value = "";
+	document.getElementById('socioPrctjRetorno').value = "";  	
 }
 
 function mostrarMenu(){	
@@ -160,4 +155,18 @@ function eliminar(socioID)
 function editar(socioID)
 {
 
+}
+
+function datosNetPartner(socioID)
+{    
+  $.ajax({
+      type: 'POST',
+      data: 'socioID='+socioID+'&opcion=getDatosNP',
+      url: '../../controller/controladministrador/administrador.php',
+      success: function(data)
+      {
+        $('#NPModalContent').html(data);
+        $('#modalDatosNetPartner').modal('show');  
+      }
+    });
 }

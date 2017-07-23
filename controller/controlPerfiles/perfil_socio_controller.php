@@ -54,7 +54,7 @@ if(isset($_FILES['p_imagenCarta']['tmp_name'])){
     $param['p_fileArchivoCarta'] = $_FILES['p_imagenCarta']['tmp_name'];
 }
 
-$param['p_rutaCarta'] = '../../view/partners/carta/'.$param['p_archivoCarta'];
+$param['p_rutaCarta'] = 'view/partners/carta/'.$param['p_archivoCarta'];
 
 
 

@@ -1,4 +1,6 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscar_socio`(IN `opcion` VARCHAR(300), IN `p_dni` VARCHAR(8))
+/*EN LOCAL*/
+DELIMITER $$
+CREATE DEFINER=`cpses_jempzsZHsP`@`localhost` PROCEDURE `sp_buscar_socio`(IN `opcion` VARCHAR(300), IN `p_dni` VARCHAR(8))
     NO SQL
 BEGIN
 	IF opcion = 'opc_buscar_socio' THEN
@@ -129,4 +131,5 @@ BEGIN
 			INNER JOIN se_persona P ON P.Persona = V.Persona
 		WHERE V.Viajero = @VIAJERO;
 	END IF; 
-END
+END$$
+DELIMITER ;

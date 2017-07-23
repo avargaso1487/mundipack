@@ -124,7 +124,7 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Gestion Financiera" id="Menu">
             <div class="btn-floating" id="help-actions">
                 <div class="btn-bg"></div>
                 <button type="button" class="btn btn-default btn-toggle" data-toggle="toggle" data-target="#help-actions">

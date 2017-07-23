@@ -6,6 +6,7 @@
         <div class="content">
           <div class="title">Comisiones</div>
           <div class="value"><span class="sign">S/</span><label id="comisiones"></label></div>
+          <!--<div class="value"><span class="sign">S/</span><label id="">0.00</label></div>-->
         </div>
       </div>
     </a>
@@ -16,7 +17,7 @@
       <div class="card-body">
         <i class="icon fa fa-thumbs-o-up fa-4x"></i>
         <div class="content">
-          <div class="title">Total de socios</div>
+          <div class="title">Net Partners</div>
           <div class="value"><span class="sign"></span><labe id="total_socio"></labe></div>
         </div>
       </div>
@@ -26,9 +27,9 @@
   <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
     <a class="card card-banner card-yellow-light" href="../../view/travelers/traveler_abiertos.php">
       <div class="card-body">
-        <i class="icon fa fa-user-plus fa-4x"></i>
+        <i class="icon fa fa-user fa-4x"></i>
         <div class="content">
-          <div class="title">Total de viajeros</div>
+          <div class="title">travelers</div>
           <div class="value"><span class="sign"></span><label id="total_viajeros"></label></div>
         </div>
       </div>

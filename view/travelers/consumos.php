@@ -138,7 +138,7 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Gestion Financiera" id="Menu">
 
             <div class="btn-floating" id="help-actions">
                 <div class="btn-bg"></div>
@@ -149,7 +149,7 @@ if (!isset($_SESSION['usuario']))
                 <div class="toggle-content">
                     <ul class="actions">
                         <li>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVenta" id="new_venta">Nueva Venta</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVenta" id="new_venta">Pre Registro de Consumo</button>
                         </li>
                     </ul>
                 </div>
@@ -159,7 +159,7 @@ if (!isset($_SESSION['usuario']))
                 <div class="col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Listado de Consumo
+                            Listado de Consumos
                         </div>
                         <div class="card-body padding">
                             <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="tblVentasReg">
@@ -176,7 +176,7 @@ if (!isset($_SESSION['usuario']))
                                 </thead>
 
                                 <tbody id="cuerpoTablaVentasReg">
-
+                                
 
                                 </tbody>
                             </table>
@@ -192,7 +192,7 @@ if (!isset($_SESSION['usuario']))
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Registrar Nueva Venta</h4>
+                            <h4 class="modal-title">Pre Registrar Nuevo Consumo</h4>
 
                         </div>
 

@@ -1,3 +1,4 @@
+/*EN LOCAL*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gestion_transaccion`(IN `opcion` VARCHAR(30), IN `p_clienteID` INT, IN `p_tipoDoc` INT, IN `p_serie` VARCHAR(8), IN `p_numero` VARCHAR(8), IN `p_importe` DECIMAL(8,2), IN `p_fecha` DATE, IN `p_usuario` INT, IN `p_codigo` INT)
     NO SQL
 BEGIN

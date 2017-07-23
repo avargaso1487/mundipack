@@ -8,8 +8,8 @@
     </button>
     <div class="toggle-content">
         <ul class="actions">
-            <li><a href="../administrador/socios.php">Nuevo Socio</a></li>
-            <li><a href="../administrador/viajeros.php">Nuevo Viajero</a></li>
+            <li><a href="../administrador/socios.php">Nuevo Net Partner</a></li>
+            <li><a href="../administrador/viajeros.php">Nuevo Traveler</a></li>
 
             <li><a href="#" data-toggle="modal" id="addTipoCambio" data-target="#modalTipoCambio">Tipo de
                     Cambio</a></li>

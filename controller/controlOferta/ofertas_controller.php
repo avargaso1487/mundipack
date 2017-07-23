@@ -1,6 +1,5 @@
-
 <?php
-session_start();
+//session_start();
 
 include_once "../../model/modelOferta/ofertas_model.php";
 

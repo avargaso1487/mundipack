@@ -433,9 +433,9 @@ var valorPorcentaje = function () {
         data: data,
         processData: false,
         cache: false,
-        success:function(data){
-            objeto=JSON.parse(data);
-            $('#txtValor').val(objeto[0]);
+        success:function(data){            
+            objeto=JSON.parse(data);            
+            if(objeto != null) $('#txtValor').val(objeto[0]);
         }
     });
 
@@ -452,7 +452,3 @@ var mostrarMenu = function () {
         }
     });
 }
-
-
-
-
