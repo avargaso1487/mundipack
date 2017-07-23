@@ -10,7 +10,7 @@ class Traveler_model{
     function __construct()
     {
         $this->conexion = Conexion_model::getConexion();
-    }
+    }   
 
     function cerrarAbrir()
     {
