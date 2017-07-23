@@ -1938,7 +1938,7 @@ CREATE TABLE `se_viajero` (
   `Persona` int(11) NOT NULL,
   `NroPasaporte` varchar(20) DEFAULT NULL,
   `ViajeroAbierto` bit(1) NOT NULL,
-  `FechaPago` date DEFAULT NULL
+  `FechaPago` int DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
