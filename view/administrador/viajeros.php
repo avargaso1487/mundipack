@@ -154,14 +154,13 @@
           <table class="datatable table table-striped primary" cellspacing="0" width="100%" id="viajeros">
             <thead>
                 <tr>
-                    <th style="font-size: 12px; height: 10px; width: 8%;">Nombres</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">DNI</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">Pasaporte</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">Celular</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">Destino</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">Acumulado</th>
-                    <th style="font-size: 12px; height: 10px; width: 3%;">Libre</th>
-                    <th style="font-size: 12px; height: 10px; width: 2%;">Operaciones</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 20%;">Nombres</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">DNI</th>                    
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Celular</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Destino</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Acumulado</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Expansivo</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 2%;">Operaciones</th>
                 </tr>
             </thead>
             <tbody id="cuerpoTablaViajeros">
@@ -261,7 +260,7 @@
 
                   <!-- Viajero Abierto -->
                   <div class="form-group">
-                    <label class="col-md-3 control-label">Viajero Abierto</label>
+                    <label class="col-md-3 control-label">Viajero Expansivo</label>
                     <div class="col-md-3">
                       <input type="checkbox" value="1" class="form-control" name="viajeroAbierto" id="viajeroAbierto" >
                     </div>

@@ -1,0 +1,52 @@
+[22-Jul-2017 01:44:20 America/Chicago] PHP Warning:  PHP Startup: imagick: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:44:20 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:44:20 America/Chicago] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home2/jenner/public_html/tecnobior.com/mundipack/controller/controlPerfiles/perfil_travelers_controller.php:2) in /home2/jenner/public_html/tecnobior.com/mundipack/controller/controlPerfiles/perfil_travelers_controller.php on line 3
+[22-Jul-2017 01:45:40 America/Chicago] PHP Warning:  PHP Startup: imagick: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:45:40 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:45:40 America/Chicago] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home2/jenner/public_html/tecnobior.com/mundipack/controller/controlPerfiles/perfil_travelers_controller.php:2) in /home2/jenner/public_html/tecnobior.com/mundipack/controller/controlPerfiles/perfil_travelers_controller.php on line 3
+[22-Jul-2017 01:49:30 America/Chicago] PHP Warning:  PHP Startup: imagick: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:49:30 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:50:25 America/Chicago] PHP Warning:  PHP Startup: imagick: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:50:25 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:51:25 America/Chicago] PHP Warning:  PHP Startup: imagick: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0
+[22-Jul-2017 01:51:25 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20131226
+These options need to match
+ in Unknown on line 0

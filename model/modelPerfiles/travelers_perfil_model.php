@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 include_once '../../model/conexion_model.php';
 
 class Perfiles_model{

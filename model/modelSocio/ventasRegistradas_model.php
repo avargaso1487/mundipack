@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 include_once '../../model/conexion_model.php';
 
 class VentaRegistrada_model{
@@ -166,7 +166,7 @@ class VentaRegistrada_model{
         $this->prepararConsultaCombo('opc_listar_socios');
         $this->cerrarAbrir();
         echo '<select class="form-control" id="cboSocio" name="cboSocio">
-                    <option value="" disabled selected style="display: none;">Seleccione Socio</option>';
+                    <option value="" disabled selected style="display: none;">Seleccione Net Partner</option>';
         while ($fila = mysqli_fetch_row($this->result)) {
             echo'<option value="'.$fila[0].'">'.utf8_encode($fila[2]).'</option>';
         }
@@ -218,8 +218,8 @@ class VentaRegistrada_model{
         $consultaSql.= "'".$fecha."',";
         $consultaSql.= "'".$usuario."',";
         $consultaSql.= "'".$codigo."')";
-        //echo $consultaSql;
-        $this->result = mysqli_query($this->conexion, $consultaSql);
+        echo $consultaSql;
+        //$this->result = mysqli_query($this->conexion, $consultaSql);
     }
 
     private function getArrayResultado() {
@@ -366,8 +366,6 @@ class VentaRegistrada_model{
                 }
                 echo '</tr>';
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -505,8 +503,6 @@ class VentaRegistrada_model{
                                             <a href="../partners/ventasPreRegistradas.php">Ver Todos <i class="fa fa-angle-right"
                                                                     aria-hidden="true"></i></a>
                                         </li>';
-        } else {
-            echo '0';
         }
     }
 
@@ -547,8 +543,6 @@ class VentaRegistrada_model{
 							</td>';
                 echo '</tr>';
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -645,8 +639,6 @@ class VentaRegistrada_model{
                         </tr>';
                 }
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -682,8 +674,6 @@ class VentaRegistrada_model{
                         </tr>';
                 }
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -720,8 +710,6 @@ class VentaRegistrada_model{
                         </tr>';
                 }
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -759,8 +747,6 @@ class VentaRegistrada_model{
                         </tr>';
                 }
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -798,8 +784,6 @@ class VentaRegistrada_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["PAQUETE"].'</td>
 						</tr>';
             }
-        } else {
-            echo '0';
         }
     }
 
@@ -871,8 +855,6 @@ class VentaRegistrada_model{
                 }
                 echo '</tr>';
             }
-        } else {
-            echo '0';
         }
     }
 }

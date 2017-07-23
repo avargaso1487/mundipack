@@ -257,7 +257,7 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
 
             <div class="modal fade" id="modalPorcentaje" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">

@@ -151,7 +151,7 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Net Partners" id="Menu">
 
             <div class="row">
 

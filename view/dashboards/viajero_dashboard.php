@@ -5,8 +5,8 @@
         <i class="icon fa fa-shopping-basket fa-4x"></i>
         <div class="content">
           <div class="title">Comisiones</div>
-          <!--<div class="value"><span class="sign">S/</span><label id="comisiones"></label></div>-->
-          <div class="value"><span class="sign">S/</span><label id="">0.00</label></div>
+          <div class="value"><span class="sign">S/</span><label id="comisiones"></label></div>
+          <!--<div class="value"><span class="sign">S/</span><label id="">0.00</label></div>-->
         </div>
       </div>
     </a>

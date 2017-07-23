@@ -1,6 +1,5 @@
-
 <?php
-session_start();
+//session_start();
 
 include_once "../../model/modelSocio/ventasRegistradas_model.php";
 

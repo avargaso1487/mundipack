@@ -36,6 +36,9 @@ class Administrador_model{
             case "grabarViajero";
                 echo $this->grabarViajero();
                 break;
+            case "getDatosNP";
+                echo $this->getDatosNP();
+                break;
         }
     }
     function prepararConsultaAdministrador($opcion = '')
@@ -110,20 +113,17 @@ class Administrador_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioRubro"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioTelefonoContacto"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>						
-						<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">';
+						<td style="font-size: 15px; text-align:center; height: 10px; width: 2%;">';
                 /*<a href="#modalSocio" data-toggle="modal" class="red" onclick="editar('.$datos[$i]["socioID"].')">
                     <i class= "ace-icon fa fa-pencil bigger-200"></i>
                 </a>*/
                 echo '                        	
+                            <a href="#" class="green" onclick="datosNetPartner('.$datos[$i]["socioID"].')">
+                                <i class= "fa fa-user"></i>
+                            </a>                            
 							<a href="#" class="red" onclick="eliminar('.$datos[$i]["socioID"].')">
-                                <i class= "fa fa-trash-o close col-md-6"></i>
+                                <i class= "fa fa-trash-o"></i>
                             </a>
-                            <form method="post" action="socio_profile.php">
-                            	<input type="text" hidden name="socioID" value="2">
-                        		<button type="submit" class="close col-md-offset-3">
-							      <i class="fa fa-user"></i>
-							    </button>                 
-                        	</form>
 						</td>
 					</tr>';
             }
@@ -148,6 +148,30 @@ class Administrador_model{
         }
         return $datos;
     }
+
+    function getArrayDatosNP(){
+        $datos = array();
+        //print_r($this->result);
+        while($fila = mysqli_fetch_array($this->result)){
+            array_push($datos, array(
+                "razonSocial" => $fila["RazonSocial"],
+                "nombreComercial" => $fila["NombreComercial"],
+                "rubro" => $fila["Rubro"],
+                "imagen" => $fila["Imagen"],
+                "RUC" => $fila["RUC"],
+                "direccion" => $fila["Direccion"],
+                "telefContacto" => $fila["TelefonoContacto"],
+                "telefAtencion" => $fila["TelefonoAtencion"],
+                "email" => $fila["Email"],
+                "nroCuenta" => $fila["NroCuenta"],
+                "contactoResponsable" => $fila["ContactoResponsable"],
+                "prctjRetorno" => $fila["PorcentajeRetorno"],
+                "precioDesde" => $fila["PrecioDesde"],
+                "diaPago" => $fila["DiaPago"]));
+        }
+        return $datos;
+    }
+
     function listarViajeros()
     {
         $this->prepararConsultaAdministrador('opc_contar_viajeros');
@@ -161,9 +185,8 @@ class Administrador_model{
             for($i=0; $i<count($datos); $i++)
             {
                 echo '<tr>							
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["viajeroNombre"].' '.$datos[$i]["viajeroApellidos"].'</td>
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroDNI"].'</td>
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroNroPasaporte"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 20%;">'.$datos[$i]["viajeroNombre"].' '.$datos[$i]["viajeroApellidos"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroDNI"].'</td>							
 							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroCelular"].'</td>
 							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroPaqueteObjetivo"].'</td>
 							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroAcumulado"].'</td>
@@ -177,6 +200,59 @@ class Administrador_model{
             }
         }
     }
+
+    function getDatosNP(){
+        $this->prepararConsultaAdministrador('opc_get_NP');
+        $datos = $this->getArrayDatosNP();
+
+        for($i=0; $i<count($datos); $i++)
+        {
+            echo '
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="text-align: center; font-size: 18px; color: blue">'.$datos[$i]["nombreComercial"].'</h4>
+
+                    </div>
+
+                    <div class="modal-body" id="modalNetPartner">                            
+                        <div class="col-xs-12 col-sm-4">
+                            <div>
+                              <span class="profile-img">
+                                <img class="img-responsive" alt="Net Partner" src="../../'.$datos[$i]["imagen"].'" />
+                              </span>
+                              <div class="space-4" id="RazonSocial"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-5">                                
+                            <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Razón Social: <b style="font-size: 14px;">'.$datos[$i]["razonSocial"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Nombre Comercial: <b style="font-size: 14px;">'.$datos[$i]["nombreComercial"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Rubro: <b style="font-size: 14px;">'.$datos[$i]["rubro"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">RUC: <b style="font-size: 14px;">'.$datos[$i]["RUC"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Dirección: <b style="font-size: 14px;">'.$datos[$i]["direccion"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Contacto: <b style="font-size: 14px;">'.$datos[$i]["telefContacto"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Atención: <b style="font-size: 14px;">'.$datos[$i]["telefAtencion"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Email: <b style="font-size: 14px;">'.$datos[$i]["email"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">N° Cuenta: <b style="font-size: 14px;">'.$datos[$i]["nroCuenta"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Contacto Responsable: <b style="font-size: 14px;">'.$datos[$i]["contactoResponsable"].'</b></label>                                
+                        </div>
+
+                        <div class="col-xs-12 col-sm-3">                                
+                            <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Porcentaje Retorno: <b style="font-size: 14px;">'.$datos[$i]["prctjRetorno"].'%</b></label>
+                            <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Precios Desde: <b style="font-size: 14px;">S/. '.$datos[$i]["precioDesde"].'</b></label>
+                            <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Día Límite Pago: <b style="font-size: 14px;">'.$datos[$i]["diaPago"].'</b></label>
+                        </div>
+
+                        <br><br><br><br><br>
+                        <br><br>
+                        <br><br><br><br><br>
+                    </div>
+                    <div class="modal-footer">                                    
+                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cerrar</button>
+                    </div>';
+        }
+    }
+
     private function getArrayResultado() {
         $resultado = 0;
         while ($fila = mysqli_fetch_array($this->result)) {

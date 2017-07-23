@@ -135,7 +135,7 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Ofertas" id="Menu">
 
             <div class="btn-floating" id="help-actions">
                 <div class="btn-bg"></div>
@@ -169,7 +169,7 @@ if (!isset($_SESSION['usuario'])) {
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Descripción</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Inicio</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">F. Fin</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Imagen</th>
+                                    
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Porcentaje</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Estado</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 2%;">Operaciones</th>

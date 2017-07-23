@@ -72,7 +72,7 @@ if (!isset($_SESSION['usuario']))
                             </li>
                             <li>
                                 <button type="button" class="navbar-toggle">
-                                    <img class="profile-img" src="../default/assets/images/profile.jpg">
+                                    <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen'];?>" >
                                 </button>
                             </li>
                         </ul>
@@ -84,7 +84,7 @@ if (!isset($_SESSION['usuario']))
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown profile">
                                 <a href="/html/pages/profile.html" class="dropdown-toggle"  data-toggle="dropdown">
-                                    <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen'];?>" >
+                                    <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen'];?>">
                                     <div class="title">Profile</div>
                                 </a>
                                 <div class="dropdown-menu">
@@ -192,6 +192,9 @@ if (!isset($_SESSION['usuario']))
                                         <select class="form-control" id="socioRubro" name="socioRubro">
                                             <option value="" disabled selected style="display: none;">Seleccionar Rubro</option>
                                             <option value="3">Cafetería</option>
+                                            <option value="5">Boutique</option>
+                                            <option value="6">Clínica</option>
+                                            <option value="7">Discoteca</option>
                                             <option value="4">Hotel</option>
                                             <option value="1">Restaurante</option>
                                             <option value="2">SPA</option>
@@ -261,8 +264,60 @@ if (!isset($_SESSION['usuario']))
                             </form>
                         </div>
                     </div>
+                </div>                    
+            </div>
+
+            <div class="modal fade" id="modalDatosNetPartner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width: 70% !important;">
+                    <div class="modal-content" id="NPModalContent">
+                        <!--
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" style="text-align: center; font-size: 18px; color: blue">DATOS DEL NET PARTNER</h4>
+
+                        </div>
+
+                        <div class="modal-body" id="modalNetPartner">                            
+                            <div class="col-xs-12 col-sm-4">
+                                <div>
+                                  <span class="profile-img">
+                                    <img class="img-responsive" alt="Net Partner" src="../default/assets/images/profile.png" />
+                                  </span>
+                                  <div class="space-4" id="RazonSocial"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-5">                                
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Razón Social: <b style="font-size: 14px;">Restaurante Jorge S.A.C.</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Nombre Comercial: <b style="font-size: 14px;">Restaurantes Coquitos Libereños</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Rubro: <b style="font-size: 14px;">Restaurante</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">RUC: <b style="font-size: 14px;">12345612345</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Dirección: <b style="font-size: 14px;">Manco Inca 723</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Contacto: <b style="font-size: 14px;">044401566</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Atención: <b style="font-size: 14px;">984799195</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Email: <b style="font-size: 14px;">avargaso@gmail.com</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">N° Cuenta: <b style="font-size: 14px;">10293847593</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Contacto Responsable: <b style="font-size: 14px;">Carlos Alberto Rodriguez</b></label>                                
+                            </div>
+
+                            <div class="col-xs-12 col-sm-3">                                
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Porcentaje Retorno: <b style="font-size: 14px;">12%</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Precios Desde: <b style="font-size: 14px;">S/. 15</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Día Límite Pago: <b style="font-size: 14px;">2</b></label>
+                            </div>
+
+                            <br><br><br><br><br>
+                            <br><br>
+                            <br><br><br><br><br>
+                        </div>
+                        <div class="modal-footer">                                    
+                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                        -->                        
+                    </div>
                 </div>
             </div>
+
             <footer class="app-footer">
                 <div class="row">
                     <div class="col-xs-12">
@@ -271,7 +326,8 @@ if (!isset($_SESSION['usuario']))
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer>            
+
         </div>
     </div>
 
@@ -280,6 +336,20 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
     <script src="../default/js/listar_socios.js"></script>
     <script src="../default/js/validaciones.js"></script>
+    <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootbox.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.easypiechart.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-datepicker.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.hotkeys.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="../default/assets_acemaster/js/select2.min.js"></script>
+    <script src="../default/assets_acemaster/js/fuelux.spinner.min.js"></script>
+    <script src="../default/assets_acemaster/js/bootstrap-editable.min.js"></script>
+    <script src="../default/assets_acemaster/js/ace-editable.min.js"></script>
+    <script src="../default/assets_acemaster/js/jquery.maskedinput.min.js"></script>
+
     </body>
     </html>
 <?php } ?>

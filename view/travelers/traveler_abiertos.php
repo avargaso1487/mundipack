@@ -157,7 +157,7 @@ if (!isset($_SESSION['usuario'])) {
 
                 <div class="card">
                     <div class="card-header">
-                        <p class="UserNameTitle">Lista de Travelers Abiertos</p>
+                        <p class="UserNameTitle">Lista de Travelers Expansivos</p>
                     </div>
                     <div>
                         <div class="card-body padding" id="listTravelers">

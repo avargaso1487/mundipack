@@ -49,16 +49,18 @@
 
 
       <div class="app-block">
-      <img src="view/default/assets/images/logo.png">
-      <div class="app-form">
-        <div class="form-header">
-          <div class="app-brand"><span class="highlight">INICIAR</span> SESIÓN</div>
-        </div>
-
-        <form action="POST" id="form-login">
+        <div class="col-xs-5">          
+          <img src="view/default/assets/images/logo.png">
+        </div>        
+        <div class="app-form">
+          <div class="form-header">
+            <div class="app-brand"><span class="highlight">INICIAR</span> SESIÓN</div>
+          </div>
+          <form action="POST" id="form-login">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">
-                <i class="fa fa-user" aria-hidden="true"></i></span>
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
               <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" aria-describedby="basic-addon1" required="required">
             </div>
             <div class="input-group">

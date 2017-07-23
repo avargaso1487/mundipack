@@ -164,11 +164,7 @@ class Ofertas_model{
 						<td style="font-size: 12px; text-align: left; height: 10px; width: 10%;">'.$datos[$i]["DESCRIPCION"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA_INICIO"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["FECHA_FIN"].'</td>';
-                if ( $datos[$i]["IMAGEN"] == '') {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">NO</td>';
-                } else {
-                    echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">SI</td>';
-                }
+                
                 if ( $datos[$i]["PORCENTAJE"] == '1') {
                     echo '<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">SI</td>';
                 } else {

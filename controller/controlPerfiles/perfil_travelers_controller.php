@@ -1,6 +1,5 @@
-
 <?php
-session_start();
+//session_start();
 
 include_once "../../model/modelPerfiles/travelers_perfil_model.php";
 

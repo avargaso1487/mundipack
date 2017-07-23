@@ -25,11 +25,8 @@
   <link rel="stylesheet" href="../default/assets_acemaster/font-awesome/4.2.0/css/font-awesome.min.css" />
 
   <!-- page specific plugin styles -->
-  <link rel="stylesheet" href="../default/assets_acemaster/css/jquery-ui.custom.min.css" />
-  <link rel="stylesheet" href="../default/assets_acemaster/css/jquery.gritter.min.css" />
-  <link rel="stylesheet" href="../default/assets_acemaster/css/select2.min.css" />
-  <link rel="stylesheet" href="../default/assets_acemaster/css/datepicker.min.css" />
-  <link rel="stylesheet" href="../default/assets_acemaster/css/bootstrap-editable.min.css" />
+  
+  
   
   <link rel="stylesheet" href="../default/assets_acemaster/fonts/fonts.googleapis.com.css" />
   
@@ -37,7 +34,7 @@
 
   <link rel="stylesheet" href="../default/assets_acemaster/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
-  <script src="../default/assets_acemaster/js/ace-extra.min.js"></script>
+  
 
 </head>
 <body>
