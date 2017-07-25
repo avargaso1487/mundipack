@@ -19,24 +19,28 @@ BEGIN
 	END IF; 
     
     IF opcion = 'opc_get_four_all_socios' THEN
+		SET @TASAMUNDI = (SELECT Porcentaje FROM se_comision WHERE Estado = 1);
 		SELECT 
 			S.NombreComercial AS NOMBRE, 
 			S.TelefonoAtencion AS TELEFONO, 
 			S.CartaPresentacion AS CARTA_PRESENTACION, 
 			S.Direccion AS DIRECCION,
-			U.Imagen AS FOTO_PERFIL
+			U.Imagen AS FOTO_PERFIL,
+            S.PorcentajeRetorno - @TASAMUNDI AS PORCENTAJE 
 		FROM se_socio S
 			LEFT JOIN se_usuario U ON U.Socio = S.Socio
 		WHERE S.Estado = 1 LIMIT 4;
 	END IF; 	  
     
     IF opcion = 'opc_get_all_socios' THEN
+		SET @TASAMUNDI = (SELECT Porcentaje FROM se_comision WHERE Estado = 1);
 		SELECT 
 			S.NombreComercial AS NOMBRE, 
 			S.TelefonoAtencion AS TELEFONO, 
 			S.CartaPresentacion AS CARTA_PRESENTACION, 
 			S.Direccion AS DIRECCION,
-			U.Imagen AS FOTO_PERFIL
+			U.Imagen AS FOTO_PERFIL,
+            S.PorcentajeRetorno - @TASAMUNDI AS PORCENTAJE 
 		FROM se_socio S
 			LEFT JOIN se_usuario U ON U.Socio = S.Socio
 		WHERE S.Estado = 1;
@@ -85,7 +89,7 @@ BEGIN
     IF opcion = 'opc_contar_pagos_traveler' THEN
 		SET @PERSONA = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni);
 		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = @PERSONA);
-		SELECT COUNT(*) AS total FROM se_pagocuotaviajero WHERE Estado = 1 AND Viajero = @VIAJERO;
+		SELECT COUNT(*) AS total FROM se_pagocuotaviajero WHERE Viajero = @VIAJERO;
 	END IF; 
     
     IF opcion = 'opc_contar_traveler_abierto' THEN
@@ -102,12 +106,14 @@ BEGIN
 			CONCAT(P.Nombres,' ',P.Apellidos) AS TRAVELER,
 			P.TelefonoFijo AS TELEFONO,
 			P.Email AS EMAIL,
-			'' AS PAQUETE,
+			PA.Nombre AS PAQUETE,
             Imagen AS IMAGEN
-		FROM se_viajero V 
+		FROM se_viajero V 			
 			INNER JOIN se_persona P ON P.Persona = V.Persona 
 			INNER JOIN se_usuario U ON U.Persona = P.Persona
-		WHERE P.Persona <> @PERSONA AND V.ViajeroAbierto = 1 LIMIT 4;
+            INNER JOIN se_viajeropaquetesposibles PP ON PP.Viajero = V.Viajero
+            INNER JOIN se_paquetes PA ON PA.Paquete = PP.Paquete
+		WHERE P.Persona <> @PERSONA AND V.ViajeroAbierto = 1 AND PP.Prioridad = 1 AND PP.Estado = 1 LIMIT 4;
 	END IF; 
     
     IF opcion = 'opc_get_travelers_abiertos' THEN
@@ -116,20 +122,20 @@ BEGIN
 			CONCAT(P.Nombres,' ',P.Apellidos) AS TRAVELER,
 			P.TelefonoFijo AS TELEFONO,
 			P.Email AS EMAIL,
-			'' AS PAQUETE,
+			PA.Nombre AS PAQUETE,
             Imagen AS IMAGEN
-		FROM se_viajero V 
+		FROM se_viajero V 			
 			INNER JOIN se_persona P ON P.Persona = V.Persona 
 			INNER JOIN se_usuario U ON U.Persona = P.Persona
-		WHERE P.Persona <> @PERSONA AND V.ViajeroAbierto = 1;
+            INNER JOIN se_viajeropaquetesposibles PP ON PP.Viajero = V.Viajero
+            INNER JOIN se_paquetes PA ON PA.Paquete = PP.Paquete
+		WHERE P.Persona <> @PERSONA AND V.ViajeroAbierto = 1 AND PP.Prioridad = 1 AND PP.Estado = 1;
 	END IF; 
-    
-    
-    
+    	
     IF opcion = 'opc_obtener_comision' THEN
 		SET @PERSONA = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni);
 		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = @PERSONA);
-        SELECT IFNULL(MontoAcumulado,0) as total FROM se_contador WHERE Viajero = @VIAJERO AND Estado = 1;
+        SELECT IFNULL(SUM(MontoAcumulado), 0) as total FROM se_contador WHERE Viajero = @VIAJERO AND Estado = 1;
 	END IF; 
     
     IF opcion = 'opc_dashboard_total_socios' THEN		
@@ -194,10 +200,7 @@ BEGIN
     IF opcion = 'opc_contar_pagos_partner_pendientes' THEN		
 		SELECT COUNT(*) AS total FROM se_pagocuotasocio;
 	END IF; 
-    
-    
-    
-    
+    	
     IF opcion = 'opc_listar_pagos_traveler_pendientes' THEN
 		
 		SELECT 
@@ -238,10 +241,16 @@ BEGIN
 	END IF;
     
     
+    IF opcion = 'opc_contar_paquetes_adquiridos' THEN	
+		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+		SELECT COUNT(*) as total FROM se_viajeropaquetecomprado PC 
+			INNER JOIN se_paquetes P ON P.Paquete = PC.Paquete WHERE PC.Viajero = @VIAJERO AND P.Estado = 1;		
+	END IF; 
+    
     IF opcion = 'opc_listar_paquetes_adquiridos' THEN
 		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
         SET @PAQUETE = (SELECT Paquete FROM se_viajeropaquetecomprado WHERE Viajero = @VIAJERO);
-		SELECT P.Paquete, P.Nombre AS Nombre, P.Descripcion as Descripcion , P.Precio AS Precio, 'C' AS Estado FROM se_viajeropaquetecomprado PC 
+		SELECT P.Paquete, P.Nombre AS Nombre, P.Descripcion as Descripcion , P.PrecioPromedio AS Precio, 'C' AS Estado FROM se_viajeropaquetecomprado PC 
 			INNER JOIN se_paquetes P ON P.Paquete = PC.Paquete WHERE PC.Viajero = @VIAJERO AND P.Estado = 1;
 		-- UNION
 		/* SELECT  P.Nombre AS NOMBRE, P.Precio AS PRECIO, 'P' AS ESTADO FROM se_viajeropaquetesposibles VP 
@@ -249,5 +258,69 @@ BEGIN
 			WHERE VP.Paquete <> @PAQUETE AND VP.Viajero = @VIAJERO AND P.Estado = 1; */
 	END IF;  
     
+    IF opcion = 'opc_noti_pago_traveler' THEN
+		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+		SET @CONTADOR = (SELECT Paquete FROM se_viajeropaquetecomprado WHERE Viajero = @VIAJERO);
+        IF @CONTADOR > 0 THEN
+			
+			SET @DIAPAGO = (SELECT FechaPago FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+			SET @v_FechaActual = NOW();    
+			SET @v_dia_cierre_bd = @DIAPAGO;
+			SET @v_anioActual = YEAR(@v_FechaActual);
+			SET @v_mesActual = MONTH(@v_FechaActual)+1;
+			SET @v_diaActual = DAY(@v_FechaActual);
+			SET @v_diaApertura = @v_dia_cierre_bd;
+			SET @v_mesApertura = (CASE WHEN @v_dia_cierre_bd <= @v_diaActual THEN @v_mesActual ELSE @v_mesActual - 1 END);
+			SET @v_anioApertura = (CASE @v_mesApertura WHEN 0 THEN (@v_anioActual - 1) ELSE @v_anioActual END);
+			SET @v_mesApertura = (CASE @v_mesApertura WHEN 0 THEN 12 ELSE @v_mesApertura END);
+			SET @v_FechaApertura = CAST(CONCAT(CAST(@v_anioApertura AS CHAR), '/',CAST(@v_mesApertura AS CHAR), '/',CAST(@v_diaApertura AS CHAR)) AS DATE);
+			SET @v_FechaAlerta = DATE_ADD(CAST(@v_FechaApertura as datetime), INTERVAL -7 DAY);
+				
+            IF CAST(curdate() as DATE) >= CAST(@v_FechaAlerta as DATE) AND CAST(curdate() as DATE) < CAST(@v_FechaApertura as DATE) THEN            
+				SELECT '1' AS respuesta;
+            ELSE
+				SELECT '0' AS respuesta;
+            END IF;			
+        ELSE
+			SELECT '0' AS respuesta;
+        END IF;
+	END IF; 
     
+    IF opcion = 'opc_dias_faltantes_pago' THEN		
+		SET @DIAPAGO = (SELECT FechaPago FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+		SET @v_FechaActual = NOW();    
+		SET @v_dia_cierre_bd = @DIAPAGO;
+		SET @v_anioActual = YEAR(@v_FechaActual);
+		SET @v_mesActual = MONTH(@v_FechaActual)+1;
+		SET @v_diaActual = DAY(@v_FechaActual);
+		SET @v_diaApertura = @v_dia_cierre_bd;
+		SET @v_mesApertura = (CASE WHEN @v_dia_cierre_bd <= @v_diaActual THEN @v_mesActual ELSE @v_mesActual - 1 END);
+		SET @v_anioApertura = (CASE @v_mesApertura WHEN 0 THEN (@v_anioActual - 1) ELSE @v_anioActual END);
+		SET @v_mesApertura = (CASE @v_mesApertura WHEN 0 THEN 12 ELSE @v_mesApertura END);
+		SET @v_FechaApertura = CAST(CONCAT(CAST(@v_anioApertura AS CHAR), '/',CAST(@v_mesApertura AS CHAR), '/',CAST(@v_diaApertura AS CHAR)) AS DATE);
+		SET @v_FechaAlerta = DATE_ADD(CAST(@v_FechaApertura as datetime), INTERVAL -7 DAY);	
+                
+        SELECT DATEDIFF(CAST(@v_FechaAlerta as DATE),CAST(curdate() as DATE)) AS respuesta;
+	END IF;
+        
+	IF opcion = 'opc_dashboard_paquete_adquirido' THEN		
+		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+        SELECT P.Nombre AS respuesta FROM se_viajeropaquetesposibles PP
+			INNER JOIN se_paquetes P ON P.Paquete = PP.Paquete
+		WHERE PP.Viajero = @VIAJERO AND PP.Prioridad = 1 AND PP.Estado = 1;
+	END IF;
+    
+    IF opcion = 'opc_dashboard_porcentaje_paquete' THEN		
+		SET @VIAJERO = (SELECT Viajero FROM se_viajero WHERE Persona = (SELECT Persona FROM se_usuario WHERE Usuario = p_dni));
+        SET @PAQUETE = (SELECT Paquete FROM se_viajeropaquetesposibles WHERE Viajero = @VIAJERO AND Prioridad = 1 AND Estado = 1);
+        SET @COMPRA = (SELECT CAST(MontoCompra AS DECIMAL(8,2)) FROM se_tipocambio WHERE Estado = 1);
+		SET @PAGOS = (SELECT IFNULL(SUM(MontoCuota),0) AS PAGOS FROM se_pagocuotaviajero where Viajero = @VIAJERO AND Paquete = @PAQUETE);
+		SET @ACUMULADO = (SELECT IFNULL(SUM(MontoAcumulado),0) AS ACUMULADO FROM se_contador WHERE Viajero = @VIAJERO AND Estado = 1);
+		SET @TOTALACUMULADO = (SELECT @PAGOS + @ACUMULADO AS TOTALACUMULADO);
+		SET @CAMBIO = (SELECT CAST(@TOTALACUMULADO / @COMPRA AS DECIMAL(8,3)));
+		SET @PRECIO = (SELECT PrecioPromedio FROM se_paquetes WHERE Paquete = @PAQUETE AND Estado = 1);
+		SET @PORCENTAJE = (SELECT (@CAMBIO*100)/@PRECIO);
+		SELECT  CAST(@PORCENTAJE AS DECIMAL(8,2)) AS PORCENTAJE;
+	END IF;
+        
 END

@@ -1,8 +1,8 @@
 <?php
-//session_start();
+session_start();
 include_once '../../model/conexion_model.php';
 
-class Perfiles_model{
+class Perfiles_socio_model {
 
     private $param = array();
     private $conexion = null;
@@ -58,7 +58,7 @@ class Perfiles_model{
             if ($this->param['p_archivoPerfil'] == '' && $this->param['p_archivoCarta'] != '') {
                 $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $_SESSION['idusuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], '', $this->param['p_rutaCarta']);
                 $this->cerrarAbrir();
-                $destino = 'view/partners/carta/' . $this->param['p_archivoCarta'];
+                $destino = '../../view/partners/carta/' . $this->param['p_archivoCarta'];
                 $archivo = $this->param['p_fileArchivoCarta'];
                 move_uploaded_file($archivo, $destino);
                 echo 1;

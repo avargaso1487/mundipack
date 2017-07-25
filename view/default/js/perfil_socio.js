@@ -138,6 +138,15 @@ var ver = function (codigo) {
             $('#netpartner_Atencion').html(objeto[7]);
             $('#p_atencion').val(objeto[7]);
             $('#imagen').html('<img class="img-responsive" alt="Imagen de Perfil Socio" src="../../'+objeto[8]+'" />');
+            $('#netpartner_porcentaje').html(objeto[9]);
+            if (objeto[10] == 0) {
+                $('#carta').html('');
+            } else {
+                $('#carta').html('<img class="img-responsive" style="width: 120px;height: 120px;" alt="Imagen de Perfil Socio" src="../../'+objeto[10]+'" />');
+                $('#fotoCarta').html('<img class="img-responsive" style="width: 120px;height: 120px;" alt="Imagen de Perfil Socio" src="../../'+objeto[10]+'" />');
+            }
+            $('#fotoperfil').html('<img class="img-responsive"  style="width: 120px;height: 120px;" alt="Imagen de Perfil Socio" src="../../'+objeto[8]+'" />');
+
         },
         error: function (msg) {
             alert(msg);

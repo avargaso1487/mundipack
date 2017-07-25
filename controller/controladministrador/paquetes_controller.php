@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include_once "../../model/modeladministrador/paquetes_model.php";
 
 $param = array();

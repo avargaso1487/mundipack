@@ -174,7 +174,7 @@ if (!isset($_SESSION['usuario']))
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Registrar Nueva Venta</h4>
+                            <h4 class="modal-title" id="titulo">Registro de Pagos</h4>
 
                         </div>
 
@@ -183,13 +183,12 @@ if (!isset($_SESSION['usuario']))
 
                                 <!-- Nro de Operación -->
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Nro Operación <span style="color: red">(*)</span></label>
-                                    <div class="col-md-9">
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Nª Operación"  name="nroOperacion" id="nroOperacion" maxlength="5">
-                                        </div>
+                                    <label class="col-md-2 control-label">Nª Operación <span style="color: red">(*)</span></label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Nª Operación"  name="nroOperacion" id="nroOperacion" maxlength="5">
                                     </div>
                                 </div>
+
                                 <input type="hidden" class="form-control"  placeholder="Importe"  name="pagoID" id="pagoID" onkeypress="return NumCheck(event, this)"/>
                                 <!-- Importe y Fecha -->
                                 <div class="form-group">

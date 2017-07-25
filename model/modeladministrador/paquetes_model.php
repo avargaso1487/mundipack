@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 include_once '../../model/conexion_model.php';
 
 class Paquetes_model{
@@ -64,6 +64,7 @@ class Paquetes_model{
         $consultaSql.= "'".$opcion."',";
         $consultaSql.= "'".$dni."')";
         //echo $consultaSql;
+
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
 
@@ -99,6 +100,19 @@ class Paquetes_model{
                 "PrecioMaximo" => $fila["PrecioMaximo"],
                 "PrecioPromedio" => $fila["PrecioPromedio"],
                 "Estado" => $fila["Estado"]
+            ));
+        }
+        return $datos;
+    }
+
+    function getArrayPaquetesAdquiridos(){
+        $datos = array();
+        while($fila = mysqli_fetch_array($this->result)){
+            array_push($datos, array(
+                "Paquete" => $fila["Paquete"],
+                "Nombre" => $fila["Nombre"],
+                "Descripcion" => $fila["Descripcion"],
+                "Precio" => $fila["Precio"]
             ));
         }
         return $datos;
@@ -185,7 +199,7 @@ class Paquetes_model{
                                         </ul>
                                         <hr />
                                         <div class="price">
-                                            S/. '.$datos[$i]["PrecioMinimo"].'
+                                            Precio Aprox. $'.$datos[$i]["PrecioPromedio"].'
                                         </div>
                                     </div>                                    
                                 </div>
@@ -199,14 +213,14 @@ class Paquetes_model{
     }
 
     function listado_paquetes_adquiridos() {
-        $this->prepararConsultaBuscarSocio('opc_contar_paquetes_traveler', $_SESSION['idusuario']);
+        $this->prepararConsultaBuscarSocio('opc_contar_paquetes_adquiridos', $_SESSION['idusuario']);
         $total = $this->getArrayTotal();
         $datos = array();
         if($total>0)
         {
             $this->cerrarAbrir();
             $this->prepararConsultaBuscarSocio('opc_listar_paquetes_adquiridos', $_SESSION['idusuario']);
-            $datos = $this->getArrayPaquetes();
+            $datos = $this->getArrayPaquetesAdquiridos();
             for($i=0; $i<count($datos); $i++)
             {
                 echo '<div class="col-xs-6 col-sm-3 pricing-box">

@@ -1,6 +1,6 @@
 
 <?php
-session_start();
+
 
 include_once "../../model/modelPerfiles/socio_perfil_model.php";
 
@@ -59,7 +59,7 @@ $param['p_rutaCarta'] = 'view/partners/carta/'.$param['p_archivoCarta'];
 
 
 
-$Perfiles = new Perfiles_model();
+$Perfiles = new Perfiles_socio_model();
 echo $Perfiles->gestionar($param);
 ?>
 

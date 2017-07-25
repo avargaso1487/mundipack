@@ -234,6 +234,22 @@ if (!isset($_SESSION['usuario'])) {
                                                 <span id="netpartner_Atencion"></span>
                                             </div>
                                         </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> % de Retorno</div>
+
+                                            <div class="profile-info-value">
+                                                <span id="netpartner_porcentaje"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Carta</div>
+
+                                            <div class="profile-info-value">
+                                                <span id="carta"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br><br>
                                     <div class="col-xs-12">
@@ -299,6 +315,11 @@ if (!isset($_SESSION['usuario'])) {
                                         <div class="col-md-9">
                                             <div class="col-md-12">
                                                 <input type="file" name="p_imagenPerfil" id="p_imagenPerfil">
+                                            </div><br><br>
+                                            <div>
+                                                <span class="profile-img" id="fotoperfil">
+
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -309,6 +330,11 @@ if (!isset($_SESSION['usuario'])) {
                                         <div class="col-md-9">
                                             <div class="col-md-12">
                                                 <input type="file" name="p_imagenCarta" id="p_imagenCarta">
+                                            </div><br><br>
+                                            <div>
+                                                <span id="fotoCarta">
+
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

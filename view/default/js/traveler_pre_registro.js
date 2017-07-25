@@ -13,11 +13,13 @@ window.onload = function(){
 $(function() {
 
     $('#new_venta').on('click', function () {
+        $('#titulo').html('Nuevo Consumo - Pre Registrar ');
         $('#tipoDocumento').val('');
         $('#ventaSerie').val('');
         $('#ventaNumero').val('');
         $('#ventaImporte').val('');
         $('#ventaFecha').val('');
+        $('#cboSocio').val('');
         $('#transaccionID').val('');
     });
 
@@ -60,7 +62,7 @@ $(function() {
                     cache: false,
                     success: function (data) {
                         //alert(data);
-                        if (data == 1) {
+                        if (data == 0) {
                             iziToast.warning({
                                 position: 'bottomCenter',
                                 title: 'Advertencia',
@@ -240,6 +242,7 @@ var mostrarVentas = function () {
 }
 
 var editar = function (codigo) {
+    $('#titulo').html('Editar Consumo - Pre Registrar ');
     var data = new FormData();
     data.append('p_opcion', 'obtener_venta_registrada');
     data.append('p_codigo', codigo);

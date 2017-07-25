@@ -22,7 +22,53 @@ var mostrarMenu = function () {
 var cargarDashboard = function () {
     comisiones();
     total_socios();
-    total_viajeros();
+    nombre_paquete();
+    noti_pagos();
+}
+
+var noti_pagos = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'noti_pago_traveler');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlTraveler/traveler_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            if (data == 0) {
+                $('#pago_traveler').addClass('hidden');
+            } else {
+                $('#pago_traveler').removeClass('hidden');
+                dias_pago();
+            }
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+
+var dias_pago = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'obtener_dias_faltantes');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlTraveler/traveler_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $('#item_pago_traveler').html(data);
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
 }
 
 var comisiones = function () {
@@ -63,18 +109,19 @@ var total_socios = function () {
     });
 }
 
-var total_viajeros = function () {
+var nombre_paquete = function () {
     var data = new FormData();
-    data.append('p_opcion', 'dashboard_total_viajeros');
+    data.append('p_opcion', 'dashboard_paquete_adquirido');
     $.ajax({
         type: "post",
-        url: "../../controller/controlSocio/ventasRegistradas.php",
+        url: "../../controller/controlTraveler/traveler_controller.php",
         contentType: false,
         data: data,
         processData: false,
         cache: false,
         success: function (data) {
-            $('#total_viajeros').html(data);
+            $('#tituloCartilla').html(data);
+            porcentaje_paquete();
         },
         error: function (msg) {
             alert(msg);
@@ -82,6 +129,25 @@ var total_viajeros = function () {
     });
 }
 
+var porcentaje_paquete = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'dashboard_paquete_porcentaje');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controlTraveler/traveler_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            objeto=JSON.parse(data);
+            $('#porcentaje_paquete').html(objeto[0]+'%');
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
 var ultimosMovimientos = function () {
     var data = new FormData();
     data.append('p_opcion', 'listado_ultimos_movimientos_traveler');
