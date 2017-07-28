@@ -34,7 +34,7 @@ $(function() {
                 data.append('paqueteID', paqueteID);
                 $.ajax({
                     type: "post",
-                    url: "../../controller/controlAdministrador/paquetes_controller.php",
+                    url: "../../controller/controladministrador/paquetes_controller.php",
                     contentType: false,
                     data: data,
                     processData: false,
@@ -76,7 +76,7 @@ $(function() {
                 data.append('p_preciopromedio', p_precioprom);
                 $.ajax({
                     type: "post",
-                    url: "../../controller/controlAdministrador/paquetes_controller.php",
+                    url: "../../controller/controladministrador/paquetes_controller.php",
                     contentType: false,
                     data: data,
                     processData: false,
@@ -114,7 +114,7 @@ $(function() {
         data.append('paqueteID', p_paqueteID);
         $.ajax({
             type: "post",
-            url: "../../controller/controlAdministrador/paquetes_controller.php",
+            url: "../../controller/controladministrador/paquetes_controller.php",
             contentType: false,
             data: data,
             processData: false,
@@ -144,7 +144,7 @@ $(function() {
         data.append('paqueteID', p_paqueteID);
         $.ajax({
             type: "post",
-            url: "../../controller/controlAdministrador/paquetes_controller.php",
+            url: "../../controller/controladministrador/paquetes_controller.php",
             contentType: false,
             data: data,
             processData: false,
@@ -231,7 +231,7 @@ var mostrarPaquetes = function () {
     data.append('p_opcion', 'listado_paquetes');
     $.ajax({
         type: "post",
-        url: "../../controller/controlAdministrador/paquetes_controller.php",
+        url: "../../controller/controladministrador/paquetes_controller.php",
         contentType: false,
         data: data,
         processData: false,
@@ -275,7 +275,7 @@ var editarPaquete = function (p_paqueteID) {
     data.append('paqueteID', p_paqueteID);
     $.ajax({
         type: "post",
-        url: "../../controller/controlAdministrador/paquetes_controller.php",
+        url: "../../controller/controladministrador/paquetes_controller.php",
         contentType: false,
         data: data,
         processData: false,

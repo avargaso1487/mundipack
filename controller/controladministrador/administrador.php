@@ -21,6 +21,7 @@
 	$param['socioContactoResponsable'] = '';
 	$param['socioPrctjRetorno'] = 0;
 	$param['socioPrecioDesde'] = 0;
+	$param['socioDiaPago'] = 0;
 
 	$param['viajeroID'] = 0;
 	$param['viajeroNombre'] = '';
@@ -51,6 +52,7 @@
 	if(isset($_POST['socioContactoResponsable']))		$param['socioContactoResponsable'] = $_POST['socioContactoResponsable'];
 	if(isset($_POST['socioPrctjRetorno']))		$param['socioPrctjRetorno'] = $_POST['socioPrctjRetorno'];
 	if(isset($_POST['socioPrecioDesde']))		$param['socioPrecioDesde'] = $_POST['socioPrecioDesde'];
+	if(isset($_POST['socioDiaPago']))		$param['socioDiaPago'] = $_POST['socioDiaPago'];	
 
 	//Viajeros
 	if(isset($_POST['viajeroID']))		$param['viajeroID'] = $_POST['viajeroID'];

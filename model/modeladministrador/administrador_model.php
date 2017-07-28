@@ -68,7 +68,8 @@ class Administrador_model{
         $consultaSql.= "'".$this->param['viajeroTelefonoCelular']."',";
         $consultaSql.= "'".$this->param['viajeroEmail']."',";
         $consultaSql.= "'".$this->param['viajeroNroPasaporte']."',";
-        $consultaSql.= "".$this->param['viajeroAbierto'].")";
+        $consultaSql.= "".$this->param['viajeroAbierto'].",";
+        $consultaSql.= "".$this->param['socioDiaPago'].")";
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
@@ -88,6 +89,7 @@ class Administrador_model{
                 "socioRubro" => $fila["socioRubro"],
                 "socioPorcentajeRetorno" => $fila["socioPorcentajeRetorno"],
                 "socioPrecioDesde" => $fila["socioPrecioDesde"],
+                "socioDiaPago" => $fila["socioDiaPago"],
                 "socioTelefonoContacto" => $fila["socioTelefonoContacto"],
                 "socioRUC" => $fila["socioRUC"]
             ));
@@ -112,7 +114,8 @@ class Administrador_model{
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioRUC"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioRubro"].'</td>
 						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioTelefonoContacto"].'</td>
-						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>						
+						<td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioPorcentajeRetorno"].'</td>
+                        <td style="font-size: 12px; text-align: center; height: 10px; width: 4%;">'.$datos[$i]["socioDiaPago"].'</td>
 						<td style="font-size: 15px; text-align:center; height: 10px; width: 2%;">';
                 /*<a href="#modalSocio" data-toggle="modal" class="red" onclick="editar('.$datos[$i]["socioID"].')">
                     <i class= "ace-icon fa fa-pencil bigger-200"></i>
@@ -233,19 +236,20 @@ class Administrador_model{
                                 <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Contacto: <b style="font-size: 14px;">'.$datos[$i]["telefContacto"].'</b></label>
                                 <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Atención: <b style="font-size: 14px;">'.$datos[$i]["telefAtencion"].'</b></label>
                                 <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Email: <b style="font-size: 14px;">'.$datos[$i]["email"].'</b></label>
-                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">N° Cuenta: <b style="font-size: 14px;">'.$datos[$i]["nroCuenta"].'</b></label>
-                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Contacto Responsable: <b style="font-size: 14px;">'.$datos[$i]["contactoResponsable"].'</b></label>                                
+                                
                         </div>
 
                         <div class="col-xs-12 col-sm-3">                                
+                            <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">N° Cuenta: <b style="font-size: 14px;">'.$datos[$i]["nroCuenta"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Contacto Responsable: <b style="font-size: 14px;">'.$datos[$i]["contactoResponsable"].'</b></label>                                
                             <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Porcentaje Retorno: <b style="font-size: 14px;">'.$datos[$i]["prctjRetorno"].'%</b></label>
                             <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Precios Desde: <b style="font-size: 14px;">S/. '.$datos[$i]["precioDesde"].'</b></label>
                             <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Día Límite Pago: <b style="font-size: 14px;">'.$datos[$i]["diaPago"].'</b></label>
                         </div>
 
-                        <br><br><br><br><br>
+                        <br><br><br><br>
                         <br><br>
-                        <br><br><br><br><br>
+                        <br><br><br><br>
                     </div>
                     <div class="modal-footer">                                    
                         <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cerrar</button>
