@@ -248,7 +248,7 @@ if (!isset($_SESSION['usuario']))
                                     <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha: </strong> <span id="spanFecha"></span></label>
                                 </div>
 
-                                <input type="text" class="form-control"  name="p_pagoID" id="p_pagoID" onkeypress="return NumCheck(event, this)"/>
+                                <input type="hidden" class="form-control"  name="p_pagoID" id="p_pagoID" onkeypress="return NumCheck(event, this)"/>
 
                                 <br>
                                 <div class="modal-footer">

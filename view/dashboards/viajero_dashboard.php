@@ -27,10 +27,10 @@
   <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
     <a class="card card-banner card-yellow-light" href="../../view/travelers/traveler_abiertos.php">
       <div class="card-body">
-        <i class="icon fa fa-user fa-4x"></i>
+        <i class="icon fa fa-calculator fa-4x"></i>
         <div class="content">
-          <div class="title">travelers</div>
-          <div class="value"><span class="sign"></span><label id="total_viajeros"></label></div>
+          <div class="title" id="tituloCartilla"></div>
+          <div class="value"><span class="sign"></span><label id="porcentaje_paquete"></label></div>
         </div>
       </div>
     </a>

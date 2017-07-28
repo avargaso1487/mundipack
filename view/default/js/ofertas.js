@@ -13,6 +13,7 @@ window.onload = function(){
 $(function() {
 
     $('#new_oferta').on('click', function () {
+        $('#titulo').html('Registrar - Oferta');
         $('#p_codigo').val('');
         $('#p_descripcion').val('');
         $('#p_fechaInicio').val('');
@@ -268,6 +269,7 @@ var activar = function (codigo) {
 }
 
 var editar = function (codigo) {
+    $('#titulo').html('Editar - Oferta');
     var data = new FormData();
     data.append('p_opcion', 'obtener_ofertas');
     data.append('p_codigo', codigo);
@@ -285,7 +287,7 @@ var editar = function (codigo) {
             $('#p_descripcion').val(objeto[1]);
             $('#p_fechaInicio').val(objeto[2]);
             $('#p_fechaFin').val(objeto[3]);
-            $('#p_stock').val(objeto[4]);  7
+            $('#p_stock').val(objeto[4]);
 
             if (objeto[7] == '1') {
                 $('#p_porcentaje').prop('checked', true).parent().addClass('checked');
@@ -317,7 +319,20 @@ var ver = function (codigo) {
             $('#descripcion').html(objeto[1]);
             $('#fechaInicio').html(objeto[2]);
             $('#fechaFin').html(objeto[3]);
-            $('#stock').html(objeto[4]);
+            if (objeto[4] == '') {
+                $('#stock').html(' - ');
+            } else {
+                $('#stock').html(objeto[4]);
+            }
+
+            if (objeto[7] == 1) {
+                $('#retorno').html('SI');
+            } else {
+                $('#retorno').html('NO');
+
+            }
+
+
             //$('#imagen').html('<img class="img-responsive" alt="Imagen de Oferta" src="../default/assets/images/profile.png" />');
             $('#imagen').html('<img class="img-responsive" alt="Imagen de Oferta" src="'+objeto[5]+'" />');
 

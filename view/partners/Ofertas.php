@@ -193,7 +193,7 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Nueva OFERTA</h4>
+                            <h4 class="modal-title" id="titulo"></h4>
 
                         </div>
 
@@ -317,6 +317,10 @@ if (!isset($_SESSION['usuario'])) {
                                                         <br>
                                                         <div class="profile-info-row">
                                                             <div class="profile-info-name"><strong>Stock: </strong> <span  id="stock"></span></div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"><strong>% Retorno: </strong> <span  id="retorno"></span></div>
                                                         </div>
                                                         <br>
                                                     </div>

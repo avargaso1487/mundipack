@@ -192,7 +192,7 @@ if (!isset($_SESSION['usuario']))
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Pre Registrar Nuevo Consumo</h4>
+                            <h4 class="modal-title" id="titulo"></h4>
 
                         </div>
 
@@ -220,15 +220,18 @@ if (!isset($_SESSION['usuario']))
                                 <!-- Documento -->
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Documento <span style="color: red">(*)</span></label>
-                                    <div class="col-md-9">
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Serie"  name="ventaSerie" id="ventaSerie" maxlength="5">
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Número"  name="ventaNumero" id="ventaNumero" maxlength="7">
-                                        </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Serie"  name="ventaSerie" id="ventaSerie" maxlength="5">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Número"  name="ventaNumero" id="ventaNumero" maxlength="7">
                                     </div>
                                 </div>
+
+
+
+
                                 <input type="hidden" class="form-control"  placeholder="Importe"  name="transaccionID" id="transaccionID" onkeypress="return NumCheck(event, this)"/>
                                 <!-- Importe y Fecha -->
                                 <div class="form-group">

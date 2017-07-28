@@ -5,6 +5,14 @@ window.onload = function(){
 }
 
 $(function() {
+    $('#new_venta').on('click', function () {
+        $('#titulo').html('Registrar Nuevo Pago Realizado');
+        $('#nroOperacion').val('');
+        $('#montoPago').val('');
+        $('#pagoFecha').val('');
+        $('#pagoID').val('');
+    });
+
 
     $('#guardarPago').on('click', function () {
         var p_operacion = $('#nroOperacion').val();
@@ -172,6 +180,7 @@ var mostrarPagos = function () {
 
 
 var editarPago = function (p_pagoID) {
+    $('#titulo').html('Editar Pago Realizado');
     var data = new FormData();
     data.append('p_opcion', 'obtener_pago_partners');
     data.append('p_pagoID', p_pagoID);

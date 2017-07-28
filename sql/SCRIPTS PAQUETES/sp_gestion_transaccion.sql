@@ -18,20 +18,15 @@ BEGIN
 			IF (@VALIDARCONTADOR = 0) THEN
 				INSERT INTO se_transaccion (Serie, Numero, Viajero, Socio, Importe, FechaTransaccion, Estado, TipoDocumento) 
 					VALUES (p_serie, p_numero, p_clienteID, @SOCIO, p_importe, p_fecha, 1, p_tipoDoc);	                                        
-				SET @MONTORETORNO = (cast(p_importe as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100);	-- 12									                
-                SET @RETORNOMUNDI = (cast(p_importe as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100);	-- 2                
-				SET @MONTOVIAJERO = (@MONTORETORNO - @RETORNOMUNDI); -- 10
-                SET @MONTOSOCIO = (cast(p_importe as decimal(8,2))-cast(@MONTORETORNO as decimal(8,2)));
+				SET @MONTORETORNO = (cast(p_importe as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100);	                SET @RETORNOMUNDI = (cast(p_importe as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100);					SET @MONTOVIAJERO = (@MONTORETORNO - @RETORNOMUNDI);                 SET @MONTOSOCIO = (cast(p_importe as decimal(8,2))-cast(@MONTORETORNO as decimal(8,2)));
                 
-                -- CONTADOR VIAJERO
-				INSERT INTO se_contador (Viajero, MontoAcumulado, Estado) VALUES (p_clienteID, @MONTOVIAJERO, 1);	                
+                				INSERT INTO se_contador (Viajero, MontoAcumulado, Estado) VALUES (p_clienteID, @MONTOVIAJERO, 1);	                
 				SET @TRANSAC_ID = (SELECT MAX(Transaccion) FROM se_transaccion);                
 				SET @CONT_ID = (SELECT MAX(Contador) FROM se_contador);				                
 				INSERT INTO se_transaccioncontador (Contador, Transaccion, Comision, Estado) VALUES (@CONT_ID, @TRANSAC_ID, @COMISIONID, 1);				
                 INSERT INTO se_movimiento (TipoMovimiento, Socio, FechaMovimiento, Estado) VALUES ('9', @SOCIO, now(), 1);
                 
-                -- CONTADOR SOCIO
-                IF @VALIDARCONTADORSOCIO = 0 THEN
+                                IF @VALIDARCONTADORSOCIO = 0 THEN
 					INSERT INTO se_contadorsocio (Socio, MontoAcumulado, Estado) VALUES (@SOCIO, @MONTOSOCIO, 1);
 					SET @CONTSOCIO_ID = (SELECT MAX(ContadorSocio) FROM se_contadorsocio);
 					INSERT INTO se_transaccioncontadorsocio (ContadorSocio, Transaccion, PorcentajeRetorno, Estado) VALUES (@CONTSOCIO_ID, @TRANSAC_ID, cast(@PORCRETORNO as decimal(8,2)), 1);
@@ -71,19 +66,16 @@ BEGIN
 				SET @CONT_ID = (SELECT Contador FROM se_contador WHERE Viajero = p_clienteID);	
                 SET @MONTOSOCIO = (cast(p_importe as decimal(8,2))-cast(@MONTORETORNO as decimal(8,2)));
                 
-                -- CONTADOR VIAJERO
-                UPDATE se_contador SET MontoAcumulado = (cast(@MONTOACUMULADO as decimal(8,2)) + @MONTOVIAJERO) WHERE Contador = @CONT_ID;
+                                UPDATE se_contador SET MontoAcumulado = (cast(@MONTOACUMULADO as decimal(8,2)) + @MONTOVIAJERO) WHERE Contador = @CONT_ID;
                 INSERT INTO se_transaccioncontador (Contador, Transaccion, Comision, Estado) VALUES (@CONT_ID, @TRANSAC_ID, @COMISIONID, 1);				
                 INSERT INTO se_movimiento (TipoMovimiento, Socio, FechaMovimiento, Estado) VALUES ('9', @SOCIO, now(), 1);
                 
-                -- CONTADOR SOCIO
-                SET @MONTOACUMULADOSOCIO = (SELECT MontoAcumulado FROM se_contadorsocio WHERE Socio = @SOCIO);
+                                SET @MONTOACUMULADOSOCIO = (SELECT MontoAcumulado FROM se_contadorsocio WHERE Socio = @SOCIO);
                 SET @CONTSOCIO_ID = (SELECT ContadorSocio FROM se_contadorsocio WHERE Socio = @SOCIO);
                 UPDATE se_contadorsocio SET MontoAcumulado = (cast(@MONTOACUMULADOSOCIO as decimal(8,2)) + @MONTOSOCIO) WHERE ContadorSocio = @CONTSOCIO_ID;
                 INSERT INTO se_transaccioncontadorsocio (ContadorSocio, Transaccion, PorcentajeRetorno, Estado) VALUES (@CONTSOCIO_ID, @TRANSAC_ID, cast(@PORCRETORNO as decimal(8,2)), 1);
 				                
-                -- CONTADOR MUNDI PACK
-                SET @MUNDI_ID = (SELECT ContadorMundi FROM se_contadormundi);
+                                SET @MUNDI_ID = (SELECT ContadorMundi FROM se_contadormundi);
                 SET @MONTOACUMULADOMUNDI = (SELECT MontoAcumulado FROM se_contadormundi);
                 SET @MONTOFINALMUNDI = (cast(@MONTOACUMULADOMUNDI as decimal(8,2))+@RETORNOMUNDI);
                 UPDATE se_contadormundi SET MontoAcumulado = @MONTOFINALMUNDI WHERE ContadorMundi = @MUNDI_ID;
@@ -107,24 +99,14 @@ BEGIN
 				UPDATE se_transaccion 
 					SET Serie = p_serie,
 					Numero = p_numero,
-					-- Importe= p_importe,
-					FechaTransaccion = p_fecha,
+										FechaTransaccion = p_fecha,
 					TipoDocumento = p_tipoDoc
 				WHERE Transaccion = p_codigo;
                 INSERT INTO se_movimiento (TipoMovimiento, Socio, FechaMovimiento, Estado) VALUES ('11', @SOCIO, now(), 1);
 				SELECT 'Registro Correcto' AS respuesta;
 			ELSE
-				SET @MONTORETORNOANTIGUO = (cast(@MONTOANTIGUO as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100); -- 12                
-				SET @RETORNOMUNDIANTIGUO = (cast(@MONTOANTIGUO as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100); -- 2                
-				SET @MONTOVIAJEROANTIGUO = (@MONTORETORNOANTIGUO - @RETORNOMUNDIANTIGUO); -- 10							
-                SET @MONTOACUMULADOANTIGUO = (SELECT MontoAcumulado FROM se_contador WHERE Viajero = p_clienteID); -- 30              
-				SET @CONT_ID = (SELECT Contador FROM se_contador WHERE Viajero = p_clienteID); -- 5
-                
-                 -- CONTADOR SOCIO
-                SET @MONTOACUMULADOANTIGUOSOCIO = (SELECT MontoAcumulado FROM se_contadorsocio WHERE Socio = @SOCIO); -- 88
-                SET @CONTSOCIO_ID = (SELECT ContadorSocio FROM se_contadorsocio WHERE Socio = @SOCIO); -- 4                
-                SET @MONTOSOCIOANTIGUO = (cast(@MONTOANTIGUO as decimal(8,2))-cast(@MONTORETORNOANTIGUO as decimal(8,2))); -- 88                
-                
+				SET @MONTORETORNOANTIGUO = (cast(@MONTOANTIGUO as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100); 				SET @RETORNOMUNDIANTIGUO = (cast(@MONTOANTIGUO as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100); 				SET @MONTOVIAJEROANTIGUO = (@MONTORETORNOANTIGUO - @RETORNOMUNDIANTIGUO);                 SET @MONTOACUMULADOANTIGUO = (SELECT MontoAcumulado FROM se_contador WHERE Viajero = p_clienteID); 				SET @CONT_ID = (SELECT Contador FROM se_contador WHERE Viajero = p_clienteID);                 
+                                 SET @MONTOACUMULADOANTIGUOSOCIO = (SELECT MontoAcumulado FROM se_contadorsocio WHERE Socio = @SOCIO);                 SET @CONTSOCIO_ID = (SELECT ContadorSocio FROM se_contadorsocio WHERE Socio = @SOCIO);                 SET @MONTOSOCIOANTIGUO = (cast(@MONTOANTIGUO as decimal(8,2))-cast(@MONTORETORNOANTIGUO as decimal(8,2)));                 
                 SET @MONTOMUNDIANTIGUO = (SELECT MontoAcumulado FROM se_contadormundi);
                 
                 UPDATE se_contador SET MontoAcumulado = (cast(@MONTOACUMULADOANTIGUO as decimal(8,2)) - cast(@MONTOVIAJEROANTIGUO as decimal(8,2))) WHERE Contador = @CONT_ID;                                
@@ -139,20 +121,14 @@ BEGIN
 					TipoDocumento = p_tipoDoc
 				WHERE Transaccion = p_codigo;
 				
-                SET @MONTORETORNO = (cast(p_importe as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100); -- 12		
-				SET @RETORNOMUNDI = (cast(p_importe as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100); -- 2			
-				SET @MONTOVIAJERO = (@MONTORETORNO - @RETORNOMUNDI); -- 40                
-                SET @MONTOACUMULADO = (SELECT MontoAcumulado FROM se_contador WHERE Viajero = p_clienteID); -- 60          
-				SET @CONT_ID = (SELECT Contador FROM se_contador WHERE Viajero = p_clienteID);			
+                SET @MONTORETORNO = (cast(p_importe as decimal(8,2))*(cast(@PORCRETORNO as decimal(8,2)))/100); 				SET @RETORNOMUNDI = (cast(p_importe as decimal(8,2))*(cast(@COMISION as decimal(8,2)))/100); 				SET @MONTOVIAJERO = (@MONTORETORNO - @RETORNOMUNDI);                 SET @MONTOACUMULADO = (SELECT MontoAcumulado FROM se_contador WHERE Viajero = p_clienteID); 				SET @CONT_ID = (SELECT Contador FROM se_contador WHERE Viajero = p_clienteID);			
                 UPDATE se_contador SET MontoAcumulado = (cast(@MONTOACUMULADO as decimal(8,2)) + @MONTOVIAJERO) WHERE Contador = @CONT_ID;                
                 SET @MONTOACUMULADOSOCIO = (SELECT MontoAcumulado FROM se_contadorsocio WHERE Socio = @SOCIO);                
                 
                 SET @MONTOACUMULADOMUNDI = (SELECT MontoAcumulado FROM se_contadormundi);                
                 
-                SET @MONTOSOCIONUEVO = (cast(p_importe as decimal(8,2))-cast(@MONTORETORNO as decimal(8,2))); -- 88                
-                UPDATE se_contadorsocio SET MontoAcumulado = (cast(@MONTOACUMULADOSOCIO as decimal(8,2)) + cast(@MONTOSOCIONUEVO as decimal(8,2))) WHERE ContadorSocio = @CONTSOCIO_ID;                                
-                -- INSERT INTO se_transaccioncontador (Contador, Transaccion, Comision, Estado) VALUES (@CONT_ID, p_codigo, @COMISION, 1);				
-                 UPDATE se_transaccioncontador 
+                SET @MONTOSOCIONUEVO = (cast(p_importe as decimal(8,2))-cast(@MONTORETORNO as decimal(8,2)));                 UPDATE se_contadorsocio SET MontoAcumulado = (cast(@MONTOACUMULADOSOCIO as decimal(8,2)) + cast(@MONTOSOCIONUEVO as decimal(8,2))) WHERE ContadorSocio = @CONTSOCIO_ID;                                
+                                 UPDATE se_transaccioncontador 
 					 SET Contador = @CONT_ID, Comision = @COMISION WHERE Transaccion = p_codigo;
                      
 				UPDATE se_contadormundi SET MontoAcumulado = (cast(@MONTOACUMULADOMUNDI as decimal(8,2)) + cast(@RETORNOMUNDI as decimal(8,2)));                                
@@ -179,9 +155,13 @@ BEGIN
 			
         END IF;
         
-        IF opcion = 'opc_update_pre_transaccion' THEN					
-            -- SET @VALIDADOC = (SELECT COUNT(*) FROM se_transaccion WHERE Serie = p_serie AND Numero = p_numero AND TipoDocumento = p_tipoDoc);
-            UPDATE se_transaccion 
+        IF opcion = 'opc_update_pre_transaccion' THEN
+			SET @TIPODOC =(SELECT TipoDocumento FROM se_transaccion WHERE Transaccion = p_codigo);
+            SET @SERIE =(SELECT Serie FROM se_transaccion WHERE Transaccion = p_codigo);
+            SET @NUMERO =(SELECT Numero FROM se_transaccion WHERE Transaccion = p_codigo);
+			
+            IF @TIPODOC = p_tipoDoc AND @SERIE = p_serie AND @NUMERO = p_numero THEN
+				UPDATE se_transaccion 
 					SET Serie = p_serie,
 					Numero = p_numero,
 					Socio = p_clienteID,
@@ -189,13 +169,27 @@ BEGIN
 					FechaTransaccion = p_fecha,
 					TipoDocumento = p_tipoDoc
 				WHERE Transaccion = p_codigo;
+                SELECT 'Registro Correcto' AS respuesta;
+			ELSE
+				SET @VALIDADOC = (SELECT COUNT(*) FROM se_transaccion WHERE Serie = p_serie AND Numero = p_numero AND TipoDocumento = p_tipoDoc);
+                IF (@VALIDADOC = 0) THEN
+					UPDATE se_transaccion 
+						SET Serie = p_serie,
+						Numero = p_numero,
+						Socio = p_clienteID,
+						Importe = p_importe,
+						FechaTransaccion = p_fecha,
+						TipoDocumento = p_tipoDoc
+					WHERE Transaccion = p_codigo;
+                    SELECT 'Registro Correcto' AS respuesta;
+				ELSE
+					SELECT '0' AS respuesta;
+				END IF;
+            END IF;
+                        
 				
-				SELECT 'Registro Correcto' AS respuesta;
-            /*IF (@VALIDADOC = 0) THEN
 				
-            ELSE
-				SELECT '1' AS respuesta;
-            END IF; */
+            
             
         END IF;
         	

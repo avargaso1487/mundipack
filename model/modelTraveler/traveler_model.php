@@ -43,9 +43,6 @@ class Traveler_model{
                 echo $this->listado_travelers_abiertos();
                 break;
 
-
-
-
             case "get_all_ofertas";
                 echo $this->get_all_ofertas();
                 break;
@@ -62,8 +59,6 @@ class Traveler_model{
             case "obtener_pago_traveler";
                 echo $this->obtener_pago_traveler();
                 break;
-
-
             case "add_pago_partners";
                 echo $this->add_pago_partners();
                 break;
@@ -89,6 +84,22 @@ class Traveler_model{
 
             case "aprobar_pago_traveler";
                 echo $this->aprobar_pago_traveler();
+                break;
+
+            case "noti_pago_traveler";
+                echo $this->noti_pago_traveler();
+                break;
+
+            case "obtener_dias_faltantes";
+                echo $this->obtener_dias_faltantes();
+                break;
+
+            case "dashboard_paquete_adquirido";
+                echo $this->dashboard_paquete_adquirido();
+                break;
+
+            case "dashboard_paquete_porcentaje";
+                echo $this->dashboard_paquete_porcentaje();
                 break;
 
         }
@@ -118,7 +129,8 @@ class Traveler_model{
                 "TELEFONO" => $fila["TELEFONO"],
                 "DIRECCION" => $fila["DIRECCION"],
                 "CARTA_PRESENTACION" => $fila["CARTA_PRESENTACION"],
-                "FOTO_PERFIL" => $fila["FOTO_PERFIL"]
+                "FOTO_PERFIL" => $fila["FOTO_PERFIL"],
+                "PORCENTAJE" => $fila["PORCENTAJE"]
 
             ));
         }
@@ -166,7 +178,7 @@ class Traveler_model{
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div class="ace-thumbnails clearfix">
                                             <a class="profile-img" href="../../'.$datos[$i]["FOTO_PERFIL"].'" data-lightbox="image-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
-												<img width="140" height="98" alt="100x100" src="../../'.$datos[$i]["FOTO_PERFIL"].'" />												
+												<img width="140" height="130" alt="100x100" src="../../'.$datos[$i]["FOTO_PERFIL"].'" />												
 											</a>                                      
                                             <div class="space-4"></div>
                                         </div>
@@ -196,7 +208,15 @@ class Traveler_model{
                                                 <div class="profile-info-value">
                                                     <span id="socio_telefono">'.$datos[$i]["TELEFONO"].'</span>
                                                 </div>
-                                            </div>                                             
+                                            </div>  
+                                                                                       
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Comisión (%)</div>
+
+                                                <div class="profile-info-value">
+                                                    <span id="socio_telefono">'.$datos[$i]["PORCENTAJE"].'</span>
+                                                </div>
+                                            </div>  
                                         </div><br>
                                         <a class="profile-img btn btn-xs btn-primary" href="../../'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="presentacion-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
                                             Ver Carta de Presentacion											
@@ -207,7 +227,7 @@ class Traveler_model{
 
                                 </div>';
             }
-            echo '</div><br><br><br><br><br><br> ';
+            echo '</div><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
             if ($total>4) {
                 echo '<div class="center">
@@ -235,7 +255,7 @@ class Traveler_model{
                                     <div class="col-xs-12 col-sm-3 center">
                                         <div class="ace-thumbnails clearfix">
                                             <a class="profile-img" href="../../'.$datos[$i]["FOTO_PERFIL"].'" data-lightbox="image-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
-												<img width="140" height="99" alt="100x100" src="../../'.$datos[$i]["FOTO_PERFIL"].'" />												
+												<img width="140" height="120" alt="100x100" src="../../'.$datos[$i]["FOTO_PERFIL"].'" />												
 											</a>                                      
                                             <div class="space-4"></div>
                                         </div>
@@ -267,20 +287,28 @@ class Traveler_model{
                                                 </div>
                                             </div>
                                             </div>
+                                            
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Comisión (%)</div>
+
+                                                <div class="profile-info-value">
+                                                    <span id="socio_telefono">'.$datos[$i]["PORCENTAJE"].'</span>
+                                                </div>
+                                            </div>  
 
                                         </div>
                                         <br>
                                         <a class="profile-img btn btn-xs btn-primary" href="../../'.$datos[$i]["CARTA_PRESENTACION"].'" data-lightbox="presentacion-'.$i.'" data-title='.$datos[$i]["NOMBRE"].'>
                                             Ver Carta de Presentacion											
                                         </a>
-                                        
+                                        <br><br><br>  
                                     </div>
-                                       
+                                     
                                     
 
                                 </div>';
             }
-            echo '</div><br><br><br><br><br><br> ';
+            echo '</div><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
         } else {
             echo '0';
         }
@@ -601,6 +629,41 @@ class Traveler_model{
         }
     }
 
+    function noti_pago_traveler() {
+        $this->prepararConsultarSocio('opc_noti_pago_traveler', $_SESSION['idusuario']);
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
+    function dashboard_paquete_adquirido() {
+        $this->prepararConsultarSocio('opc_dashboard_paquete_adquirido', $_SESSION['idusuario']);
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
+    function dashboard_paquete_porcentaje() {
+        $this->prepararConsultarSocio('opc_dashboard_porcentaje_paquete', $_SESSION['idusuario']);
+        $row = mysqli_fetch_row($this->result);
+        echo json_encode($row);
+    }
+
+
+    function obtener_dias_faltantes() {
+        $this->prepararConsultarSocio('opc_dias_faltantes_pago', $_SESSION['idusuario']);
+        $resultado = $this->getArrayResultado();
+        echo '<li class="dropdown-header">Mensaje</li>
+                <li>
+                    <a href="#">                      
+                        <div class="message">
+                            <div class="content">                               
+                                <div class="description">Faltan '.$resultado.' días para realizar pago.</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>';
+    }
+
+
 
 
     function prepararConsultarPago($opcion = '', $operacion = '', $monto = '', $fecha = '', $pagoId = '', $usuario = '') {
@@ -611,7 +674,7 @@ class Traveler_model{
         $consultaSql.= "'".$fecha."',";
         $consultaSql.= "'".$pagoId."',";
         $consultaSql.= "'".$usuario."')";
-        // echo $consultaSql;
+        //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
 

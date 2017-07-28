@@ -10,6 +10,15 @@ window.onload = function(){
 
 $(function() {
 
+    $('#new_venta').on('click', function () {
+        $('#titulo').html('Pago Realizado');
+        $('#nroOperacion').val('');
+        $('#montoPago').val('');
+        $('#pagoFecha').val('');
+        $('#pagoID').val('');
+    });
+
+
     $('#guardarPago').on('click', function () {
         var p_operacion = $('#nroOperacion').val();
         var p_monto = $('#montoPago').val();
@@ -177,6 +186,7 @@ var mostrarPagos = function () {
 
 
 var editarPago = function (p_pagoID) {
+    $('#titulo').html('Editar Pago Realizado');
     var data = new FormData();
     data.append('p_opcion', 'obtener_pago');
     data.append('p_pagoID', p_pagoID);
