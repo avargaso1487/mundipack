@@ -154,7 +154,7 @@ class VentaRegistrada_model{
     function cargarTipoDocumento() {
         $this->prepararConsultaCombo('opc_listar_tipo_documento');
         $this->cerrarAbrir();
-        echo '<select class="form-control" id="tipoDocumento" name="tipoDocumento">
+        echo '<select class="chosen-select form-control" id="tipoDocumento" name="tipoDocumento">
                     <option value="" disabled selected style="display: none;">Seleccione Tipo Documento</option>';
         while ($fila = mysqli_fetch_row($this->result)) {
             echo'<option value="'.$fila[0].'">'.utf8_encode($fila[1]).'</option>';
@@ -165,7 +165,7 @@ class VentaRegistrada_model{
     function cargarSocios() {
         $this->prepararConsultaCombo('opc_listar_socios');
         $this->cerrarAbrir();
-        echo '<select class="form-control" id="cboSocio" name="cboSocio">
+        echo '<select class="chosen-select form-control" id="cboSocio" name="cboSocio" data-placeholder="Seleccion Net Partners">
                     <option value="" disabled selected style="display: none;">Seleccione Net Partner</option>';
         while ($fila = mysqli_fetch_row($this->result)) {
             echo'<option value="'.$fila[0].'">'.utf8_encode($fila[2]).'</option>';

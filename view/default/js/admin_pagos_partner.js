@@ -3,6 +3,8 @@ window.onload = function(){
     mostrarMenu();
     mostrarPagos();
     cargarSocio();
+    noti_pre_pago_socio();
+    noti_pre_pago_traveler();
 }
 
 $(function() {
@@ -85,6 +87,7 @@ $(function() {
                     message: 'El pago seleccionado ha sido confirmado.',
                 });
                 mostrarPagos();
+                noti_pre_pago_socio();
             },
             error: function (msg) {
                 alert(msg);
@@ -96,6 +99,99 @@ $(function() {
 
 
 });
+
+var noti_pre_pago_socio = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'noti_pre_pago_socio');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/notificaciones_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            if (data == 0) {
+                $('#pago_socios').addClass('hidden');
+            } else {
+                $('#pago_socios').removeClass('hidden');
+                $('#noti_pagos_pre_socios').html(data);
+                item_noti_pago_socio();
+            }
+            //$('#btnMail').addClass('hidden');
+
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+var noti_pre_pago_traveler = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'noti_pre_pago_traveler');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/notificaciones_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            if (data == 0) {
+                $('#pago_traveler').addClass('hidden');
+            } else {
+                $('#pago_traveler').removeClass('hidden');
+                $('#noti_pagos_pre_travelers').html(data);
+                item_noti_pago_traveler();
+            }
+            //$('#btnMail').addClass('hidden');
+
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+var item_noti_pago_socio = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'item_noti_pago_socio');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/notificaciones_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $('#item_noti_pago_socio').html(data);
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+var item_noti_pago_traveler = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'item_noti_pago_traveler');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/notificaciones_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $('#item_noti_pago_traveler').html(data);
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
 
 var mostrarMenu = function () {
     var menu = document.getElementById('Menu').value;

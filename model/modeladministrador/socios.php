@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 if (!isset($_SESSION['usuario']))
 {
@@ -82,31 +82,29 @@ if (!isset($_SESSION['usuario']))
 
                         <!-- Menús despegables -->
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown notification warning hidden" id="pago_socios">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div class="icon"><i class="fa fa-bank" aria-hidden="true"></i></div>
-                                    <div class="title">Nuevos Pagos de Net Partners</div>
-                                    <div class="count" id="noti_pagos_pre_socios"></div>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul id="item_noti_pago_socio">
-                                    </ul>
-                                </div>
-                            </li>
+			    <li class="dropdown notification warning hidden" id="pago_socios">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <div class="icon"><i class="fa fa-bank" aria-hidden="true"></i></div>
+                  <div class="title">Nuevos Pagos de Net Partners</div>
+                  <div class="count" id="noti_pagos_pre_socios"></div>
+              </a>
+              <div class="dropdown-menu">
+                  <ul id="item_noti_pago_socio">
+                  </ul>
+              </div>
+          </li>
 
-                            <li class="dropdown notification default hidden" id="pago_traveler">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div class="icon"><i class="fa fa-users" aria-hidden="true"></i></div>
-                                    <div class="title">Nuevos Pagos de Travelers</div>
-                                    <div class="count" id="noti_pagos_pre_travelers"></div>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul id="item_noti_pago_traveler">
-                                    </ul>
-                                </div>
-                            </li>
-
-
+          <li class="dropdown notification default hidden" id="pago_traveler">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <div class="icon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                  <div class="title">Nuevos Pagos de Travelers</div>
+                  <div class="count" id="noti_pagos_pre_travelers"></div>
+              </a>
+              <div class="dropdown-menu">
+                  <ul id="item_noti_pago_traveler">
+                  </ul>
+              </div>
+          </li>
 
                             <li class="dropdown profile">
                                 <a href="/html/pages/profile.html" class="dropdown-toggle"  data-toggle="dropdown">
@@ -165,7 +163,7 @@ if (!isset($_SESSION['usuario']))
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Rubro</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Telefono</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">% Retorno</th>
-                                    
+                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 4%;">Día Pago</th>
                                     <th style="font-size: 12px; text-align: center; height: 10px; width: 2%;">Operaciones</th>
                                 </tr>
                                 </thead>
@@ -179,7 +177,7 @@ if (!isset($_SESSION['usuario']))
             </div>
             <!-- MODAL -->
             <div class="modal fade" id="modalSocio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" style="width: 70% !important;">
+                <div class="modal-dialog" style="width: 75% !important;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -252,13 +250,13 @@ if (!isset($_SESSION['usuario']))
                                     </div>
                                 </div>
                                 <!-- Email -->
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-7">
                                     <label class="col-md-4 control-label">Email</label>
                                     <div class="col-md-8"  style="padding-left: 4.5%">
                                         <input type="email" class="form-control" placeholder="email@example.com" name="socioEmail" id="socioEmail" >
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-5">
                                     <label class="col-md-3 control-label">Nro. Cuenta</label>
                                     <div class="col-md-9">
                                         <input class="form-control" placeholder="Número de Cuenta" onkeypress="return solonumeros(event)" name="socioNroCuenta" id="socioNroCuenta" >
@@ -278,8 +276,14 @@ if (!isset($_SESSION['usuario']))
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" style="padding-left: 3%;">Precios Desde</label>
-                                    <div class="col-md-2" style="padding-left: 2%; padding-right: %">
+                                    <div class="col-md-2" style="padding-left: 2%;">
                                         <input class="form-control"  placeholder="Precio"  name="socioPrecioDesde" id="socioPrecioDesde" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="padding-left: 3%;">Día Pago</label>
+                                    <div class="col-md-2" style="padding-left: 2%;">
+                                        <input class="form-control"  placeholder="Día límite"  name="socioDiaPago" id="socioDiaPago" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

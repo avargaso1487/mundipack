@@ -66,7 +66,7 @@ class Perfiles_socio_model {
                 if ($this->param['p_archivoCarta'] == '' && $this->param['p_archivoPerfil'] != '') {
                     $this->prepararConsultaObtenerPerfil('opc_update_perfil_socio', $_SESSION['idusuario'], $this->param['p_contacto'], $this->param['p_atencion'], $this->param['p_paswword'], $this->param['p_rutaPerfil'], '');
                     $this->cerrarAbrir();
-                    $destino = 'view/default/assets/images/users/' . $this->param['p_archivoPerfil'];
+                    $destino = '../../view/default/assets/images/users/' . $this->param['p_archivoPerfil'];
                     $archivo = $this->param['p_fileArchivoPerfil'];
                     move_uploaded_file($archivo, $destino);
                     echo 1;

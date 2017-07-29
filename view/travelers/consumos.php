@@ -26,6 +26,9 @@ if (!isset($_SESSION['usuario']))
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/red.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/yellow.css">
 
+        <link rel="stylesheet" href="../default/assets_acemaster/css/chosen.min.css" />
+
+
     </head>
     <body>
     <div class="app app-default">
@@ -200,6 +203,13 @@ if (!isset($_SESSION['usuario']))
                             <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
 
                                 <!-- SOCIO -->
+                                <!--div class="form-group">
+                                    <label class="col-md-2 control-label">Net Partners <span style="color: red">(*)</span></label>
+                                    <div class="col-md-5" id="divSocio">
+
+                                    </div>
+                                </div-->
+
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Net Partners <span style="color: red">(*)</span></label>
                                     <div class="col-md-5" id="divSocio">
@@ -280,6 +290,8 @@ if (!isset($_SESSION['usuario']))
 
     <script src="../default/js/validaciones.js"></script>
 
+
+    <script src="../default/assets_acemaster/js/chosen.jquery.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
@@ -297,6 +309,41 @@ if (!isset($_SESSION['usuario']))
     <!-- ace scripts -->
     <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
     <script src="../default/assets_acemaster/js/ace.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function($) {
+
+            if(!ace.vars['touch']) {
+                $('.chosen-select').chosen({allow_single_deselect:true});
+                //resize the chosen on window resize
+
+                $(window)
+                    .off('resize.chosen')
+                    .on('resize.chosen', function() {
+                        $('.chosen-select').each(function() {
+                            var $this = $(this);
+                            $this.next().css({'width': '300px'});
+                        })
+                    }).trigger('resize.chosen');
+                //resize chosen on sidebar collapse/expand
+                $(document).on('settings.ace.chosen', function(e, event_name, event_val) {
+                    if(event_name != 'sidebar_collapsed') return;
+                    $('.chosen-select').each(function() {
+                        var $this = $(this);
+                        $this.next().css({'width': '300px'});
+                    })
+                });
+
+
+                $('#chosen-multiple-style .btn').on('click', function(e){
+                    var target = $(this).find('input[type=radio]');
+                    var which = parseInt(target.val());
+                    if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+                    else $('#form-field-select-4').removeClass('tag-input-style');
+                });
+            }
+
+        });
+    </script>
     </body>
     </html>
 

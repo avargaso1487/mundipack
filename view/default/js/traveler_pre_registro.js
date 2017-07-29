@@ -4,6 +4,7 @@
 
 window.onload = function(){
     $('#tblVentasReg').DataTable();
+    //$('#prueba').chosen({allow_single_deselect:true});
     mostrarMenu();
     mostrarVentas();
     cargarTipoDocumento();
@@ -19,7 +20,8 @@ $(function() {
         $('#ventaNumero').val('');
         $('#ventaImporte').val('');
         $('#ventaFecha').val('');
-        $('#cboSocio').val('');
+        ro
+        $(".chosen-select").val('').trigger("chosen:updated");
         $('#transaccionID').val('');
     });
 
@@ -160,7 +162,13 @@ var cargarTipoDocumento = function () {
         processData: false,
         cache: false,
         success: function (data) {
+            $(".chosen-select").chosen("destroy");
             $('#divTipDoc').html(data);
+            $(".chosen-select").chosen();
+            $('.chosen-select').each(function() {
+                var $this = $(this);
+                $this.next().css({'width': '300px'});
+            })
         },
         error: function (msg) {
             alert(msg);
@@ -179,7 +187,13 @@ var cargarSocio = function () {
         processData: false,
         cache: false,
         success: function (data) {
+            $(".chosen-select").chosen("destroy");
             $('#divSocio').html(data);
+            $(".chosen-select").chosen();
+            $('.chosen-select').each(function() {
+                var $this = $(this);
+                $this.next().css({'width': '300px'});
+            })
         },
         error: function (msg) {
             alert(msg);

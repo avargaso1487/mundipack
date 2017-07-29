@@ -100,11 +100,32 @@ if (!isset($_SESSION['usuario'])) {
                         <!-- Menús despegables -->
 
                         <ul class="nav navbar-nav navbar-right">
-
-
-
                                 <?php
                                         if ($_SESSION['usuarioDashboardURL'] == 'administrador_dashboard.php') { ?>
+                                            <li class="dropdown notification warning hidden" id="pago_socios">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <div class="icon"><i class="fa fa-bank" aria-hidden="true"></i></div>
+                                                    <div class="title">Nuevos Pagos de Net Partners</div>
+                                                    <div class="count" id="noti_pagos_pre_socios"></div>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <ul id="item_noti_pago_socio">
+                                                    </ul>
+                                                </div>
+                                            </li>
+
+                                            <li class="dropdown notification default hidden" id="pago_traveler">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <div class="icon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                                                    <div class="title">Nuevos Pagos de Travelers</div>
+                                                    <div class="count" id="noti_pagos_pre_travelers"></div>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <ul id="item_noti_pago_traveler">
+                                                    </ul>
+                                                </div>
+                                            </li>
+
                                             <li class="dropdown profile">
                                                 <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown">
                                                     <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen']; ?>">
@@ -445,7 +466,7 @@ if (!isset($_SESSION['usuario'])) {
         <?php
     } else {
         if ($_SESSION['usuarioDashboardURL'] == 'socio_dashboard.php') { ?>
-            <script src="../default/js/dashboard.js"></script>
+            <script src="../default/js/dashboard_socio.js"></script>
             <?php
         } else { ?>
             <script src="../default/js/dashboard_viajero.js"></script>
