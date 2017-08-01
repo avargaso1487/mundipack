@@ -9,14 +9,13 @@ if (!isset($_SESSION['usuario']))
     <!DOCTYPE html>
     <html lang="ES">
     <head>
-        <title>MUNDIPACK | TRAVELER</title>
+        <title>MUNDIPACK | Administrador</title>
 
         <meta http-equiv="Content-Type" content="IE=Edge; chrome=1">
         <meta charset="UTF-8"">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="../default/assets/css/vendor.css">
-        <link rel="stylesheet" type="text/css" href="../default/css/estrellas.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/flat-admin.css">
         <link rel="stylesheet" type="text/css" href="../default/css/sweetalert.css">
         <link rel="stylesheet" type="text/css" href="../default/css/iziToast.min.css">
@@ -26,13 +25,9 @@ if (!isset($_SESSION['usuario']))
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/red.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/yellow.css">
 
-        <link rel="stylesheet" href="../default/assets_acemaster/css/chosen.min.css" />
-
-
     </head>
     <body>
     <div class="app app-default">
-
         <aside class="app-sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a class="sidebar-brand" href="../dashboard/"><span class="highlight">MUNDI</span>PACK</a>
@@ -43,8 +38,11 @@ if (!isset($_SESSION['usuario']))
 
 
             <!-- Sidebar Menu -->
+
+
             <div class="sidebar-menu" id="permisos">
             </div>
+
             <!-- Fin de SideBar Menú -->
 
             <div class="sidebar-footer">
@@ -111,18 +109,9 @@ if (!isset($_SESSION['usuario']))
                                 </div>
                             </li>
 
-                            <li class="dropdown notification danger hidden" id="ventas_pre_registradas">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div class="icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></div>
-                                    <div class="title">New Orders</div>
-                                    <div class="count" id="noti_ventas_pre_registradas"></div>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul id="item_noti">
-                                    </ul>
-                                </div>
-                            </li>
+
                             <li class="dropdown profile">
+
                                 <a href="/html/pages/profile.html" class="dropdown-toggle"  data-toggle="dropdown">
                                     <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen'];?>" >
                                     <div class="title">Profile</div>
@@ -133,7 +122,7 @@ if (!isset($_SESSION['usuario']))
                                     </div>
                                     <ul class="action">
                                         <li>
-                                            <a href="perfil.php">
+                                            <a href="../cuenta/cuenta_admin.php">
                                                 Cuenta
                                             </a>
                                         </li>
@@ -150,7 +139,7 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Gestion Financiera" id="Menu">
+            <input type="hidden" dissabled="true" value="Travelers" id="Menu">
 
             <div class="btn-floating" id="help-actions">
                 <div class="btn-bg"></div>
@@ -161,119 +150,150 @@ if (!isset($_SESSION['usuario']))
                 <div class="toggle-content">
                     <ul class="actions">
                         <li>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVenta" id="new_venta">Pre Registro de Consumo</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" onclick="nuevo();" data-target="#modalViajero">Nuevo TRAVELER</button>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="row">
+
                 <div class="col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Listado de Consumos
+                            Lista de TRAVELERS
                         </div>
                         <div class="card-body padding">
-                            <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="tblVentasReg">
+                            <table class="datatable table table-striped primary" cellspacing="0" width="100%" id="viajeros">
                                 <thead>
                                 <tr>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Net Partner</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Tipo Documento</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Documento</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Importe</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Fecha Documento</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Estado</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 5%;">Operaciones</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 20%;">Nombres</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">DNI</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Celular</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Destino</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Acumulado</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Expansivo</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 2%;">Operaciones</th>
                                 </tr>
                                 </thead>
-
-                                <tbody id="cuerpoTablaVentasReg">
-                                
+                                <tbody id="cuerpoTablaViajeros">
 
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- MODAL -->
-            <div class="modal fade" id="modalVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="width: 60% !important;">
+
+            <div class="modal fade" id="modalViajero" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" style="width: 70% !important;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="titulo"></h4>
-
+                            <h4 class="modal-title">Nuevo TRAVELER</h4>
                         </div>
 
                         <div class="modal-body">
-                            <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
-
-                                <!-- SOCIO -->
-                                <!--div class="form-group">
-                                    <label class="col-md-2 control-label">Net Partners <span style="color: red">(*)</span></label>
-                                    <div class="col-md-5" id="divSocio">
-
-                                    </div>
-                                </div-->
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Net Partners <span style="color: red">(*)</span></label>
-                                    <div class="col-md-5" id="divSocio">
-
-                                    </div>
-                                </div>
-                                <br>
-                                <!-- Tipo Documento -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">T. Documento <span style="color: red">(*)</span></label>
-                                    <div class="col-md-5" id="divTipDoc">
-
+                            <div id="mensaje" class="col-md-12"></div>
+                            <form class="form form-horizontal" method="post" id="frm_nuevoViajero" style="font-size: 12px;">
+                                <!-- Nombres -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Nombres <span style="color: red">(*)</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Nombres" name="viajeroNombre" id="viajeroNombre" >
                                     </div>
                                 </div>
 
-                                <br>
-
-                                <!-- Documento -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Documento <span style="color: red">(*)</span></label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Serie"  name="ventaSerie" id="ventaSerie" maxlength="5">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Número"  name="ventaNumero" id="ventaNumero" maxlength="7">
+                                <!-- Apellidos -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Apellidos <span style="color: red">(*)</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Apellidos" name="viajeroApellidos" id="viajeroApellidos" >
                                     </div>
                                 </div>
 
-
-
-
-                                <input type="hidden" class="form-control"  placeholder="Importe"  name="transaccionID" id="transaccionID" onkeypress="return NumCheck(event, this)"/>
-                                <!-- Importe y Fecha -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Importe <span style="color: red">(*)</span></label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control"  placeholder="Importe"  name="ventaImporte" id="ventaImporte" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
-                                    </div>
-                                    <label class="col-md-2 control-label">Fecha <span style="color: red">(*)</span></label>
-                                    <div class="col-md-4">
-                                        <input type="date" class="form-control" placeholder="F. Transaccion"  name="ventaFecha" id="ventaFecha">
+                                <!-- Nombre Comercial -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">DNI <span style="color: red">(*)</span></label>
+                                    <div class="col-md-9" >
+                                        <input type="text" maxlength="8"  class="form-control" placeholder="N° Documento de Identidad" name="viajeroDNI" id="viajeroDNI" onkeypress="return solonumeros(event)">
                                     </div>
                                 </div>
-                                <br>
+
+                                <!-- Fecha Nacimiento -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Fecha Nacimiento</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Año-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
+                                    </div>
+                                </div>
+
+                                <!-- Dirección -->
+                                <div class="form-group col-md-8">
+                                    <div class="col-md-2">
+                                        <label class="control-label">Dirección</label>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left: 4.5%;">
+                                        <textarea class="form-control"  name="viajeroDireccion" id="viajeroDireccion" placeholder="(Calle/Urbanización/Oficina/Distrito)"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Telefono -->
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-1">
+                                        <label class="control-label">Teléfono <span style="color: red">(*)</span></label>
+                                    </div>
+                                    <div class="col-md-10" style="padding-left: 3.7%;">
+                                        <div class="col-md-6">
+                                            <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Fijo"  name="viajeroTelefonoFijo" id="viajeroTelefonoFijo">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Celular"  name="viajeroTelefonoCelular" id="viajeroTelefonoCelular">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-1">
+                                        <label class="control-label">Email <span style="color: red">(*)</span></label>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left: 5.5%;">
+                                        <input type="email" class="form-control" placeholder="email@example.com" name="viajeroEmail" id="viajeroEmail" >
+                                    </div>
+                                </div>
+
+                                <!-- Número de Pasaporte -->
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-1">
+                                        <label class="control-label">N° Pasaporte</label>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left: 5.5%;">
+                                        <input class="form-control" placeholder="N° Pasaporte (Opcional)" onkeypress="return solonumeros(event)"  name="viajeroNroPasaporte" id="viajeroNroPasaporte">
+                                    </div>
+                                </div>
+
+                                <!-- Viajero Abierto -->
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="padding-left: 3.5%;">Viajero Expansivo</label>
+                                    <div class="col-md-1">
+                                        <input type="checkbox" value="1" class="form-control" name="viajeroAbierto" id="viajeroAbierto" >
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-md-12 control-label" style="color: red">(*) Los campos son obligatorios.</label>
                                 </div>
                                 <br>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
-                                    <input  type="button" id="guardarVenta" class="btn btn-sm btn-primary" value="Guardar"/>
+                                    <input style="display:none;" type="button" id="guardarViajero" class="btn btn-sm btn-primary" value="Guardar"/>
+                                    <input style="display:none;" type="button" id="editarViajero" data-dismiss="modal" class="btn btn-sm btn-primary" onclick="editar();" value="Modificar"/>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -294,13 +314,12 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/assets/js/vendor.js"></script>
     <script type="text/javascript" src="../default/assets/js/app.js"></script>
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
-    <script src="../default/js/traveler_pre_registro.js"></script>
-    <script src="../default/js/iziToast.min.js"></script>
 
+    <script src="../default/js/traveler_recomendado.js"></script>
     <script src="../default/js/validaciones.js"></script>
 
+    <script src="../default/js/iziToast.min.js"></script>
 
-    <script src="../default/assets_acemaster/js/chosen.jquery.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.gritter.min.js"></script>
@@ -318,41 +337,9 @@ if (!isset($_SESSION['usuario']))
     <!-- ace scripts -->
     <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
     <script src="../default/assets_acemaster/js/ace.min.js"></script>
-    <script type="text/javascript">
-        jQuery(function($) {
-
-            if(!ace.vars['touch']) {
-                $('.chosen-select').chosen({allow_single_deselect:true});
-                //resize the chosen on window resize
-
-                $(window)
-                    .off('resize.chosen')
-                    .on('resize.chosen', function() {
-                        $('.chosen-select').each(function() {
-                            var $this = $(this);
-                            $this.next().css({'width': '300px'});
-                        })
-                    }).trigger('resize.chosen');
-                //resize chosen on sidebar collapse/expand
-                $(document).on('settings.ace.chosen', function(e, event_name, event_val) {
-                    if(event_name != 'sidebar_collapsed') return;
-                    $('.chosen-select').each(function() {
-                        var $this = $(this);
-                        $this.next().css({'width': '300px'});
-                    })
-                });
+    </body>
 
 
-                $('#chosen-multiple-style .btn').on('click', function(e){
-                    var target = $(this).find('input[type=radio]');
-                    var which = parseInt(target.val());
-                    if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
-                    else $('#form-field-select-4').removeClass('tag-input-style');
-                });
-            }
-
-        });
-    </script>
     </body>
     </html>
 

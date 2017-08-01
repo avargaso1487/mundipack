@@ -120,8 +120,14 @@ var nombre_paquete = function () {
         processData: false,
         cache: false,
         success: function (data) {
-            $('#tituloCartilla').html(data);
-            porcentaje_paquete();
+            if (data == 0) {
+                $('#tituloCartilla').html('No tiene paquete adquirido.');
+                $('#porcentaje_paquete').html('-');
+            } else {
+                $('#tituloCartilla').html(data);
+                porcentaje_paquete();
+            }
+
         },
         error: function (msg) {
             alert(msg);

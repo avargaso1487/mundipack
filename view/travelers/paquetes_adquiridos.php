@@ -103,6 +103,20 @@ if (!isset($_SESSION['usuario']))
                         <!-- Menús despegables -->
 
                         <ul class="nav navbar-nav navbar-right">
+
+                            <li class="dropdown notification danger hidden" id="pago_traveler">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <div class="icon"><i class="fa fa-bell" aria-hidden="true"></i></div>
+                                    <div class="title">New Orders</div>
+                                    <div class="count" id="noti_pago_traveler">1</div>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <ul id="item_pago_traveler">
+                                    </ul>
+                                </div>
+                            </li>
+
+
                             <li class="dropdown profile">
                                 <a href="/html/pages/profile.html" class="dropdown-toggle"  data-toggle="dropdown">
                                     <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen'];?>" >
