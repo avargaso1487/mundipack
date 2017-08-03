@@ -1,11 +1,4 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gestionar_paquetes`(
-	IN `opcion` VARCHAR(300), 
-    IN `p_nombre` VARCHAR(300), 
-    IN `p_descripcion` TEXT, 
-    IN `p_preciomin` DOUBLE, 
-    IN `p_preciomax` DOUBLE, 
-    IN `p_precioprom` DOUBLE, 
-    IN `p_paqueteID` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gestionar_paquetes`(IN `opcion` VARCHAR(300), IN `p_nombre` VARCHAR(300), IN `p_descripcion` TEXT, IN `p_preciomin` DOUBLE, IN `p_preciomax` DOUBLE, IN `p_precioprom` DOUBLE, IN `p_paqueteID` INT)
     NO SQL
 BEGIN
 	IF opcion = 'opc_registrar_paquete' THEN
@@ -20,7 +13,7 @@ BEGIN
             Descripcion = p_descripcion,
             PrecioMinimo = p_preciomin,
             PrecioMaximo = p_preciomax,
-            PrecioPromedio = p_precioprom,
+            PrecioPromedio = p_precioprom
         WHERE Paquete = p_paqueteID;
         SELECT 'Registro Correcto' as respuesta;
 	END IF; 
