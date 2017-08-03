@@ -9,14 +9,13 @@ if (!isset($_SESSION['usuario']))
     <!DOCTYPE html>
     <html lang="ES">
     <head>
-        <title>MUNDIPACK | TRAVELER</title>
+        <title>MUNDIPACK | Administrador</title>
 
         <meta http-equiv="Content-Type" content="IE=Edge; chrome=1">
         <meta charset="UTF-8"">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="../default/assets/css/vendor.css">
-        <link rel="stylesheet" type="text/css" href="../default/css/estrellas.css">
         <link rel="stylesheet" type="text/css" href="../default/assets/css/flat-admin.css">
         <link rel="stylesheet" type="text/css" href="../default/css/sweetalert.css">
         <link rel="stylesheet" type="text/css" href="../default/css/iziToast.min.css">
@@ -29,7 +28,6 @@ if (!isset($_SESSION['usuario']))
     </head>
     <body>
     <div class="app app-default">
-
         <aside class="app-sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a class="sidebar-brand" href="../dashboard/"><span class="highlight">MUNDI</span>PACK</a>
@@ -40,8 +38,11 @@ if (!isset($_SESSION['usuario']))
 
 
             <!-- Sidebar Menu -->
+
+
             <div class="sidebar-menu" id="permisos">
             </div>
+
             <!-- Fin de SideBar Menú -->
 
             <div class="sidebar-footer">
@@ -96,31 +97,21 @@ if (!isset($_SESSION['usuario']))
                         <!-- Menús despegables -->
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown notification warning hidden" id="pago_socios">
+                            <li class="dropdown notification danger hidden" id="pago_traveler">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div class="icon"><i class="fa fa-bank" aria-hidden="true"></i></div>
-                                    <div class="title">Nuevos Pagos de Net Partners</div>
-                                    <div class="count" id="noti_pagos_pre_socios"></div>
+                                    <div class="icon"><i class="fa fa-bell" aria-hidden="true"></i></div>
+                                    <div class="title">New Orders</div>
+                                    <div class="count" id="noti_pago_traveler">1</div>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <ul id="item_noti_pago_socio">
+                                    <ul id="item_pago_traveler">
                                     </ul>
                                 </div>
                             </li>
 
-                            <li class="dropdown notification default hidden" id="pago_traveler">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div class="icon"><i class="fa fa-users" aria-hidden="true"></i></div>
-                                    <div class="title">Nuevos Pagos de Travelers</div>
-                                    <div class="count" id="noti_pagos_pre_travelers"></div>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul id="item_noti_pago_traveler">
-                                    </ul>
-                                </div>
-                            </li>
 
                             <li class="dropdown profile">
+
                                 <a href="/html/pages/profile.html" class="dropdown-toggle"  data-toggle="dropdown">
                                     <img class="profile-img" src="../../<?php echo $_SESSION['usuarioImagen'];?>" >
                                     <div class="title">Profile</div>
@@ -131,7 +122,7 @@ if (!isset($_SESSION['usuario']))
                                     </div>
                                     <ul class="action">
                                         <li>
-                                            <a href="perfil.php">
+                                            <a href="../cuenta/cuenta_admin.php">
                                                 Cuenta
                                             </a>
                                         </li>
@@ -148,7 +139,8 @@ if (!isset($_SESSION['usuario']))
                 </div>
             </nav>
 
-            <input type="hidden" dissabled="true" value="Administrador" id="Menu">
+            <input type="hidden" dissabled="true" value="Travelers" id="Menu">
+
             <div class="btn-floating" id="help-actions">
                 <div class="btn-bg"></div>
                 <button type="button" class="btn btn-default btn-toggle" data-toggle="toggle" data-target="#help-actions">
@@ -158,134 +150,153 @@ if (!isset($_SESSION['usuario']))
                 <div class="toggle-content">
                     <ul class="actions">
                         <li>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVenta" id="new_venta">Nueva Pago</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" onclick="nuevo();" data-target="#modalViajero">Nuevo TRAVELER</button>
                         </li>
                     </ul>
                 </div>
             </div>
+
             <div class="row">
+
                 <div class="col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Pagos Realizados por Travelers
+                            Lista de TRAVELERS
                         </div>
                         <div class="card-body padding">
-                            <table class="table-responsive datatable table table-striped primary" cellspacing="0" width="100%" id="tblVentasReg">
+                            <table class="datatable table table-striped primary" cellspacing="0" width="100%" id="viajeros">
                                 <thead>
                                 <tr>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Traveler</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 15%;">Nª de Orperación</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 10%;">Monto Couta</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Fecha Pago</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Estado</th>
-                                    <th style="font-size: 12px; text-align: center; height: 10px; width: 8%;">Operaciones</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 20%;">Nombres</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">DNI</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Celular</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Destino</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Acumulado</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Expansivo</th>
+                                    <th style="font-size: 12px; height: 10px; text-align: center; width: 2%;">Operaciones</th>
                                 </tr>
                                 </thead>
-
-                                <tbody id="cuerpoTablaVentasReg">
-
+                                <tbody id="cuerpoTablaViajeros">
 
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- MODAL -->
-            <div class="modal fade" id="modalVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="width: 60% !important;">
+
+            <div class="modal fade" id="modalViajero" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" style="width: 70% !important;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Registrar Nuevo Pago</h4>
-
+                            <h4 class="modal-title">Nuevo TRAVELER</h4>
                         </div>
 
                         <div class="modal-body">
-                            <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
-
-                                <!-- SOCIO -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Net Partners <span style="color: red">(*)</span></label>
-                                    <div class="col-md-5" id="divSocio">
-
+                            <div id="mensaje" class="col-md-12"></div>
+                            <form class="form form-horizontal" method="post" id="frm_nuevoViajero" style="font-size: 12px;">
+                                <!-- Nombres -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Nombres <span style="color: red">(*)</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Nombres" name="viajeroNombre" id="viajeroNombre" >
                                     </div>
                                 </div>
-                                <br>
 
-                                <!-- Nro de Operación -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Nro Operación <span style="color: red">(*)</span></label>
+                                <!-- Apellidos -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Apellidos <span style="color: red">(*)</span></label>
                                     <div class="col-md-9">
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control" onkeypress="return solonumeros(event)" placeholder="Nª Operación"  name="nroOperacion" id="nroOperacion" maxlength="5">
+                                        <input type="text" class="form-control" placeholder="Apellidos" name="viajeroApellidos" id="viajeroApellidos" >
+                                    </div>
+                                </div>
+
+                                <!-- Nombre Comercial -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">DNI <span style="color: red">(*)</span></label>
+                                    <div class="col-md-9" >
+                                        <input type="text" maxlength="8"  class="form-control" placeholder="N° Documento de Identidad" name="viajeroDNI" id="viajeroDNI" onkeypress="return solonumeros(event)">
+                                    </div>
+                                </div>
+
+                                <!-- Fecha Nacimiento -->
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Fecha Nacimiento</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="Año-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
+                                    </div>
+                                </div>
+
+                                <!-- Dirección -->
+                                <div class="form-group col-md-8">
+                                    <div class="col-md-2">
+                                        <label class="control-label">Dirección</label>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left: 4.5%;">
+                                        <textarea class="form-control"  name="viajeroDireccion" id="viajeroDireccion" placeholder="(Calle/Urbanización/Oficina/Distrito)"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Telefono -->
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-1">
+                                        <label class="control-label">Teléfono <span style="color: red">(*)</span></label>
+                                    </div>
+                                    <div class="col-md-10" style="padding-left: 3.7%;">
+                                        <div class="col-md-6">
+                                            <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Fijo"  name="viajeroTelefonoFijo" id="viajeroTelefonoFijo">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Celular"  name="viajeroTelefonoCelular" id="viajeroTelefonoCelular">
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" class="form-control"  placeholder="Importe"  name="pagoID" id="pagoID" onkeypress="return NumCheck(event, this)"/>
-                                <!-- Importe y Fecha -->
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Monto <span style="color: red">(*)</span></label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control"  placeholder="Monto"  name="montoPago" id="montoPago" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
+
+                                <!-- Email -->
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-1">
+                                        <label class="control-label">Email <span style="color: red">(*)</span></label>
                                     </div>
-                                    <label class="col-md-2 control-label">Fecha Pago<span style="color: red">(*)</span></label>
-                                    <div class="col-md-4">
-                                        <input type="date" class="form-control" placeholder="F. Pago"  name="pagoFecha" id="pagoFecha">
+                                    <div class="col-md-8" style="padding-left: 5.5%;">
+                                        <input type="email" class="form-control" placeholder="email@example.com" name="viajeroEmail" id="viajeroEmail" >
                                     </div>
                                 </div>
-                                <br>
+
+                                <!-- Número de Pasaporte -->
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-1">
+                                        <label class="control-label">N° Pasaporte</label>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left: 5.5%;">
+                                        <input class="form-control" placeholder="N° Pasaporte (Opcional)" onkeypress="return solonumeros(event)"  name="viajeroNroPasaporte" id="viajeroNroPasaporte">
+                                    </div>
+                                </div>
+
+                                <!-- Viajero Abierto -->
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="padding-left: 3.5%;">Viajero Expansivo</label>
+                                    <div class="col-md-1">
+                                        <input type="checkbox" value="1" class="form-control" name="viajeroAbierto" id="viajeroAbierto" >
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-md-12 control-label" style="color: red">(*) Los campos son obligatorios.</label>
                                 </div>
                                 <br>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
-                                    <input  type="button" id="guardarPago" class="btn btn-sm btn-primary" value="Guardar"/>
+                                    <input style="display:none;" type="button" id="guardarViajero" class="btn btn-sm btn-primary" value="Guardar"/>
+                                    <input style="display:none;" type="button" id="editarViajero" data-dismiss="modal" class="btn btn-sm btn-primary" onclick="editar();" value="Modificar"/>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
-
-            <!-- MODAL -->
-            <div class="modal fade" id="modalAprobacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="width: 35% !important;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" style="text-align: center; font-size: 18px; color: red">¡Mensaje de Confirmación!</h4>
-
-                        </div>
-
-                        <div class="modal-body">
-                            <form class="form form-horizontal" method="post" id="frm_nuevoSocio" style="font-size: 12px;">
-
-                                <div class="form-group">
-                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;">Esta seguro en confirmar la venta registrada por el cliente: </label>
-                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente: </strong> <span id="spanCliente"></span></label>
-                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nª Operación: </strong> <span id="spanOperacion"></span></label>
-                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monto: </strong> <span id="spanMonto"></span></label>
-                                    <label class="col-md-12 control-label" style="text-align: left; font-size: 12px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fecha: </strong> <span id="spanFecha"></span></label>
-                                </div>
-
-                                <input type="hidden" class="form-control"  name="p_pagoID" id="p_pagoID" onkeypress="return NumCheck(event, this)"/>
-
-                                <br>
-                                <div class="modal-footer">
-                                    <!--input  type="button" id="rechazarVenta" class="btn btn-sm btn-primary" value="Si"/-->
-                                    <input  type="button" id="aceptarPago" class="btn btn-sm btn-primary" value="Si"/>
-                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
             <footer class="app-footer">
                 <div class="row">
@@ -304,11 +315,10 @@ if (!isset($_SESSION['usuario']))
     <script type="text/javascript" src="../default/assets/js/app.js"></script>
     <script type="text/javascript" src="../default/js/sweetalert.min.js"></script>
 
-
-    <script src="../default/js/admin_pagos_traveler.js"></script>
-    <script src="../default/js/iziToast.min.js"></script>
-
+    <script src="../default/js/traveler_recomendado.js"></script>
     <script src="../default/js/validaciones.js"></script>
+
+    <script src="../default/js/iziToast.min.js"></script>
 
     <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
     <script src="../default/assets_acemaster/js/jquery.ui.touch-punch.min.js"></script>
@@ -327,6 +337,9 @@ if (!isset($_SESSION['usuario']))
     <!-- ace scripts -->
     <script src="../default/assets_acemaster/js/ace-elements.min.js"></script>
     <script src="../default/assets_acemaster/js/ace.min.js"></script>
+    </body>
+
+
     </body>
     </html>
 

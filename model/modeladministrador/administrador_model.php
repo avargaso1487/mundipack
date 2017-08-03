@@ -39,8 +39,19 @@ class Administrador_model{
             case "getDatosNP";
                 echo $this->getDatosNP();
                 break;
+
+            case "listar_viajeros_recomendados";
+                echo $this->listar_viajeros_recomendados();
+                break;
+
+            case "grabar_viajero_recomendado";
+                echo $this->grabar_viajero_recomendado();
+                break;
+
+
         }
     }
+
     function prepararConsultaAdministrador($opcion = '')
     {
         $consultaSql = "call sp_control_administrador(";
@@ -73,6 +84,7 @@ class Administrador_model{
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
+
     function getArrayTotal(){
         $respuesta = '';
         while($fila = mysqli_fetch_array($this->result)){
@@ -203,6 +215,67 @@ class Administrador_model{
             }
         }
     }
+
+
+    function prepararConsultaViajerosRecomendados($opcion = '')
+    {
+        $consultaSql = "call sp_control_viajero_recomentado(";
+        $consultaSql.= "'".$opcion."',";
+        $consultaSql.= "'".$this->param['viajeroNombre']."',";
+        $consultaSql.= "'".$this->param['viajeroApellidos']."',";
+        $consultaSql.= "'".$this->param['viajeroDNI']."',";
+        $consultaSql.= "'".$this->param['viajeroDireccion']."',";
+        $consultaSql.= "'".$this->param['viajeroNacimiento']."',";
+        $consultaSql.= "'".$this->param['viajeroTelefonoFijo']."',";
+        $consultaSql.= "'".$this->param['viajeroTelefonoCelular']."',";
+        $consultaSql.= "'".$this->param['viajeroEmail']."',";
+        $consultaSql.= "'".$this->param['viajeroNroPasaporte']."',";
+        $consultaSql.= "'".$this->param['viajeroAbierto']."',";
+        $consultaSql.= "".$_SESSION['idusuario'].")";
+        //echo $consultaSql;
+        $this->result = mysqli_query($this->conexion, $consultaSql);
+    }
+
+
+    function listar_viajeros_recomendados()
+    {
+        $this->prepararConsultaViajerosRecomendados('opc_contar_viajeros_recomendados');
+        $total = $this->getArrayTotal();
+        $datos = array();
+        if($total>0)
+        {
+            $this->cerrarAbrir();
+            $this->prepararConsultaViajerosRecomendados('opc_listar_viajeros_recomendados');
+            $datos = $this->getArrayViajeros();
+            for($i=0; $i<count($datos); $i++)
+            {
+                echo '<tr>							
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 20%;">'.$datos[$i]["viajeroNombre"].' '.$datos[$i]["viajeroApellidos"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroDNI"].'</td>							
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroCelular"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroPaqueteObjetivo"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroAcumulado"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroAbierto"].'</td>
+							<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">
+								<a href="#" class="red" onclick="eliminar('.$datos[$i]["viajeroID"].')">
+	                                <i class= "ace-icon fa fa-trash-o bigger-200"></i>
+	                            </a>
+							</td>
+						</tr>';
+            }
+        } else {
+            echo '0';
+        }
+    }
+
+
+    function grabar_viajero_recomendado()
+    {
+        $this->prepararConsultaViajerosRecomendados('opc_grabar_viajero_recomendado');
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
 
     function getDatosNP(){
         $this->prepararConsultaAdministrador('opc_get_NP');
