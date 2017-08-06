@@ -121,10 +121,6 @@ class VentaRegistrada_model{
                 echo $this->listado_travelers_abiertos();
                 break;
 
-            case "obtener_comisiones";
-                echo $this->obtener_comisiones();
-                break;
-
             case "dashboard_total_socios";
                 echo $this->dashboard_total_socios();
                 break;
@@ -260,6 +256,14 @@ class VentaRegistrada_model{
     function prepararConsultaListadoVentas($opcion = '', $usuario = '', $codigo = '') {
         $consultaSql = "call sp_listado_ventas(";
         $consultaSql.= "'".$usuario."',";
+        $consultaSql.= "'".$opcion."',";
+        $consultaSql.= "'".$codigo."')";
+        //echo $consultaSql;
+        $this->result = mysqli_query($this->conexion, $consultaSql);
+    }
+
+    function prepararConsultarDashboard($opcion = '', $codigo = '') {
+        $consultaSql = "call sp_gestion_dashboard(";
         $consultaSql.= "'".$opcion."',";
         $consultaSql.= "'".$codigo."')";
         //echo $consultaSql;
@@ -427,45 +431,43 @@ class VentaRegistrada_model{
 
     /* DASHBOARD SOCIO */
     function total_ventas_socio() {
-        $this->prepararConsultaListadoVentas('opc_total_ventas_socio',  $_SESSION['idusuario'],'0');
+        $this->prepararConsultarDashboard('opc_total_ventas_socio',  $_SESSION['idusuario']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function venta_neta_socio() {
-        $this->prepararConsultaListadoVentas('opc_venta_neta_socio',  $_SESSION['idusuario'],'0');
+        $this->prepararConsultarDashboard('opc_venta_neta_socio',  $_SESSION['idusuario']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function monto_total_ventas_socio() {
-        $this->prepararConsultaListadoVentas('opc_monto_total_ventas_socio',  $_SESSION['idusuario'],'0');
+        $this->prepararConsultarDashboard('opc_monto_total_ventas_socio',  $_SESSION['idusuario']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function total_numero_socio() {
-        $this->prepararConsultaListadoVentas('opc_total_numro_socios',  $_SESSION['idusuario'],'0');
+        $this->prepararConsultarDashboard('opc_total_numro_socios',  $_SESSION['idusuario']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function noti_pre_regitro() {
-        $this->prepararConsultaListadoVentas('opc_contar_ventas_pre_rgistradas', $_SESSION['idusuario'],'0');
+        $this->prepararConsultarDashboard('opc_contar_ventas_pre_rgistradas', $_SESSION['idusuario']);
         $total = $this->getArrayTotal();
         echo $total;
     }
 
-
-
     function noti_pre_regitro_item() {
-        $this->prepararConsultaListadoVentas('opc_contar_ventas_pre_rgistradas', $_SESSION['idusuario'],'0');
+        $this->prepararConsultarDashboard('opc_contar_ventas_pre_rgistradas', $_SESSION['idusuario']);
         $total = $this->getArrayTotal();
         $datos = array();
         if($total>0)
         {
             $this->cerrarAbrir();
-            $this->prepararConsultaListadoVentas('opc_contar_tres_ventas_pre_rgistradas', $_SESSION['idusuario'],'0');
+            $this->prepararConsultarDashboard('opc_contar_tres_ventas_pre_rgistradas', $_SESSION['idusuario']);
             $datos = $this->getArrayVentas();
             echo '<li class="dropdown-header">Ventas Pre Registradas</li>';
             for($i=0; $i<count($datos); $i++)
@@ -793,12 +795,6 @@ class VentaRegistrada_model{
         }
     }
 
-
-    function obtener_comisiones() {
-        $this->prepararConsultaBuscarSocio('opc_obtener_comision', $_SESSION['idusuario']);
-        $total = $this->getArrayTotal();
-        echo $total;
-    }
 
     function dashboard_total_socios() {
         $this->prepararConsultaBuscarSocio('opc_dashboard_total_socios', $_SESSION['idusuario']);
