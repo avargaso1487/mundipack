@@ -98,9 +98,34 @@ class Traveler_model{
                 echo $this->dashboard_paquete_adquirido();
                 break;
 
+            case "dashboard_paquete_adquirido2";
+                echo $this->dashboard_paquete_adquirido2();
+                break;
+
+            case "dashboard_paquete_adquirido3";
+                echo $this->dashboard_paquete_adquirido3();
+                break;
+
             case "dashboard_paquete_porcentaje";
                 echo $this->dashboard_paquete_porcentaje();
                 break;
+
+            case "dashboard_paquete_porcentaje2";
+                echo $this->dashboard_paquete_porcentaje2();
+                break;
+
+            case "dashboard_paquete_porcentaje3";
+                echo $this->dashboard_paquete_porcentaje3();
+                break;
+
+            case "dashboard_total_coutas";
+                echo $this->dashboard_total_coutas();
+                break;
+
+            case "obtener_comisiones";
+                echo $this->obtener_comisiones();
+                break;
+
 
         }
     }
@@ -109,6 +134,14 @@ class Traveler_model{
         $consultaSql = "call sp_buscar_socio(";
         $consultaSql.= "'".$opcion."',";
         $consultaSql.= "'".$dni."')";
+        //echo $consultaSql;
+        $this->result = mysqli_query($this->conexion, $consultaSql);
+    }
+
+    function prepararConsultarDashboard($opcion = '', $codigo = '') {
+        $consultaSql = "call sp_gestion_dashboard(";
+        $consultaSql.= "'".$opcion."',";
+        $consultaSql.= "'".$codigo."')";
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
@@ -630,23 +663,59 @@ class Traveler_model{
     }
 
     function noti_pago_traveler() {
-        $this->prepararConsultarSocio('opc_noti_pago_traveler', $_SESSION['idusuario']);
+        $this->prepararConsultarDashboard('opc_noti_pago_traveler', $_SESSION['idusuario']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function dashboard_paquete_adquirido() {
-        $this->prepararConsultarSocio('opc_dashboard_paquete_adquirido', $_SESSION['idusuario']);
+        $this->prepararConsultarDashboard('opc_dashboard_paquete_adquirido', $_SESSION['idusuario']);
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
+    function dashboard_paquete_adquirido2() {
+        $this->prepararConsultarDashboard('opc_dashboard_paquete_adquirido2', $_SESSION['idusuario']);
+        $resultado = $this->getArrayResultado();
+        echo $resultado;
+    }
+
+    function dashboard_paquete_adquirido3() {
+        $this->prepararConsultarDashboard('opc_dashboard_paquete_adquirido3', $_SESSION['idusuario']);
         $resultado = $this->getArrayResultado();
         echo $resultado;
     }
 
     function dashboard_paquete_porcentaje() {
-        $this->prepararConsultarSocio('opc_dashboard_porcentaje_paquete', $_SESSION['idusuario']);
+        $this->prepararConsultarDashboard('opc_dashboard_porcentaje_paquete', $_SESSION['idusuario']);
         $row = mysqli_fetch_row($this->result);
         echo json_encode($row);
     }
 
+    function dashboard_paquete_porcentaje2() {
+        $this->prepararConsultarDashboard('opc_dashboard_porcentaje_paquete2', $_SESSION['idusuario']);
+        $row = mysqli_fetch_row($this->result);
+        echo json_encode($row);
+    }
+
+    function dashboard_paquete_porcentaje3() {
+        $this->prepararConsultarDashboard('opc_dashboard_porcentaje_paquete3', $_SESSION['idusuario']);
+        $row = mysqli_fetch_row($this->result);
+        echo json_encode($row);
+    }
+
+
+    function dashboard_total_coutas() {
+        $this->prepararConsultarDashboard('opc_dashboard_total_coutas', $_SESSION['idusuario']);
+        $total = $this->getArrayTotal();
+        echo $total;
+    }
+
+    function obtener_comisiones() {
+        $this->prepararConsultarDashboard('opc_obtener_comision', $_SESSION['idusuario']);
+        $total = $this->getArrayTotal();
+        echo $total;
+    }
 
     function obtener_dias_faltantes() {
         $this->prepararConsultarSocio('opc_dias_faltantes_pago', $_SESSION['idusuario']);
