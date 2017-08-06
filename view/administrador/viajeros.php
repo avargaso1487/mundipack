@@ -24,6 +24,7 @@
   <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/blue.css">
   <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/red.css">
   <link rel="stylesheet" type="text/css" href="../default/assets/css/theme/yellow.css">
+  <link rel="stylesheet" href="../default/assets_acemaster/css/chosen.min.css" />
 
 </head>
 <body>
@@ -178,12 +179,12 @@
           <table class="datatable table table-striped primary" cellspacing="0" width="100%" id="viajeros">
             <thead>
                 <tr>
-                    <th style="font-size: 12px; height: 10px; text-align: center; width: 20%;">Nombres</th>
-                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">DNI</th>                    
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 10%;">Nombres</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 1%;">DNI</th>                    
                     <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Celular</th>
-                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Destino</th>
-                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Acumulado</th>
-                    <th style="font-size: 12px; height: 10px; text-align: center; width: 3%;">Expansivo</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 10%;">Destino</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 1%;">Acumulado</th>
+                    <th style="font-size: 12px; height: 10px; text-align: center; width: 1%;">Expansivo</th>
                     <th style="font-size: 12px; height: 10px; text-align: center; width: 2%;">Operaciones</th>
                 </tr>
             </thead>
@@ -236,8 +237,8 @@
                   <!-- Fecha Nacimiento -->
                   <div class="form-group col-md-6">
                     <label class="col-md-3 control-label">Fecha Nacimiento</label>
-                    <div class="col-md-9">
-                      <input type="text" class="form-control" placeholder="Año-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
+                    <div class="col-md-6">
+                      <input type="date" class="form-control" placeholder="Año-Mes-Día" name="viajeroNacimiento" id="viajeroNacimiento" >
                     </div>
                   </div>
 
@@ -257,10 +258,10 @@
                       <label class="control-label">Teléfono</label>
                     </div>                    
                     <div class="col-md-10" style="padding-left: 3.7%;">
-                      <div class="col-md-6">
+                      <div class="col-md-5">
                         <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Fijo"  name="viajeroTelefonoFijo" id="viajeroTelefonoFijo">
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-5">
                         <input type="tel" class="form-control" onkeypress="return solonumeros(event)" placeholder="Celular"  name="viajeroTelefonoCelular" id="viajeroTelefonoCelular">
                       </div>                      
                     </div>
@@ -271,18 +272,91 @@
                     <div class="col-md-1">
                       <label class="control-label">Email</label>
                     </div>                                 
-                    <div class="col-md-8" style="padding-left: 5.5%;">
+                    <div class="col-md-7" style="padding-left: 5.5%;">
                       <input type="email" class="form-control" placeholder="email@example.com" name="viajeroEmail" id="viajeroEmail" >
                     </div>
                   </div>
 
                   <!-- Número de Pasaporte -->
-                  <div class="form-group col-md-12">
-                    <div class="col-md-1">
+                  <div class="form-group col-md-7">
+                    <div class="col-md-3">
                       <label class="control-label">N° Pasaporte</label>
                     </div>                               
-                    <div class="col-md-8" style="padding-left: 5.5%;">
+                    <div class="col-md-9" style="padding-left: 0%;">
                       <input class="form-control" placeholder="N° Pasaporte (Opcional)" onkeypress="return solonumeros(event)"  name="viajeroNroPasaporte" id="viajeroNroPasaporte">
+                    </div>
+                  </div>
+
+                  <!-- Día Pago -->
+                  <div class="form-group col-md-5">
+                    <div class="col-md-4">
+                      <label class="control-label">Día de Pago</label>
+                    </div>                                 
+                    <div class="col-md-5" style="padding-left: 0%;">
+                      <input type="tel" class="form-control" placeholder="Día del mes" onkeypress="return solonumeros(event)" name="viajeroDiaPago" id="viajeroDiaPago" value="10">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label class="col-md-3 control-label">Destino<br>Principal</label>
+                      <div class="col-md-9" style="padding-left: 4.5%;" id="destinoPrincipal">
+
+                      </div>
+                  </div>                  
+                  <div class="form-group col-md-6">                                        
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Menor"  name="menorprecio_principal" id="menorprecio_principal">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Medio"  name="medioprecio_principal" id="medioprecio_principal">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Mayor"  name="mayorprecio_principal" id="mayorprecio_principal">
+                    </div>                                        
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label class="col-md-3 control-label">Destino Secundario</label>
+                      <div class="col-md-9" style="padding-left: 4.5%;" id="destinoSecundario1">
+                      </div>
+                  </div>
+                  <div class="form-group col-md-6">                                        
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Menor"  name="menorprecio_secundario1" id="menorprecio_secundario1">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Medio"  name="medioprecio_secundario1" id="medioprecio_secundario1">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Mayor"  name="mayorprecio_secundario1" id="mayorprecio_secundario1">
+                    </div>                                        
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label class="col-md-3 control-label">Destino Secundario</label>
+                      <div class="col-md-9" style="padding-left: 4.5%;" id="destinoSecundario2">
+
+                      </div>
+                  </div>
+                  <br>
+                  <div class="form-group col-md-6">                                        
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Menor"  name="menorprecio_secundario2" id="menorprecio_secundario2">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Medio"  name="medioprecio_secundario2" id="medioprecio_secundario2">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="tel" class="form-control" readonly="true" placeholder="Mayor"  name="mayorprecio_secundario2" id="mayorprecio_secundario2">
+                    </div>                                        
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <div class="col-md-1">
+                      <label class="control-label">Cuota</label>
+                    </div>                                 
+                    <div class="col-md-3" style="padding-left: 5.5%;">
+                      <input type="tel" class="form-control" placeholder="Mínimo S/. 100" onkeypress="return solonumeros(event)" name="viajeroMontoPago" id="viajeroMontoPago" >
                     </div>
                   </div>
 
@@ -292,7 +366,7 @@
                     <div class="col-md-1">
                       <input type="checkbox" value="1" class="form-control" name="viajeroAbierto" id="viajeroAbierto" >
                     </div>
-                  </div>
+                  </div>                    
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
@@ -324,6 +398,9 @@
   <script type="text/javascript" src="../default/js/sweetalert.min.js"></script> 
   <script src="../default/js/listar_viajeros.js"></script> 
   <script src="../default/js/validaciones.js"></script>
+
+  <script src="../default/assets_acemaster/js/chosen.jquery.min.js"></script>
+  <script src="../default/assets_acemaster/js/jquery-ui.custom.min.js"></script>
 
 </body>
 </html>

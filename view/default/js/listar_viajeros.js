@@ -4,6 +4,9 @@ window.onload = function(){
 	mostrarDatos();
     noti_pre_pago_socio();
     noti_pre_pago_traveler();
+  cargarPaquetePrincipal();
+  cargarPaqueteSecundario1();
+  cargarPaqueteSecundario2();
 }
 
 function nuevo()
@@ -249,4 +252,153 @@ function eliminar(viajeroID)
 function editar(viajeroID)
 {
   
+}
+
+var cargarPaquetePrincipal = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'cbo_paqueteprincipal');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/paquetes_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $(".chosen-select").chosen("destroy");
+            $('#destinoPrincipal').html(data);            
+            $(".chosen-select").chosen();
+            $('.chosen-select').each(function() {
+                var $this = $(this);
+                $this.next().css({'width': '250px', 'padding-left': '0%'});
+            })
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+var cargarPaqueteSecundario1 = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'cbo_paquetesecundario1');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/paquetes_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $(".chosen-select").chosen("destroy");
+            $('#destinoSecundario1').html(data);            
+            $(".chosen-select").chosen();
+            $('.chosen-select').each(function() {
+                var $this = $(this);
+                $this.next().css({'width': '250px', 'padding-left': '0%'});
+            })
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+var cargarPaqueteSecundario2 = function () {
+    var data = new FormData();
+    data.append('p_opcion', 'cbo_paquetesecundario2');
+    $.ajax({
+        type: "post",
+        url: "../../controller/controladministrador/paquetes_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $(".chosen-select").chosen("destroy");
+            $('#destinoSecundario2').html(data);            
+            $(".chosen-select").chosen();
+            $('.chosen-select').each(function() {
+                var $this = $(this);
+                $this.next().css({'width': '250px', 'padding-left': '0%'});
+            })
+        },
+        error: function (msg) {
+            alert(msg);
+        }
+    });
+}
+
+var getPrincipalPrices = function () {
+  var principal = document.getElementById('viajeroPaquetePrincipal').value;
+  var data = new FormData();
+  data.append('p_opcion', 'getPrecios');
+  data.append('paqueteID', principal);
+  $.ajax({
+    type: "post",
+    url: "../../controller/controladministrador/paquetes_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+          objeto=JSON.parse(data);
+          $('#menorprecio_principal').val(objeto[0]);
+          $('#medioprecio_principal').val(objeto[1]);
+          var monto = objeto[1] / 12;
+          $('#viajeroMontoPago').val(monto);
+          $('#mayorprecio_principal').val(objeto[2]);
+        },
+        error: function(msg){
+          alert(msg);
+        }
+  });
+}
+
+var getSecondPrices = function () {
+  var second = document.getElementById('viajeroPaqueteSecundarioOne').value;
+  var data = new FormData();
+  data.append('p_opcion', 'getPrecios');
+  data.append('paqueteID', second);
+  $.ajax({
+    type: "post",
+    url: "../../controller/controladministrador/paquetes_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+          objeto=JSON.parse(data);
+          $('#menorprecio_secundario1').val(objeto[0]);
+          $('#medioprecio_secundario1').val(objeto[1]);
+          $('#mayorprecio_secundario1').val(objeto[2]);
+        },
+        error: function(msg){
+          alert(msg);
+        }
+  });
+}
+
+var getThirdPrices = function () {
+  var third = document.getElementById('viajeroPaqueteSecundarioTwo').value;
+  var data = new FormData();
+  data.append('p_opcion', 'getPrecios');
+  data.append('paqueteID', third);
+  $.ajax({
+    type: "post",
+    url: "../../controller/controladministrador/paquetes_controller.php",
+        contentType: false,
+        data: data,
+        processData: false,
+        cache: false,
+        success: function (data) {
+          objeto=JSON.parse(data);
+          $('#menorprecio_secundario2').val(objeto[0]);
+          $('#medioprecio_secundario2').val(objeto[1]);
+          $('#mayorprecio_secundario2').val(objeto[2]);
+        },
+        error: function(msg){
+          alert(msg);
+        }
+  });
 }

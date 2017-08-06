@@ -1,6 +1,4 @@
-<?php 
-
-
+	<?php 
 	include_once "../../model/modeladministrador/administrador_model.php";
 
 	$param = array();
@@ -22,6 +20,9 @@
 	$param['socioPrctjRetorno'] = 0;
 	$param['socioPrecioDesde'] = 0;
 	$param['socioDiaPago'] = 0;
+	$param['viajeroPaquetePrincipal'] = 0;
+	$param['viajeroPaqueteSecundarioOne'] = 0;
+	$param['viajeroPaqueteSecundarioTwo'] = 0;
 
 	$param['viajeroID'] = 0;
 	$param['viajeroNombre'] = '';
@@ -32,9 +33,16 @@
 	$param['viajeroTelefonoFijo'] = '';
 	$param['viajeroTelefonoCelular'] = '';
 	$param['viajeroEmail'] = '';
+	$param['viajeroDiaPago'] = 0;	
+	$param['viajeroMontoPago'] = 0;	
 	$param['viajeroNroPasaporte'] = '';
 	$param['viajeroAbierto'] = 0;
 
+	$param['socioRestriccionTarjeta'] = 0;
+	$param['socioRestriccionAlmuerzo'] = 0;
+	$param['socioRestriccionMenu'] = 0;
+	$param['socioRestriccionPromocion'] = 0;
+	$param['socioRestriccionDelivery'] = 0;
 
 	if(isset($_POST['opcion']))		$param['opcion'] = $_POST['opcion'];
 	
@@ -54,6 +62,10 @@
 	if(isset($_POST['socioPrecioDesde']))		$param['socioPrecioDesde'] = $_POST['socioPrecioDesde'];
 	if(isset($_POST['socioDiaPago']))		$param['socioDiaPago'] = $_POST['socioDiaPago'];	
 
+	if(isset($_POST['viajeroPaquetePrincipal']))		$param['viajeroPaquetePrincipal'] = $_POST['viajeroPaquetePrincipal'];	
+	if(isset($_POST['viajeroPaqueteSecundarioOne']))		$param['viajeroPaqueteSecundarioOne'] = $_POST['viajeroPaqueteSecundarioOne'];	
+	if(isset($_POST['viajeroPaqueteSecundarioTwo']))		$param['viajeroPaqueteSecundarioTwo'] = $_POST['viajeroPaqueteSecundarioTwo'];	
+
 	//Viajeros
 	if(isset($_POST['viajeroID']))		$param['viajeroID'] = $_POST['viajeroID'];
 	if(isset($_POST['viajeroNombre']))		$param['viajeroNombre'] = $_POST['viajeroNombre'];
@@ -64,9 +76,16 @@
 	if(isset($_POST['viajeroTelefonoFijo']))		$param['viajeroTelefonoFijo'] = $_POST['viajeroTelefonoFijo'];
 	if(isset($_POST['viajeroTelefonoCelular']))		$param['viajeroTelefonoCelular'] = $_POST['viajeroTelefonoCelular'];
 	if(isset($_POST['viajeroEmail']))		$param['viajeroEmail'] = $_POST['viajeroEmail'];
+	if(isset($_POST['viajeroDiaPago']))		$param['viajeroDiaPago'] = $_POST['viajeroDiaPago'];
+	if(isset($_POST['viajeroMontoPago']))		$param['viajeroMontoPago'] = $_POST['viajeroMontoPago'];
 	if(isset($_POST['viajeroNroPasaporte']))		$param['viajeroNroPasaporte'] = $_POST['viajeroNroPasaporte'];
 	if(isset($_POST['viajeroAbierto']))		$param['viajeroAbierto'] = $_POST['viajeroAbierto'];
 
+	if(isset($_POST['socioRestriccionTarjeta']))		$param['socioRestriccionTarjeta'] = $_POST['socioRestriccionTarjeta'];
+	if(isset($_POST['socioRestriccionAlmuerzo']))		$param['socioRestriccionAlmuerzo'] = $_POST['socioRestriccionAlmuerzo'];
+	if(isset($_POST['socioRestriccionMenu']))		$param['socioRestriccionMenu'] = $_POST['socioRestriccionMenu'];
+	if(isset($_POST['socioRestriccionPromocion']))		$param['socioRestriccionPromocion'] = $_POST['socioRestriccionPromocion'];
+	if(isset($_POST['socioRestriccionDelivery']))		$param['socioRestriccionDelivery'] = $_POST['socioRestriccionDelivery'];	
 
 	$Administrador = new Administrador_model();
 	echo $Administrador->gestionar($param);

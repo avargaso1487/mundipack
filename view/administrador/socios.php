@@ -253,8 +253,8 @@ if (!isset($_SESSION['usuario']))
                                 </div>
                                 <!-- Email -->
                                 <div class="form-group col-md-7">
-                                    <label class="col-md-4 control-label">Email</label>
-                                    <div class="col-md-8"  style="padding-left: 4.5%">
+                                    <label class="col-md-3 control-label">Email</label>
+                                    <div class="col-md-9" style="padding-left: 7.5%">
                                         <input type="email" class="form-control" placeholder="email@example.com" name="socioEmail" id="socioEmail" >
                                     </div>
                                 </div>
@@ -266,7 +266,7 @@ if (!isset($_SESSION['usuario']))
                                 </div>
                                 <div class="form-group col-md-8">
                                     <label class="col-md-3 control-label">Contacto Responsable</label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-9"  style="padding-left: 3.0%">
                                         <input class="form-control" placeholder="Nombre del Contacto" name="socioContactoResponsable" id="socioContactoResponsable" >
                                     </div>
                                 </div>
@@ -288,11 +288,24 @@ if (!isset($_SESSION['usuario']))
                                         <input class="form-control"  placeholder="Día límite"  name="socioDiaPago" id="socioDiaPago" onkeypress="return SoloNumerosDecimales3(event, '0.0', 6, 2);"/>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2" style="padding-left: 3%;">Restricciones</label>
+                                    <div class="col-md-10">
+                                        <input type="checkbox" value="1" class="col-md-1" name="socioRestriccionTarjeta" id="socioRestriccionTarjeta"> <label class="col-md-11">No se validará pagos con tarjeta de débito o crédito.</label>
+                                        <input type="checkbox" value="1" class="col-md-1" name="socioRestriccionAlmuerzo" id="socioRestriccionAlmuerzo"><label class="col-md-11">No se validará consumos en almuerzos.</label>
+                                        <input type="checkbox" value="1" class="col-md-1" name="socioRestriccionMenu" id="socioRestriccionMenu"><label class="col-md-11">No se validará consumos de menú.</label>
+                                        <input type="checkbox" value="1" class="col-md-1" name="socioRestriccionPromocion" id="socioRestriccionPromocion"><label class="col-md-11">No se validará promociones de 2x1.</label>
+                                        <input type="checkbox" value="1" class="col-md-1" name="socioRestriccionDelivery" id="socioRestriccionDelivery"><label class="col-md-11">No se validará delivery.</label>
+                                    </div>
+                                </div>
+                                <br>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
                                     <input style="display:none;" type="button" id="guardarSocio" data-dismiss="modal" class="btn btn-sm btn-primary" onclick="guardar();" value="Guardar"/>
                                     <input style="display:none;" type="button" id="editarSocio" data-dismiss="modal" class="btn btn-sm btn-primary" onclick="editar();" value="Modificar"/>
-                                </div>
+                                </div>                                
                             </form>
                         </div>
                     </div>

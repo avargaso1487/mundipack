@@ -80,7 +80,17 @@ class Administrador_model{
         $consultaSql.= "'".$this->param['viajeroEmail']."',";
         $consultaSql.= "'".$this->param['viajeroNroPasaporte']."',";
         $consultaSql.= "".$this->param['viajeroAbierto'].",";
-        $consultaSql.= "".$this->param['socioDiaPago'].")";
+        $consultaSql.= "".$this->param['socioDiaPago'].",";
+        $consultaSql.= "".$this->param['viajeroDiaPago'].",";
+        $consultaSql.= "".$this->param['viajeroPaquetePrincipal'].",";
+        $consultaSql.= "".$this->param['viajeroPaqueteSecundarioOne'].",";
+        $consultaSql.= "".$this->param['viajeroPaqueteSecundarioTwo'].",";
+        $consultaSql.= "".$this->param['viajeroMontoPago'].",";
+        $consultaSql.= "".$this->param['socioRestriccionTarjeta'].",";
+        $consultaSql.= "".$this->param['socioRestriccionAlmuerzo'].",";
+        $consultaSql.= "".$this->param['socioRestriccionMenu'].",";
+        $consultaSql.= "".$this->param['socioRestriccionPromocion'].",";
+        $consultaSql.= "".$this->param['socioRestriccionDelivery'].")";
         //echo $consultaSql;
         $this->result = mysqli_query($this->conexion, $consultaSql);
     }
@@ -200,12 +210,12 @@ class Administrador_model{
             for($i=0; $i<count($datos); $i++)
             {
                 echo '<tr>							
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 20%;">'.$datos[$i]["viajeroNombre"].' '.$datos[$i]["viajeroApellidos"].'</td>
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroDNI"].'</td>							
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["viajeroNombre"].' '.$datos[$i]["viajeroApellidos"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["viajeroDNI"].'</td>							
 							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroCelular"].'</td>
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroPaqueteObjetivo"].'</td>
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroAcumulado"].'</td>
-							<td style="font-size: 12px; text-align: center; height: 10px; width: 3%;">'.$datos[$i]["viajeroAbierto"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 10%;">'.$datos[$i]["viajeroPaqueteObjetivo"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["viajeroAcumulado"].'</td>
+							<td style="font-size: 12px; text-align: center; height: 10px; width: 1%;">'.$datos[$i]["viajeroAbierto"].'</td>
 							<td style="font-size: 15px; text-align: center; height: 10px; width: 2%;">
 								<a href="#" class="red" onclick="eliminar('.$datos[$i]["viajeroID"].')">
 	                                <i class= "ace-icon fa fa-trash-o bigger-200"></i>
@@ -309,7 +319,8 @@ class Administrador_model{
                                 <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Contacto: <b style="font-size: 14px;">'.$datos[$i]["telefContacto"].'</b></label>
                                 <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">T. Atención: <b style="font-size: 14px;">'.$datos[$i]["telefAtencion"].'</b></label>
                                 <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Email: <b style="font-size: 14px;">'.$datos[$i]["email"].'</b></label>
-                                
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">N° Cuenta: <b style="font-size: 14px;">'.$datos[$i]["nroCuenta"].'</b></label>
+                                <label class="col-md-12 control-label" style="text-align: left; padding-left: 0px; padding-right: 0px; font-size: 12px;">Contacto Responsable: <b style="font-size: 14px;">'.$datos[$i]["contactoResponsable"].'</b></label>                                
                         </div>
 
                         <div class="col-xs-12 col-sm-3">                                
@@ -321,8 +332,8 @@ class Administrador_model{
                         </div>
 
                         <br><br><br><br>
-                        <br><br>
-                        <br><br><br><br>
+                        <br><br><br>
+                        <br><br><br><br><br>
                     </div>
                     <div class="modal-footer">                                    
                         <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cerrar</button>

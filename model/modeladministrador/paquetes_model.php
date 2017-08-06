@@ -55,7 +55,21 @@ class Paquetes_model{
                 echo $this->listado_paquetes_adquiridos();
                 break;
 
+            case "cbo_paqueteprincipal";
+                echo $this->cbo_listado_paquete_principal();
+                break;
 
+            case "cbo_paquetesecundario1";
+                echo $this->cbo_listado_paquete_secundario1();
+                break;
+
+            case "cbo_paquetesecundario2";
+                echo $this->cbo_listado_paquete_secundario2();
+                break;
+
+            case "getPrecios";
+                echo $this->getPrecios();
+                break;
         }
     }
 
@@ -124,6 +138,39 @@ class Paquetes_model{
             $respuesta = $fila["total"];
         }
         return $respuesta;
+    }
+
+    function cbo_listado_paquete_principal() {
+        $this->prepararConsultaBuscarSocio('opc_listar_paquetes', $_SESSION['idusuario']);
+        $datos = $this->getArrayPaquetes();        
+        echo '<select class="chosen-select form-control" onchange="getPrincipalPrices()" id="viajeroPaquetePrincipal" name="viajeroPaquetePrincipal">
+                    <option value="" disabled selected style="display: none;">Seleccione Paquete</option>';
+        for($i=0; $i<count($datos); $i++){            
+            echo'<option value="'.$datos[$i]["Paquete"].'">'.$datos[$i]["Nombre"].'</option>';
+        }
+        echo '</select>';
+    }
+
+    function cbo_listado_paquete_secundario1() {
+        $this->prepararConsultaBuscarSocio('opc_listar_paquetes', $_SESSION['idusuario']);
+        $datos = $this->getArrayPaquetes();
+        echo '<select class="chosen-select form-control" onchange="getSecondPrices()" id="viajeroPaqueteSecundarioOne" name="viajeroPaqueteSecundarioOne">
+                    <option value="" disabled selected style="display: none;">Seleccione Paquete</option>';
+        for($i=0; $i<count($datos); $i++){
+            echo'<option value="'.$datos[$i]["Paquete"].'">'.$datos[$i]["Nombre"].'</option>';
+        }
+        echo '</select>';
+    }
+
+    function cbo_listado_paquete_secundario2() {
+        $this->prepararConsultaBuscarSocio('opc_listar_paquetes', $_SESSION['idusuario']);
+        $datos = $this->getArrayPaquetes();
+        echo '<select class="chosen-select form-control" onchange="getThirdPrices()" id="viajeroPaqueteSecundarioTwo" name="viajeroPaqueteSecundarioTwo">
+                    <option value="" disabled selected style="display: none;">Seleccione Paquete</option>';
+        for($i=0; $i<count($datos); $i++){
+            echo'<option value="'.$datos[$i]["Paquete"].'">'.$datos[$i]["Nombre"].'</option>';
+        }
+        echo '</select>';
     }
 
     function listado_paquetes() {
@@ -281,6 +328,12 @@ class Paquetes_model{
 
     function obtener_paquete() {
         $this->prepararConsultaBuscarSocio('opc_obtener_paquete',  $this->param['paqueteID']);
+        $row = mysqli_fetch_row($this->result);
+        echo json_encode($row);
+    }
+
+    function getPrecios() {
+        $this->prepararConsultaPaquete('opc_getPrecios',  '', '', '0.00', '0.00', '0.00', $this->param['paqueteID']);
         $row = mysqli_fetch_row($this->result);
         echo json_encode($row);
     }
